@@ -1,0 +1,35 @@
+{
+  "name": "ApnaSahara Eldercare Platform",
+  "short_name": "ApnaSahara",
+  "description": "24/7 Compassionate eldercare, verified caregivers, live health tracking and SOS assistance for loved ones.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Emergency SOS",
+      "url": "/parent/sos",
+      "description": "Trigger quick emergency response"
+    },
+    {
+      "name": "Family Dashboard",
+      "url": "/family",
+      "description": "Check parents health & status"
+    },
+    {
+      "name": "Caregiver Portal",
+      "url": "/caregiver",
+      "description": "Today's visits and tasks"
+    }
+  ]
+}
