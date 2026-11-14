@@ -12,10 +12,12 @@ import {
   CheckCircle2,
   PhoneCall,
   MapPin,
-  RefreshCw
+  RefreshCw,
+  Siren
 } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
 import { SosAlert, CaregiverProfile, UserProfile } from '../../types';
+import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const AdminDashboard: React.FC = () => {
   const [users, setUsers] = useState<UserProfile[]>([]);
@@ -39,19 +41,20 @@ export const AdminDashboard: React.FC = () => {
   const pendingCaregivers = caregivers.filter(c => c.verification_status === 'pending');
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-serif">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CFB53B]/30 pb-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">National Operations Command</h1>
-          <p className="text-xs text-slate-500">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Central Administration</span>
+          <h1 className="text-2xl font-bold text-[#17211C]">National Operations Command</h1>
+          <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">
             Real-time emergency monitoring, caregiver dispatch & platform metrics
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+          <span className="px-3.5 py-1.5 rounded-art bg-[#808000]/15 text-[#808000] border border-[#808000]/40 text-xs font-bold flex items-center gap-2 font-sans">
+            <span className="w-2 h-2 rounded-full bg-[#808000] animate-ping" />
             Control Desk Live
           </span>
         </div>
@@ -59,138 +62,88 @@ export const AdminDashboard: React.FC = () => {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Active Families</span>
-          <p className="text-3xl font-black text-slate-900">1,248</p>
-          <span className="text-[11px] text-emerald-600 font-bold">↑ +14% this month</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Active Families</span>
+          <p className="text-3xl font-bold text-[#17211C] font-mono">1,248</p>
+          <span className="text-[11px] text-[#808000] font-semibold font-sans">↑ +14% this month</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Verified Sahayaks</span>
-          <p className="text-3xl font-black text-slate-900">{caregivers.length * 110 + 42}</p>
-          <span className="text-[11px] text-blue-600 font-bold">{pendingCaregivers.length} Pending Approvals</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Verified Sahayaks</span>
+          <p className="text-3xl font-bold text-[#17211C] font-mono">{caregivers.length * 110 + 42}</p>
+          <span className="text-[11px] text-[#CFB53B] font-semibold font-sans">{pendingCaregivers.length} Pending Review</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Monthly Run Rate</span>
-          <p className="text-3xl font-black text-slate-900">₹1.12 Cr</p>
-          <span className="text-[11px] text-purple-600 font-bold">98.2% Renewal Retention</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Monthly Run Rate</span>
+          <p className="text-3xl font-bold text-[#17211C] font-mono">₹1.12 Cr</p>
+          <span className="text-[11px] text-[#008080] font-semibold font-sans">98.2% Renewal Retention</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Avg. SOS Dispatch</span>
-          <p className="text-3xl font-black text-brand-600">7.4 <span className="text-xs text-slate-400 font-normal">mins</span></p>
-          <span className="text-[11px] text-slate-500 font-medium">SLA: &lt; 10 mins</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Avg. SOS Dispatch</span>
+          <p className="text-3xl font-bold text-[#800020] font-mono">7.4 <span className="text-xs text-[#17211C]/50 font-normal font-sans">mins</span></p>
+          <span className="text-[11px] text-[#17211C]/60 font-sans">National SLA: &lt; 10 mins</span>
         </div>
       </div>
 
       {/* Emergency Radar Alert Panel */}
-      <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div className="relative art-card p-6 space-y-4">
+        <OrnateCorner position="top-left" color="#CFB53B" size={32} />
+        <OrnateCorner position="top-right" color="#CFB53B" size={32} />
+
+        <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center font-bold">
-              <AlertTriangle className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-art bg-[#800020]/10 border border-[#800020]/30 text-[#800020] flex items-center justify-center">
+              <Siren className="w-5 h-5 text-[#800020]" />
             </div>
             <div>
-              <h3 className="font-extrabold text-base text-slate-900">Live SOS Dispatch Queue</h3>
-              <p className="text-xs text-slate-500">{activeSosCount} Active Incident Alerts</p>
+              <h3 className="font-bold text-base text-[#17211C]">Live SOS Dispatch Queue</h3>
+              <p className="text-xs text-[#17211C]/65 font-sans">{activeSosCount} Active Incident Alerts</p>
             </div>
           </div>
           <Link
             to="/admin/emergencies"
-            className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1"
+            className="art-btn-primary px-4 py-2 text-xs flex items-center gap-1.5 shadow-sm"
           >
-            Emergency Command Room <ArrowRight className="w-3.5 h-3.5" />
+            Open Dispatch Desk <ArrowRight className="w-3.5 h-3.5 text-[#CFB53B]" />
           </Link>
         </div>
 
         <div className="space-y-3">
-          {sosAlerts.slice(0, 3).map((a) => (
+          {sosAlerts.slice(0, 3).map((alert) => (
             <div
-              key={a.id}
-              className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs"
+              key={alert.id}
+              className={`p-4 rounded-art border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-sans ${
+                alert.status !== 'resolved'
+                  ? 'bg-[#800020]/10 border-[#800020]/40'
+                  : 'bg-[#FFFDD0] border-[#CFB53B]/30'
+              }`}
             >
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${a.status === 'resolved' ? 'bg-emerald-500' : 'bg-red-500 animate-ping'}`} />
-                  <strong className="text-slate-900 text-sm">{a.elder_name}</strong>
-                  <span className="text-slate-500">({a.address})</span>
+              <div className="flex items-center gap-3">
+                <span className={`w-3 h-3 rounded-full ${alert.status !== 'resolved' ? 'bg-[#800020] animate-ping' : 'bg-[#808000]'}`} />
+                <div>
+                  <h4 className="font-bold text-sm text-[#17211C] font-serif">{alert.elder_name}</h4>
+                  <p className="text-slate-600 flex items-center gap-1 mt-0.5">
+                    <MapPin className="w-3.5 h-3.5 text-[#008080]" /> {alert.elder_address}
+                  </p>
                 </div>
-                <p className="text-slate-400 text-[11px] mt-0.5">
-                  Triggered: {new Date(a.triggered_at).toLocaleString()} • Severity: {a.severity}
-                </p>
               </div>
 
-              <div className="flex items-center gap-2">
-                <span className={`px-2.5 py-1 rounded-full font-bold uppercase text-[10px] ${
-                  a.status === 'resolved' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'
+              <div className="flex items-center gap-3">
+                <span className={`px-2.5 py-1 rounded-art font-bold uppercase text-[10px] font-mono ${
+                  alert.status !== 'resolved'
+                    ? 'bg-[#800020] text-[#FFFFF0]'
+                    : 'bg-[#808000]/15 text-[#808000] border border-[#808000]/40'
                 }`}>
-                  {a.status}
+                  {alert.status}
                 </span>
-                <Link
-                  to="/admin/emergencies"
-                  className="px-3 py-1 rounded-lg bg-slate-900 text-white font-bold"
-                >
-                  Manage
-                </Link>
+                <span className="text-[#17211C]/60 font-mono">
+                  {new Date(alert.triggered_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Two Columns: Caregiver Approvals & Regional Hubs */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Caregiver Verification Queue */}
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold text-base text-slate-900">Caregiver Verification Desk</h3>
-            <Link to="/admin/verification" className="text-xs font-bold text-purple-700 hover:underline">
-              View All Queue →
-            </Link>
-          </div>
-
-          <div className="space-y-3">
-            {caregivers.map((c) => (
-              <div key={c.id} className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-3">
-                  <img src={c.avatar_url} alt={c.name} className="w-10 h-10 rounded-xl object-cover border" />
-                  <div>
-                    <p className="font-bold text-slate-900">{c.name}</p>
-                    <p className="text-[10px] text-slate-500">{c.certifications[0]} • {c.experience_years} yrs exp</p>
-                  </div>
-                </div>
-                <span className={`px-2 py-0.5 rounded-full font-bold uppercase text-[10px] ${
-                  c.verification_status === 'verified' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                }`}>
-                  {c.verification_status}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* City Operations */}
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-4">
-          <h3 className="font-bold text-base text-slate-900">Operational Regional Clusters</h3>
-          <div className="space-y-2 text-xs">
-            {[
-              { city: 'Delhi NCR (Noida, Gurugram, Delhi)', activeElders: 480, sahayaks: 82, status: 'High Traffic' },
-              { city: 'Bengaluru (Indiranagar, Whitefield, HSR)', activeElders: 360, sahayaks: 64, status: 'Normal' },
-              { city: 'Mumbai & Navi Mumbai', activeElders: 290, sahayaks: 51, status: 'Normal' },
-              { city: 'Pune & Hyderabad', activeElders: 118, sahayaks: 24, status: 'Expanding' }
-            ].map((hub, idx) => (
-              <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-                <div>
-                  <p className="font-bold text-slate-800">{hub.city}</p>
-                  <p className="text-[10px] text-slate-500">{hub.activeElders} Elders • {hub.sahayaks} Sahayaks</p>
-                </div>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
-                  {hub.status}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
