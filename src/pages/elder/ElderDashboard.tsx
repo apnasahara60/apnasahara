@@ -3,20 +3,22 @@ import { Link } from 'react-router-dom';
 import {
   AlertTriangle,
   Pill,
-  Calendar,
-  PhoneCall,
-  Activity,
   CheckCircle2,
-  Smile,
   Volume2,
   Heart,
-  ArrowRight,
-  HelpCircle
+  PhoneCall,
+  Smile,
+  Meh,
+  Frown,
+  Stethoscope,
+  ShieldAlert,
+  Sparkles
 } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
-import { ElderProfile, Medication, Visit, HealthMetric } from '../../types';
+import { Medication, Visit } from '../../types';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
+import { WhiplashDivider, OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ElderDashboard: React.FC = () => {
   const { speak } = useAccessibility();
@@ -65,64 +67,71 @@ export const ElderDashboard: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-serif">
       {/* GIANT SOS BUTTON FOR ELDERS */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-red-600 via-red-600 to-rose-600 text-white shadow-2xl shadow-red-600/40 text-center space-y-4">
-        <div className="inline-flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-          <AlertTriangle className="w-4 h-4 text-white" />
-          Emergency Help Button • आपातकालीन बटन
+      <div className="relative p-6 sm:p-8 rounded-art bg-gradient-to-r from-[#800020] via-[#5C0017] to-[#800020] text-[#FFFFF0] shadow-2xl border-2 border-[#CFB53B] text-center space-y-4 overflow-hidden">
+        <OrnateCorner position="top-left" color="#CFB53B" size={40} />
+        <OrnateCorner position="top-right" color="#CFB53B" size={40} />
+
+        <div className="inline-flex items-center gap-2 bg-[#FFFFF0]/15 border border-[#CFB53B]/50 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-[#FFFDD0]">
+          <AlertTriangle className="w-4 h-4 text-[#CFB53B]" />
+          Emergency Sanctuary Beacon • आपातकालीन बटन
         </div>
 
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-white">Need Urgent Help or Feeling Unwell?</h2>
-          <p className="text-xs sm:text-sm text-red-100 max-w-lg mx-auto mt-1">
-            Press this big button. We will immediately call your son Rahul, dispatch your Sahayak, and send an ambulance.
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#FFFFF0]">Need Urgent Help or Feeling Unwell?</h2>
+          <p className="text-xs sm:text-sm text-[#FFFDD0]/90 max-w-lg mx-auto mt-1 font-sans">
+            Press this button. We will immediately call your son Rahul, dispatch your Sahayak Priya, and mobilize ambulance assistance.
           </p>
         </div>
 
         <div className="pt-2">
           <Link
             to="/parent/sos"
-            className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-3xl bg-white text-red-700 hover:bg-red-50 font-black text-xl sm:text-2xl shadow-2xl transform active:scale-95 transition-all animate-sos-glow"
+            className="inline-flex items-center justify-center gap-3 px-10 py-5 rounded-art bg-[#FFFFF0] text-[#800020] hover:bg-[#FFFDD0] font-bold text-xl sm:text-2xl shadow-2xl border-2 border-[#CFB53B] transform active:scale-95 transition-all"
           >
-            <span className="w-4 h-4 rounded-full bg-red-600 animate-ping" />
+            <span className="w-4 h-4 rounded-full bg-[#800020] animate-ping" />
             PRESS SOS EMERGENCY
           </Link>
         </div>
       </div>
 
-      {/* How are you feeling today? (Large Touch Emojis) */}
-      <div className="p-6 rounded-3xl bg-white border-2 border-amber-200 shadow-sm space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="text-base sm:text-lg font-black text-slate-900">
-            How are you feeling this morning? • आज तबीयत कैसी है?
-          </h3>
+      {/* How are you feeling today? (Large High-Contrast Sentiment) */}
+      <div className="art-card p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-[#CFB53B]/30 pb-3">
+          <div>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Morning Check-In</span>
+            <h3 className="text-base sm:text-lg font-bold text-[#17211C]">
+              How are you feeling this morning? • आज तबीयत कैसी है?
+            </h3>
+          </div>
           <button
-            onClick={() => speak('How are you feeling this morning? Tap one of the three smiling faces.')}
-            className="p-1.5 text-amber-800 hover:bg-amber-100 rounded-lg"
+            onClick={() => speak('How are you feeling this morning? Tap one of the three options.')}
+            className="p-2 text-[#008080] hover:bg-[#008080]/10 rounded-art border border-[#CFB53B]/40"
+            title="Read Aloud"
           >
-            <Volume2 className="w-5 h-5" />
+            <Volume2 className="w-5 h-5 text-[#008080]" />
           </button>
         </div>
 
         <div className="grid grid-cols-3 gap-3 pt-1">
           {[
-            { emoji: '😊', label: 'Feeling Good', sub: 'अच्छा लग रहा है', value: 'Good' },
-            { emoji: '😐', label: 'Just Okay', sub: 'ठीक-ठाक', value: 'Fair' },
-            { emoji: '🤒', label: 'Unwell / Pain', sub: 'तबीयत ठीक नहीं', value: 'Unwell' },
+            { Icon: Smile, label: 'Feeling Good', sub: 'अच्छा लग रहा है', value: 'Good', color: 'text-[#808000]' },
+            { Icon: Meh, label: 'Just Okay', sub: 'ठीक-ठाक', value: 'Fair', color: 'text-[#CFB53B]' },
+            { Icon: Frown, label: 'Unwell / Pain', sub: 'तबीयत ठीक नहीं', value: 'Unwell', color: 'text-[#800020]' },
           ].map((item) => (
             <button
               key={item.value}
               onClick={() => handleMoodSelect(item.value)}
-              className={`p-4 rounded-2xl border-2 text-center transition-all ${
+              className={`p-4 rounded-art border-2 text-center transition-all ${
                 selectedMood === item.value
-                  ? 'bg-amber-100 border-amber-500 scale-105 shadow-md'
-                  : 'bg-slate-50 border-slate-200 hover:bg-amber-50'
+                  ? 'bg-[#FFFDD0] border-[#008080] shadow-md scale-102 ring-2 ring-[#008080]/20'
+                  : 'bg-[#FFFFF0] border-[#CFB53B]/30 hover:border-[#CFB53B] hover:bg-[#FFFDD0]/50'
               }`}
             >
-              <div className="text-3xl sm:text-4xl">{item.emoji}</div>
-              <p className="font-black text-slate-900 text-xs sm:text-sm mt-1">{item.label}</p>
-              <p className="text-[10px] sm:text-xs text-slate-500">{item.sub}</p>
+              <item.Icon className={`w-8 h-8 sm:w-10 sm:h-10 mx-auto ${item.color}`} />
+              <p className="font-bold text-[#17211C] text-xs sm:text-sm mt-2">{item.label}</p>
+              <p className="text-[10px] sm:text-xs text-[#17211C]/60 font-sans">{item.sub}</p>
             </button>
           ))}
         </div>
@@ -130,14 +139,15 @@ export const ElderDashboard: React.FC = () => {
 
       {/* Next Medicine to Take Card */}
       {nextMed && (
-        <div className="p-6 rounded-3xl bg-white border-2 border-amber-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
+        <div className="art-card p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#CFB53B]/30 pb-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#008080] bg-[#008080]/10 border border-[#008080]/30 px-3 py-1 rounded-full">
               Next Medicine Reminder • दवाई का समय
             </span>
             <button
               onClick={() => speak(`Your next medicine is ${nextMed.name}, dosage ${nextMed.dosage}, scheduled at ${nextMed.scheduled_time}. ${nextMed.instructions}`)}
-              className="p-1.5 text-amber-800 hover:bg-amber-100 rounded-lg"
+              className="p-1.5 text-[#008080] hover:bg-[#008080]/10 rounded-art border border-[#CFB53B]/40"
+              title="Read Aloud"
             >
               <Volume2 className="w-5 h-5" />
             </button>
@@ -145,31 +155,31 @@ export const ElderDashboard: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-2xl font-bold shrink-0">
-                💊
+              <div className="w-14 h-14 rounded-art bg-[#008080]/10 text-[#008080] border border-[#CFB53B]/50 flex items-center justify-center shrink-0">
+                <Pill className="w-7 h-7 text-[#008080]" />
               </div>
               <div>
-                <h4 className="text-xl font-black text-slate-900">{nextMed.name}</h4>
-                <p className="text-xs sm:text-sm font-bold text-slate-600 mt-0.5">
-                  {nextMed.dosage} • Take at {nextMed.scheduled_time}
+                <h4 className="text-xl font-bold text-[#17211C]">{nextMed.name}</h4>
+                <p className="text-xs sm:text-sm font-semibold text-[#17211C]/75 mt-0.5">
+                  {nextMed.dosage} • Take at <span className="font-mono text-[#008080]">{nextMed.scheduled_time}</span>
                 </p>
-                <p className="text-xs text-emerald-700 font-semibold mt-1">
+                <p className="text-xs text-[#808000] font-bold mt-1">
                   Instructions: {nextMed.instructions}
                 </p>
               </div>
             </div>
 
             {nextMed.is_taken_today ? (
-              <span className="px-6 py-3 rounded-2xl bg-emerald-100 text-emerald-800 font-black text-sm flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5" />
+              <span className="px-6 py-3 rounded-art bg-[#808000]/15 text-[#808000] border border-[#808000]/40 font-bold text-sm flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-[#808000]" />
                 Already Taken ✓
               </span>
             ) : (
               <button
                 onClick={() => handleTakeMed(nextMed.id)}
-                className="px-6 py-3.5 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-black text-sm sm:text-base shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 transition-transform hover:scale-105"
+                className="art-btn-primary px-6 py-3.5 flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg"
               >
-                <CheckCircle2 className="w-5 h-5" />
+                <CheckCircle2 className="w-5 h-5 text-[#CFB53B]" />
                 I Have Taken This Medicine
               </button>
             )}
@@ -179,14 +189,15 @@ export const ElderDashboard: React.FC = () => {
 
       {/* Today's Caregiver Visitor Card */}
       {todayVisit && (
-        <div className="p-6 rounded-3xl bg-white border-2 border-amber-200 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black uppercase tracking-wider text-blue-700 bg-blue-100 px-3 py-1 rounded-full">
+        <div className="art-card p-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#CFB53B]/30 pb-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#005F9E] bg-[#005F9E]/10 border border-[#005F9E]/30 px-3 py-1 rounded-full">
               Who is Visiting You Today? • आज आने वाले सहायक
             </span>
             <button
               onClick={() => speak(`Caregiver Priya Verma is visiting you today at ${todayVisit.time_slot}. Tap the call button to speak with her.`)}
-              className="p-1.5 text-blue-800 hover:bg-blue-100 rounded-lg"
+              className="p-1.5 text-[#005F9E] hover:bg-[#005F9E]/10 rounded-art border border-[#CFB53B]/40"
+              title="Read Aloud"
             >
               <Volume2 className="w-5 h-5" />
             </button>
@@ -197,24 +208,24 @@ export const ElderDashboard: React.FC = () => {
               <img
                 src={todayVisit.caregiver_avatar || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80'}
                 alt={todayVisit.caregiver_name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-blue-500 shadow-md"
+                className="w-16 h-16 rounded-art object-cover border-2 border-[#CFB53B] shadow-md"
               />
               <div>
-                <h4 className="text-xl font-black text-slate-900">{todayVisit.caregiver_name}</h4>
-                <p className="text-xs sm:text-sm text-slate-600 font-bold">
+                <h4 className="text-xl font-bold text-[#17211C]">{todayVisit.caregiver_name}</h4>
+                <p className="text-xs sm:text-sm text-[#17211C]/75 font-semibold">
                   Certified Nurse Sahayak (Caregiver)
                 </p>
-                <p className="text-xs text-blue-600 font-extrabold mt-0.5">
-                  Scheduled Time: {todayVisit.time_slot} ({todayVisit.status.replace('_', ' ')})
+                <p className="text-xs text-[#008080] font-bold mt-0.5">
+                  Scheduled Time: <span className="font-mono">{todayVisit.time_slot}</span> ({todayVisit.status.replace('_', ' ')})
                 </p>
               </div>
             </div>
 
             <a
               href={`tel:${todayVisit.caregiver_phone}`}
-              className="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black text-sm flex items-center justify-center gap-2 shadow-md"
+              className="px-6 py-3.5 rounded-art bg-[#17211C] hover:bg-[#232F28] text-[#FFFFF0] font-bold text-sm flex items-center justify-center gap-2 border border-[#CFB53B] shadow-md transition-all"
             >
-              <PhoneCall className="w-5 h-5 text-emerald-400" />
+              <PhoneCall className="w-5 h-5 text-[#CFB53B]" />
               Call {todayVisit.caregiver_name.split(' ')[0]} Now
             </a>
           </div>
@@ -222,51 +233,51 @@ export const ElderDashboard: React.FC = () => {
       )}
 
       {/* One-Tap Speed Dial Shortcuts */}
-      <div className="p-6 rounded-3xl bg-white border-2 border-amber-200 shadow-sm space-y-4">
-        <h3 className="text-base sm:text-lg font-black text-slate-900">
+      <div className="art-card p-6 space-y-4">
+        <h3 className="text-base sm:text-lg font-bold text-[#17211C]">
           One-Tap Speed Dial • परिवार को तुरंत फोन करें
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <a
             href="tel:+919876543210"
-            className="p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 flex items-center gap-3 transition-colors"
+            className="p-4 rounded-art bg-[#FFFDD0] hover:bg-[#FFFFF0] border-2 border-[#CFB53B]/50 hover:border-[#CFB53B] flex items-center gap-3 transition-all"
           >
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center font-black text-xl">
-              📞
+            <div className="w-12 h-12 rounded-art bg-[#008080] text-[#FFFFF0] flex items-center justify-center font-bold shadow-sm">
+              <PhoneCall className="w-6 h-6 text-[#CFB53B]" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-bold uppercase">Son (बेटा)</p>
-              <p className="font-black text-slate-900 text-base">Rahul Sharma</p>
-              <p className="text-xs text-emerald-700 font-bold">Tap to Call</p>
+              <p className="text-[10px] text-[#17211C]/60 font-bold uppercase tracking-wider">Son (बेटा)</p>
+              <p className="font-bold text-[#17211C] text-base">Rahul Sharma</p>
+              <p className="text-xs text-[#008080] font-bold">Tap to Call</p>
             </div>
           </a>
 
           <a
             href="tel:+919722233445"
-            className="p-4 rounded-2xl bg-blue-50 hover:bg-blue-100 border-2 border-blue-300 flex items-center gap-3 transition-colors"
+            className="p-4 rounded-art bg-[#FFFDD0] hover:bg-[#FFFFF0] border-2 border-[#CFB53B]/50 hover:border-[#CFB53B] flex items-center gap-3 transition-all"
           >
-            <div className="w-12 h-12 rounded-2xl bg-blue-500 text-white flex items-center justify-center font-black text-xl">
-              🩺
+            <div className="w-12 h-12 rounded-art bg-[#005F9E] text-[#FFFFF0] flex items-center justify-center font-bold shadow-sm">
+              <Stethoscope className="w-6 h-6 text-[#FFFDD0]" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-bold uppercase">Caregiver (सहायक)</p>
-              <p className="font-black text-slate-900 text-base">Priya Verma</p>
-              <p className="text-xs text-blue-700 font-bold">Tap to Call</p>
+              <p className="text-[10px] text-[#17211C]/60 font-bold uppercase tracking-wider">Caregiver (सहायक)</p>
+              <p className="font-bold text-[#17211C] text-base">Priya Verma</p>
+              <p className="text-xs text-[#005F9E] font-bold">Tap to Call</p>
             </div>
           </a>
 
           <a
             href="tel:112"
-            className="p-4 rounded-2xl bg-red-50 hover:bg-red-100 border-2 border-red-300 flex items-center gap-3 transition-colors"
+            className="p-4 rounded-art bg-[#800020]/10 hover:bg-[#800020]/20 border-2 border-[#800020]/40 flex items-center gap-3 transition-all"
           >
-            <div className="w-12 h-12 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-xl">
-              🚨
+            <div className="w-12 h-12 rounded-art bg-[#800020] text-[#FFFFF0] flex items-center justify-center font-bold shadow-sm">
+              <ShieldAlert className="w-6 h-6 text-[#CFB53B]" />
             </div>
             <div>
-              <p className="text-xs text-slate-500 font-bold uppercase">National Police/Ambulance</p>
-              <p className="font-black text-slate-900 text-base">Dial 112</p>
-              <p className="text-xs text-red-700 font-bold">Toll Free 24/7</p>
+              <p className="text-[10px] text-[#800020] font-bold uppercase tracking-wider">Police & Medical</p>
+              <p className="font-bold text-[#17211C] text-base">Dial 112</p>
+              <p className="text-xs text-[#800020] font-bold">Toll Free 24/7</p>
             </div>
           </a>
         </div>

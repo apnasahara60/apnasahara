@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HelpCircle, CheckCircle2, Volume2, ShoppingCart, Pill, Stethoscope, Car, MessageCircle } from 'lucide-react';
+import { HelpCircle, CheckCircle2, Volume2, ShoppingCart, Pill, Stethoscope, Car, MessageSquare } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
@@ -16,40 +16,40 @@ export const ElderAssistanceRequestsPage: React.FC = () => {
       id: 'Medicine',
       title: 'Need Medicine Refill',
       sub: 'दवाई मंगवानी है',
-      icon: '💊',
-      color: 'bg-amber-100 border-amber-300 text-amber-900',
+      Icon: Pill,
+      iconColor: 'text-[#008080]',
       detail: 'Requesting refill for regular daily prescription medications.'
     },
     {
       id: 'Groceries',
       title: 'Need Groceries / Essentials',
       sub: 'राशन या फल चाहिए',
-      icon: '🛒',
-      color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
+      Icon: ShoppingCart,
+      iconColor: 'text-[#808000]',
       detail: 'Assistance needed with milk, vegetables or pantry supplies.'
     },
     {
       id: 'Unwell',
       title: 'Feeling Unwell / Doctor Call',
       sub: 'डॉक्टर से बात करनी है',
-      icon: '🤒',
-      color: 'bg-red-100 border-red-300 text-red-900',
+      Icon: Stethoscope,
+      iconColor: 'text-[#800020]',
       detail: 'Feeling uncomfortable; requesting tele-consult or doctor review.'
     },
     {
       id: 'Ride',
       title: 'Need Ride / Cab Escort',
       sub: 'गाड़ी या कैब चाहिए',
-      icon: '🚗',
-      color: 'bg-blue-100 border-blue-300 text-blue-900',
+      Icon: Car,
+      iconColor: 'text-[#005F9E]',
       detail: 'Need escort and cab for local visit or clinic checkup.'
     },
     {
       id: 'Companion',
       title: 'Just Want To Chat',
       sub: 'बातचीत करनी है',
-      icon: '💬',
-      color: 'bg-purple-100 border-purple-300 text-purple-900',
+      Icon: MessageSquare,
+      iconColor: 'text-[#CFB53B]',
       detail: 'Would love a companion check-in call or visit.'
     }
   ];
@@ -72,24 +72,25 @@ export const ElderAssistanceRequestsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 font-serif">
+      <div className="flex items-center justify-between border-b border-[#CFB53B]/30 pb-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Ask for Assistance • सहायता अनुरोध</h1>
-          <p className="text-xs sm:text-sm text-slate-600">Tap any button to let your Sahayak and family know</p>
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Concierge Requests</span>
+          <h1 className="text-2xl font-bold text-[#17211C]">Ask for Assistance • सहायता अनुरोध</h1>
+          <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">Tap any card to let your Sahayak and family know</p>
         </div>
         <button
           onClick={() => speak('Assistance request page. Tap any box to request groceries, medicines, or a ride.')}
-          className="px-4 py-2 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md"
+          className="art-btn-primary px-4 py-2 flex items-center gap-1.5 text-xs shadow-md"
         >
-          <Volume2 className="w-4 h-4" /> Listen
+          <Volume2 className="w-4 h-4 text-[#CFB53B]" /> Listen
         </button>
       </div>
 
       {activeSuccess && (
-        <div className="p-5 rounded-2xl bg-emerald-600 text-white font-bold text-sm flex items-center gap-3 animate-in fade-in">
-          <CheckCircle2 className="w-6 h-6 shrink-0" />
-          <span>Request Sent: <strong>{activeSuccess}</strong>. We are on it!</span>
+        <div className="p-4 rounded-art bg-[#808000]/15 border-2 border-[#808000] text-[#17211C] font-bold text-sm flex items-center gap-3 animate-in fade-in">
+          <CheckCircle2 className="w-6 h-6 text-[#808000] shrink-0" />
+          <span>Request Sent: <strong>{activeSuccess}</strong>. Care team has been notified!</span>
         </div>
       )}
 
@@ -98,17 +99,19 @@ export const ElderAssistanceRequestsPage: React.FC = () => {
           <button
             key={tile.id}
             onClick={() => handleRequest(tile.id, tile.title, tile.detail)}
-            className={`p-6 sm:p-7 rounded-3xl border-2 ${tile.color} shadow-md text-left transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-between gap-4`}
+            className="art-card p-6 text-left transition-all hover:scale-[1.01] hover:border-[#CFB53B] active:scale-95 flex items-center justify-between gap-4 group"
           >
             <div className="flex items-center gap-4">
-              <span className="text-4xl">{tile.icon}</span>
+              <div className="w-14 h-14 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 flex items-center justify-center shrink-0 shadow-sm">
+                <tile.Icon className={`w-7 h-7 ${tile.iconColor}`} />
+              </div>
               <div>
-                <h3 className="text-lg sm:text-xl font-black">{tile.title}</h3>
-                <p className="text-xs sm:text-sm font-bold opacity-80 mt-0.5">{tile.sub}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-[#17211C] group-hover:text-[#008080] transition-colors">{tile.title}</h3>
+                <p className="text-xs sm:text-sm font-semibold text-[#17211C]/60 mt-0.5 font-sans">{tile.sub}</p>
               </div>
             </div>
-            <span className="text-xs font-black bg-white/80 px-3 py-1.5 rounded-xl shadow-sm shrink-0">
-              Tap to Request
+            <span className="text-xs font-bold bg-[#008080]/10 text-[#008080] border border-[#008080]/30 px-3 py-1.5 rounded-art shadow-sm shrink-0 font-sans group-hover:bg-[#008080] group-hover:text-[#FFFFF0] transition-all">
+              Request
             </span>
           </button>
         ))}

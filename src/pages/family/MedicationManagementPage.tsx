@@ -15,7 +15,6 @@ import {
 import { dbStore } from '../../lib/supabase';
 import { ElderProfile, Medication } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const MedicationManagementPage: React.FC = () => {
   const context = useOutletContext<{ selectedElder?: ElderProfile }>();
@@ -120,7 +119,7 @@ export const MedicationManagementPage: React.FC = () => {
 
       {/* Adherence Banner */}
       <div className="p-6 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-        <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+        
 
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-[12px] bg-[#008080]/15 text-[#008080] flex items-center justify-center font-bold text-xl border border-[#CFB53B]/50 font-mono">
@@ -231,7 +230,7 @@ export const MedicationManagementPage: React.FC = () => {
       {showAddModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] border border-[#CFB53B] max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>

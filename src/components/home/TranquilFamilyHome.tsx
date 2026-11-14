@@ -28,7 +28,6 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { dbStore } from '../../lib/supabase';
-import { OrnateCorner } from '../art-nouveau/ArtNouveauDecorations';
 
 interface TranquilFamilyHomeProps {
   onNavigateTab?: (tab: string) => void;
@@ -113,7 +112,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             <div className="flex items-center gap-3">
               <img
                 src="/logo.png"
-                alt="ApnaSahara Florido"
+                alt="ApnaSahara"
                 className="h-12 w-auto object-contain bg-[#FFFFF0] p-1 rounded-[10px] border border-[#CFB53B]/50"
               />
             </div>
@@ -265,7 +264,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               
               {/* ============ 1. "YOUR FAMILY" CARD ============ */}
               <div className="bg-[#FFFFF0] rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-6 relative overflow-hidden">
-                <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+                
 
                 <div className="flex items-center justify-between">
                   <h3 className="font-bold text-base text-[#17211C]">Your family</h3>
@@ -442,7 +441,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               
               {/* ============ 4. ART NOUVEAU HIGHLIGHT BANNER ============ */}
               <div className="bg-gradient-to-br from-[#FFFDD0] to-[#E0B0FF]/25 rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/60 text-[#17211C] relative overflow-hidden space-y-5">
-                <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
+                
 
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-widest text-[#008080] font-mono">
@@ -527,7 +526,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
       {showVisitModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 relative">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div className="flex items-center gap-3">
@@ -602,7 +601,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
       {showTaskModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 relative">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div className="flex items-center gap-3">
@@ -703,7 +702,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
       {showSupportModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 max-h-[90vh] overflow-y-auto relative">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>
@@ -754,7 +753,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
       {showManageFamilyModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-7 shadow-2xl border border-[#CFB53B] space-y-5 text-left relative">
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>

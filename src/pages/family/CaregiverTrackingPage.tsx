@@ -17,7 +17,6 @@ import { dbStore } from '../../lib/supabase';
 import { ElderProfile, Visit, CaregiverProfile } from '../../types';
 import { LiveMapTracker } from '../../components/maps/LiveMapTracker';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const CaregiverTrackingPage: React.FC = () => {
   const context = useOutletContext<{ selectedElder?: ElderProfile }>();
@@ -99,7 +98,7 @@ export const CaregiverTrackingPage: React.FC = () => {
         <div className="lg:col-span-4 space-y-6">
           {/* Caregiver Profile Card */}
           <div className="p-6 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-4 relative overflow-hidden">
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center gap-4">
               <img

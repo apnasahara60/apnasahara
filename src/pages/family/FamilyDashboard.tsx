@@ -24,7 +24,6 @@ import { ElderProfile, HealthMetric, Medication, Visit, Appointment, SosAlert } 
 import { SimpleVitalChart } from '../../components/charts/SimpleVitalChart';
 import { LiveMapTracker } from '../../components/maps/LiveMapTracker';
 import { TranquilFamilyHome } from '../../components/home/TranquilFamilyHome';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const FamilyDashboard: React.FC = () => {
   const context = useOutletContext<{ selectedElder?: ElderProfile }>();
@@ -131,7 +130,7 @@ export const FamilyDashboard: React.FC = () => {
 
           {/* Top Welcome & Elder Status Banner */}
           <div className="p-6 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.06)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center gap-4">
               <img

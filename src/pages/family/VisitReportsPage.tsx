@@ -15,7 +15,6 @@ import {
 import { dbStore } from '../../lib/supabase';
 import { ElderProfile, Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const VisitReportsPage: React.FC = () => {
   const context = useOutletContext<{ selectedElder?: ElderProfile }>();
@@ -63,7 +62,7 @@ export const VisitReportsPage: React.FC = () => {
             key={v.id}
             className="p-6 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-5 relative overflow-hidden"
           >
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+            
 
             {/* Visit Top Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#CFB53B]/25">

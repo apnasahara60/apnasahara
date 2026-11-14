@@ -14,7 +14,7 @@ import confetti from 'canvas-confetti';
 import { dbStore } from '../../lib/supabase';
 import { Subscription } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
+
 
 export const SubscriptionPage: React.FC = () => {
   const { showToast } = useNotification();
@@ -70,7 +70,7 @@ export const SubscriptionPage: React.FC = () => {
 
       {/* Active Plan Overview Card */}
       <div className="p-6 sm:p-8 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-6 relative overflow-hidden">
-        <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+        
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#CFB53B]/25">
           <div>
@@ -78,7 +78,7 @@ export const SubscriptionPage: React.FC = () => {
               Active Subscription
             </span>
             <h2 className="text-3xl font-bold text-[#17211C] mt-2">
-              {subscription?.plan_name || 'Belle Époque Sanctuary'}
+              {subscription?.plan_name || 'Comprehensive Care Plan'}
             </h2>
             <p className="text-xs text-[#17211C]/70 mt-1">
               Covering: <strong>{subscription?.elder_covered_name || 'Shri Ramesh Sharma & Savitri Sharma'}</strong>
@@ -190,7 +190,7 @@ export const SubscriptionPage: React.FC = () => {
       {showUpgradeModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] border border-[#CFB53B] max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto relative">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>
@@ -208,7 +208,7 @@ export const SubscriptionPage: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="p-5 rounded-[12px] border border-[#CFB53B]/40 bg-[#FFFFF0] space-y-3 flex flex-col justify-between">
                 <div>
-                  <h4 className="font-bold text-[#17211C] text-sm">Atelier Basic</h4>
+                  <h4 className="font-bold text-[#17211C] text-sm">Essential Basic</h4>
                   <p className="text-2xl font-bold text-[#17211C] font-mono mt-1">₹4,999</p>
                   <p className="text-[11px] text-[#17211C]/60">4 visits / month</p>
                 </div>
@@ -223,7 +223,7 @@ export const SubscriptionPage: React.FC = () => {
               <div className="p-5 rounded-[12px] border-2 border-[#008080] bg-[#FFFDD0] space-y-3 flex flex-col justify-between shadow-md">
                 <div>
                   <span className="text-[10px] font-bold bg-[#008080] text-[#FFFFF0] px-2 py-0.5 rounded-full">Current</span>
-                  <h4 className="font-bold text-[#17211C] text-sm mt-1">Belle Époque Comprehensive</h4>
+                  <h4 className="font-bold text-[#17211C] text-sm mt-1">Comprehensive Care</h4>
                   <p className="text-2xl font-bold text-[#17211C] font-mono mt-1">₹8,999</p>
                   <p className="text-[11px] text-[#17211C]/60">12 visits / month</p>
                 </div>

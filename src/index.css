@@ -33,7 +33,7 @@
   }
 }
 
-/* Art Nouveau Floral & Stained Glass Textures */
+/* ApnaSahara UI Textures */
 .art-nouveau-pattern {
   background-color: #FFFFF0;
   background-image: 
@@ -79,7 +79,7 @@
   transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms ease;
 }
 
-/* Global Art Nouveau Florido Component Classes */
+/* Global ApnaSahara Component Classes */
 .art-card {
   background-color: #FFFFF0;
   border: 1px solid rgba(207, 181, 59, 0.4);

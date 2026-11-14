@@ -15,7 +15,6 @@ import {
 import { dbStore } from '../../lib/supabase';
 import { ElderProfile, Appointment } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const AppointmentSchedulingPage: React.FC = () => {
   const context = useOutletContext<{ selectedElder?: ElderProfile }>();
@@ -157,7 +156,7 @@ export const AppointmentSchedulingPage: React.FC = () => {
       {showAddModal && (
         <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFFF0] rounded-[12px] border border-[#CFB53B] max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+            
 
             <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>

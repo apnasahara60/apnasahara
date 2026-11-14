@@ -29,17 +29,18 @@ export const ElderMedicationsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 font-serif">
+      <div className="flex items-center justify-between border-b border-[#CFB53B]/30 pb-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Your Medications • आपकी दवाइयाँ</h1>
-          <p className="text-xs sm:text-sm text-slate-600">Daily pills and doctor's instructions</p>
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Prescription Schedule</span>
+          <h1 className="text-2xl font-bold text-[#17211C]">Your Medications • आपकी दवाइयाँ</h1>
+          <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">Daily pills and doctor's instructions</p>
         </div>
         <button
-          onClick={() => speak('Here are your scheduled medications for today. Tap the green button once you take each pill.')}
-          className="px-4 py-2 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md"
+          onClick={() => speak('Here are your scheduled medications for today. Tap the button once you take each pill.')}
+          className="art-btn-primary px-4 py-2 flex items-center gap-1.5 text-xs shadow-md"
         >
-          <Volume2 className="w-4 h-4" /> Listen
+          <Volume2 className="w-4 h-4 text-[#CFB53B]" /> Listen
         </button>
       </div>
 
@@ -47,40 +48,42 @@ export const ElderMedicationsPage: React.FC = () => {
         {meds.map((med) => (
           <div
             key={med.id}
-            className={`p-6 sm:p-7 rounded-3xl border-2 transition-all space-y-4 ${
+            className={`p-6 sm:p-7 rounded-art border-2 transition-all space-y-4 ${
               med.is_taken_today
-                ? 'bg-emerald-50/60 border-emerald-300'
-                : 'bg-white border-amber-300 shadow-md ring-2 ring-amber-300/40'
+                ? 'bg-[#FFFFF0] border-[#808000]/40 opacity-90'
+                : 'art-card-cream border-[#CFB53B] shadow-md ring-2 ring-[#CFB53B]/20'
             }`}
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-start gap-4">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${
-                  med.is_taken_today ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
+                <div className={`w-14 h-14 rounded-art border flex items-center justify-center shrink-0 ${
+                  med.is_taken_today
+                    ? 'bg-[#808000]/10 border-[#808000]/30 text-[#808000]'
+                    : 'bg-[#008080]/10 border-[#CFB53B]/50 text-[#008080]'
                 }`}>
-                  💊
+                  <Pill className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">{med.name}</h3>
-                  <p className="text-sm font-bold text-slate-600 mt-0.5">
-                    {med.dosage} • Time: {med.scheduled_time}
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#17211C]">{med.name}</h3>
+                  <p className="text-sm font-semibold text-[#17211C]/75 mt-0.5">
+                    {med.dosage} • Scheduled: <span className="font-mono text-[#008080]">{med.scheduled_time}</span>
                   </p>
-                  <p className="text-xs sm:text-sm text-brand-700 font-semibold mt-1">
+                  <p className="text-xs sm:text-sm text-[#808000] font-bold mt-1">
                     {med.instructions}
                   </p>
                 </div>
               </div>
 
               {med.is_taken_today ? (
-                <span className="px-6 py-3.5 rounded-2xl bg-emerald-100 text-emerald-800 font-black text-sm flex items-center gap-2 self-start sm:self-auto">
-                  <CheckCircle2 className="w-5 h-5" /> Taken Today ✓
+                <span className="px-6 py-3.5 rounded-art bg-[#808000]/15 text-[#808000] border border-[#808000]/40 font-bold text-sm flex items-center gap-2 self-start sm:self-auto font-sans">
+                  <CheckCircle2 className="w-5 h-5 text-[#808000]" /> Taken Today ✓
                 </span>
               ) : (
                 <button
                   onClick={() => handleTake(med.id, med.name)}
-                  className="px-7 py-4 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-black text-base shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 self-stretch sm:self-auto active:scale-95 transition-transform"
+                  className="art-btn-primary px-7 py-4 text-base shadow-lg flex items-center justify-center gap-2 self-stretch sm:self-auto active:scale-95 transition-transform"
                 >
-                  <CheckCircle2 className="w-5 h-5" /> I Took This Medicine
+                  <CheckCircle2 className="w-5 h-5 text-[#CFB53B]" /> I Took This Medicine
                 </button>
               )}
             </div>
