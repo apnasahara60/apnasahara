@@ -17,14 +17,17 @@ import {
   Bell,
   Activity,
   Pill,
-  Clock
+  Clock,
+  ShieldCheck,
+  Users,
+  Stethoscope
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { dbStore } from '../../lib/mongoStore';
 import { UserRole } from '../../types';
+import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
-// Preset avatars for quick selection
 const PRESET_AVATARS = [
   { label: 'Family Member 1', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80' },
   { label: 'Family Member 2', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80' },
@@ -93,18 +96,18 @@ export const ProfilePage: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-8 border border-slate-200 text-center shadow-lg">
-          <div className="w-14 h-14 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center mx-auto mb-4 font-bold text-2xl">
-            🔒
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4 font-serif">
+        <div className="art-card max-w-md w-full p-8 text-center space-y-4">
+          <div className="w-14 h-14 rounded-art bg-[#008080]/10 border border-[#CFB53B] text-[#008080] flex items-center justify-center mx-auto">
+            <Lock className="w-7 h-7" />
           </div>
-          <h2 className="text-xl font-black text-slate-900 mb-2">Sign In Required</h2>
-          <p className="text-xs text-slate-500 mb-6">
+          <h2 className="text-xl font-bold text-[#17211C]">Sign In Required</h2>
+          <p className="text-xs text-[#17211C]/70 font-sans">
             Please log in to view and manage your ApnaSahara profile.
           </p>
           <Link
             to="/login"
-            className="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-md hover:bg-emerald-500 transition-all"
+            className="art-btn-primary w-full py-3 inline-flex items-center justify-center text-sm shadow-md"
           >
             Go to Login
           </Link>
@@ -131,7 +134,6 @@ export const ProfilePage: React.FC = () => {
     setIsSaving(true);
 
     try {
-      // 1. Update Core User Profile
       updateProfile({
         name: name.trim(),
         phone: phone.trim(),
@@ -139,7 +141,6 @@ export const ProfilePage: React.FC = () => {
         avatar_url: customAvatarInput.trim() || avatarUrl
       });
 
-      // 2. Role-specific persistent updates
       if (role === 'caregiver') {
         const caregivers = dbStore.getCaregivers();
         if (caregivers.length > 0) {
@@ -190,53 +191,56 @@ export const ProfilePage: React.FC = () => {
   const getRoleBadge = (r: UserRole) => {
     switch (r) {
       case 'elder':
-        return { label: 'Senior Citizen', bg: 'bg-amber-100 text-amber-800 border-amber-300', emoji: '👴' };
+        return { label: 'Senior Citizen', bg: 'bg-[#808000]/15 text-[#808000] border-[#808000]/40', Icon: Heart };
       case 'caregiver':
-        return { label: 'Verified GDA Sahayak', bg: 'bg-blue-100 text-blue-800 border-blue-300', emoji: '🩺' };
+        return { label: 'Verified GDA Sahayak', bg: 'bg-[#005F9E]/15 text-[#005F9E] border-[#005F9E]/40', Icon: Stethoscope };
       case 'admin':
-        return { label: 'Operations Director', bg: 'bg-purple-100 text-purple-800 border-purple-300', emoji: '🛡️' };
+        return { label: 'Operations Director', bg: 'bg-[#800020]/15 text-[#800020] border-[#800020]/40', Icon: ShieldCheck };
       default:
-        return { label: 'Family Member', bg: 'bg-emerald-100 text-emerald-800 border-emerald-300', emoji: '👨‍👩‍👧' };
+        return { label: 'Family Member', bg: 'bg-[#008080]/15 text-[#008080] border-[#008080]/40', Icon: Users };
     }
   };
 
   const roleBadge = getRoleBadge(role || 'family');
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FFFFF0] py-8 px-4 sm:px-6 lg:px-8 font-serif">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between">
           <Link
             to={getPortalHome()}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-emerald-700 transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#008080] hover:underline"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 text-[#CFB53B]" />
             Back to Dashboard
           </Link>
-          <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${roleBadge.bg}`}>
-            <span>{roleBadge.emoji}</span>
+          <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-art border ${roleBadge.bg} font-sans`}>
+            <roleBadge.Icon className="w-3.5 h-3.5" />
             <span>{roleBadge.label}</span>
           </span>
         </div>
 
         {/* Profile Card Header */}
-        <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+        <div className="relative art-card p-6 sm:p-8 space-y-4">
+          <OrnateCorner position="top-left" color="#CFB53B" size={32} />
+          <OrnateCorner position="top-right" color="#CFB53B" size={32} />
+
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             {/* Avatar & Photo Picker */}
             <div className="relative group shrink-0">
               <img
                 src={customAvatarInput.trim() || avatarUrl}
                 alt={name}
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl object-cover border-4 border-white shadow-md ring-2 ring-emerald-500/30"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-art object-cover border-2 border-[#CFB53B] shadow-md ring-2 ring-[#008080]/20"
               />
               <button
                 type="button"
                 onClick={() => setShowAvatarPicker(!showAvatarPicker)}
-                className="absolute -bottom-2 -right-2 p-2.5 rounded-2xl bg-emerald-600 text-white shadow-md hover:bg-emerald-500 transition-transform active:scale-95"
+                className="absolute -bottom-2 -right-2 p-2 rounded-art bg-[#008080] text-[#FFFFF0] border border-[#CFB53B] shadow-md hover:bg-[#006666] transition-transform active:scale-95"
                 title="Change Photo"
               >
-                <Camera className="w-4 h-4" />
+                <Camera className="w-4 h-4 text-[#CFB53B]" />
               </button>
             </div>
 
@@ -244,29 +248,29 @@ export const ProfilePage: React.FC = () => {
             <div className="flex-1 text-center sm:text-left space-y-2">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-[#17211C] tracking-tight">
                     {name || 'Your Profile'}
                   </h1>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-500 flex items-center justify-center sm:justify-start gap-1.5 mt-0.5">
-                    <Mail className="w-3.5 h-3.5" />
+                  <p className="text-xs sm:text-sm font-semibold text-[#17211C]/60 flex items-center justify-center sm:justify-start gap-1.5 mt-0.5 font-mono">
+                    <Mail className="w-3.5 h-3.5 text-[#008080]" />
                     {email}
                   </p>
                 </div>
-                <div className="flex items-center justify-center sm:justify-end gap-2">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <div className="flex items-center justify-center sm:justify-end gap-2 font-sans">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#808000] bg-[#808000]/10 px-2.5 py-1 rounded-art border border-[#808000]/30">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#808000]" />
                     Account Verified
                   </span>
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs text-slate-600 pt-1">
-                <span className="flex items-center gap-1 font-medium bg-slate-50 px-2.5 py-1 rounded-xl border border-slate-200">
-                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs text-[#17211C]/75 pt-1 font-sans">
+                <span className="flex items-center gap-1 bg-[#FFFDD0] px-2.5 py-1 rounded-art border border-[#CFB53B]/40">
+                  <MapPin className="w-3.5 h-3.5 text-[#008080]" />
                   {city}
                 </span>
-                <span className="flex items-center gap-1 font-medium bg-slate-50 px-2.5 py-1 rounded-xl border border-slate-200">
-                  <Phone className="w-3.5 h-3.5 text-slate-400" />
+                <span className="flex items-center gap-1 bg-[#FFFDD0] px-2.5 py-1 rounded-art border border-[#CFB53B]/40 font-mono">
+                  <Phone className="w-3.5 h-3.5 text-[#008080]" />
                   {phone || 'No phone set'}
                 </span>
               </div>
@@ -275,8 +279,8 @@ export const ProfilePage: React.FC = () => {
 
           {/* Avatar Preset Selector Tray */}
           {showAvatarPicker && (
-            <div className="mt-6 pt-6 border-t border-slate-100 animate-in fade-in slide-in-from-top-2">
-              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block mb-3">
+            <div className="mt-6 pt-6 border-t border-[#CFB53B]/30 animate-in fade-in slide-in-from-top-2 font-sans">
+              <label className="text-xs font-bold text-[#17211C] uppercase tracking-wider block mb-3">
                 Select a Profile Picture
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 mb-4">
@@ -289,14 +293,14 @@ export const ProfilePage: React.FC = () => {
                       setCustomAvatarInput('');
                       setShowAvatarPicker(false);
                     }}
-                    className={`p-1.5 rounded-2xl border-2 transition-all flex flex-col items-center gap-1 ${
+                    className={`p-1.5 rounded-art border-2 transition-all flex flex-col items-center gap-1 ${
                       avatarUrl === av.url && !customAvatarInput
-                        ? 'border-emerald-600 bg-emerald-50 shadow-sm scale-105'
-                        : 'border-slate-200 hover:border-slate-400 bg-white'
+                        ? 'border-[#008080] bg-[#FFFDD0] shadow-sm scale-105'
+                        : 'border-[#CFB53B]/40 hover:border-[#CFB53B] bg-[#FFFFF0]'
                     }`}
                   >
-                    <img src={av.url} alt={av.label} className="w-12 h-12 rounded-xl object-cover" />
-                    <span className="text-[10px] font-semibold text-slate-600 truncate w-full text-center">
+                    <img src={av.url} alt={av.label} className="w-12 h-12 rounded-art object-cover" />
+                    <span className="text-[10px] font-semibold text-[#17211C]/80 truncate w-full text-center">
                       {av.label}
                     </span>
                   </button>
@@ -308,12 +312,12 @@ export const ProfilePage: React.FC = () => {
                   placeholder="Or paste an image URL here..."
                   value={customAvatarInput}
                   onChange={(e) => setCustomAvatarInput(e.target.value)}
-                  className="flex-1 text-xs px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="art-input flex-1 text-xs"
                 />
                 <button
                   type="button"
                   onClick={() => setShowAvatarPicker(false)}
-                  className="px-3.5 py-2 text-xs font-bold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700"
+                  className="art-btn-secondary px-3.5 py-2 text-xs font-bold"
                 >
                   Done
                 </button>
@@ -325,63 +329,61 @@ export const ProfilePage: React.FC = () => {
         {/* Profile Edit Form */}
         <form onSubmit={handleSave} className="space-y-6">
           {/* Section 1: Basic Information */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-              <User className="w-5 h-5 text-emerald-600" />
+          <div className="art-card p-6 sm:p-8 space-y-5 font-sans">
+            <div className="flex items-center gap-2.5 pb-3 border-b border-[#CFB53B]/30">
+              <User className="w-5 h-5 text-[#008080]" />
               <div>
-                <h3 className="font-bold text-slate-900 text-base">Personal Information</h3>
-                <p className="text-xs text-slate-500">Your identity details visible to your care team and elders.</p>
+                <h3 className="font-bold text-[#17211C] text-base font-serif">Personal Information</h3>
+                <p className="text-xs text-[#17211C]/65">Your identity details visible to your care team and elders.</p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Name</label>
+                <label className="block text-xs font-bold text-[#17211C] mb-1.5">Full Name</label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
+                  className="art-input w-full text-sm font-serif font-bold"
                   placeholder="e.g. Vikram Sharma"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Email Address</label>
+                <label className="block text-xs font-bold text-[#17211C] mb-1.5">Email Address</label>
                 <div className="relative">
                   <input
                     type="email"
                     disabled
                     value={email}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 text-sm font-semibold cursor-not-allowed"
+                    className="art-input w-full text-sm font-mono opacity-70 cursor-not-allowed bg-[#FFFDD0]"
                   />
-                  <span className="absolute right-3 top-2.5 text-[10px] font-bold text-slate-400 bg-slate-200/60 px-2 py-0.5 rounded">
+                  <span className="absolute right-3 top-2.5 text-[10px] font-bold text-[#008080] bg-[#008080]/10 px-2 py-0.5 rounded-art border border-[#008080]/30 font-mono">
                     Primary
                   </span>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Phone Number (Emergency Alerts)</label>
-                <div className="relative">
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
-                    placeholder="+91 98765 43210"
-                  />
-                </div>
+                <label className="block text-xs font-bold text-[#17211C] mb-1.5">Phone Number (Emergency Alerts)</label>
+                <input
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="art-input w-full text-sm font-mono"
+                  placeholder="+91 98765 43210"
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">City / Region Hub</label>
+                <label className="block text-xs font-bold text-[#17211C] mb-1.5">City / Region Hub</label>
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all bg-white cursor-pointer"
+                  className="art-input w-full text-sm bg-[#FFFFF0]"
                 >
                   {CITIES.map((c) => (
                     <option key={c} value={c}>
@@ -392,12 +394,12 @@ export const ProfilePage: React.FC = () => {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-bold text-slate-700 mb-1.5">Full Residential Address</label>
+                <label className="block text-xs font-bold text-[#17211C] mb-1.5">Full Residential Address</label>
                 <input
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-all"
+                  className="art-input w-full text-sm font-serif"
                   placeholder="Apartment, Street, Landmark"
                 />
               </div>
@@ -406,22 +408,22 @@ export const ProfilePage: React.FC = () => {
 
           {/* Section 2: Role-Specific Details */}
           {role === 'family' && (
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                <Heart className="w-5 h-5 text-emerald-600" />
+            <div className="art-card p-6 sm:p-8 space-y-5 font-sans">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-[#CFB53B]/30">
+                <Heart className="w-5 h-5 text-[#008080]" />
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Family Caregiver Setup</h3>
-                  <p className="text-xs text-slate-500">Configure your relationship and speed-dial emergency routing.</p>
+                  <h3 className="font-bold text-[#17211C] text-base font-serif">Family Caregiver Setup</h3>
+                  <p className="text-xs text-[#17211C]/65">Configure your relationship and speed-dial emergency routing.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Relationship to Monitored Parents</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Relationship to Monitored Parents</label>
                   <select
                     value={relationship}
                     onChange={(e) => setRelationship(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"
+                    className="art-input w-full text-sm bg-[#FFFFF0]"
                   >
                     <option value="Son">Son</option>
                     <option value="Daughter">Daughter</option>
@@ -432,12 +434,12 @@ export const ProfilePage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Secondary Emergency Phone</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Secondary Emergency Phone</label>
                   <input
                     type="tel"
                     value={emergencyPhone}
                     onChange={(e) => setEmergencyPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="art-input w-full text-sm font-mono"
                     placeholder="+91 98111 22334"
                   />
                 </div>
@@ -446,40 +448,40 @@ export const ProfilePage: React.FC = () => {
           )}
 
           {role === 'caregiver' && (
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                <Activity className="w-5 h-5 text-blue-600" />
+            <div className="art-card p-6 sm:p-8 space-y-5 font-sans">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-[#CFB53B]/30">
+                <Activity className="w-5 h-5 text-[#005F9E]" />
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Caregiver Professional Details</h3>
-                  <p className="text-xs text-slate-500">Manage your duty status and clinical experience records.</p>
+                  <h3 className="font-bold text-[#17211C] text-base font-serif">Caregiver Professional Details</h3>
+                  <p className="text-xs text-[#17211C]/65">Manage your duty status and clinical experience records.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Total Years of Caregiving Experience</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Total Years of Caregiving Experience</label>
                   <input
                     type="number"
                     min="1"
                     max="30"
                     value={experienceYears}
                     onChange={(e) => setExperienceYears(Number(e.target.value))}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="art-input w-full text-sm font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Current Duty Status</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Current Duty Status</label>
                   <button
                     type="button"
                     onClick={() => setIsAvailable(!isAvailable)}
-                    className={`w-full py-2.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 border transition-all ${
+                    className={`w-full py-2.5 px-4 rounded-art font-bold text-sm flex items-center justify-center gap-2 border transition-all ${
                       isAvailable
-                        ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
-                        : 'bg-slate-100 text-slate-600 border-slate-300'
+                        ? 'bg-[#808000]/15 text-[#808000] border-[#808000]/40'
+                        : 'bg-[#FFFDD0] text-[#17211C]/60 border-[#CFB53B]/40'
                     }`}
                   >
-                    <span className={`w-2.5 h-2.5 rounded-full ${isAvailable ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                    <span className={`w-2.5 h-2.5 rounded-full ${isAvailable ? 'bg-[#808000] animate-pulse' : 'bg-slate-400'}`} />
                     {isAvailable ? 'Active & On Duty (Accepting Visits)' : 'Off Duty / On Leave'}
                   </button>
                 </div>
@@ -488,34 +490,34 @@ export const ProfilePage: React.FC = () => {
           )}
 
           {role === 'elder' && (
-            <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-              <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-                <Pill className="w-5 h-5 text-amber-600" />
+            <div className="art-card p-6 sm:p-8 space-y-5 font-sans">
+              <div className="flex items-center gap-2.5 pb-3 border-b border-[#CFB53B]/30">
+                <Pill className="w-5 h-5 text-[#008080]" />
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">Senior Health & Emergency Settings</h3>
-                  <p className="text-xs text-slate-500">Configured for your quick 1-touch SOS emergency calling.</p>
+                  <h3 className="font-bold text-[#17211C] text-base font-serif">Senior Health & Emergency Settings</h3>
+                  <p className="text-xs text-[#17211C]/65">Configured for your quick 1-touch SOS emergency calling.</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Speed-Dial Family Emergency Number</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Speed-Dial Family Emergency Number</label>
                   <input
                     type="tel"
                     value={emergencyPhone}
                     onChange={(e) => setEmergencyPhone(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="art-input w-full text-sm font-mono"
                     placeholder="+91 98765 43210"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Preferred Spoken Language</label>
+                  <label className="block text-xs font-bold text-[#17211C] mb-1.5">Preferred Spoken Language</label>
                   <input
                     type="text"
                     value={preferredLanguage}
                     onChange={(e) => setPreferredLanguage(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="art-input w-full text-sm font-serif"
                     placeholder="e.g. Hindi, English, Gujarati"
                   />
                 </div>
@@ -524,30 +526,30 @@ export const ProfilePage: React.FC = () => {
           )}
 
           {/* Section 3: Notification & Alert Preferences */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-5">
-            <div className="flex items-center gap-2.5 pb-3 border-b border-slate-100">
-              <Bell className="w-5 h-5 text-emerald-600" />
+          <div className="art-card p-6 sm:p-8 space-y-5 font-sans">
+            <div className="flex items-center gap-2.5 pb-3 border-b border-[#CFB53B]/30">
+              <Bell className="w-5 h-5 text-[#008080]" />
               <div>
-                <h3 className="font-bold text-slate-900 text-base">Alert & Telemetry Notifications</h3>
-                <p className="text-xs text-slate-500">Choose how ApnaSahara delivers real-time updates.</p>
+                <h3 className="font-bold text-[#17211C] text-base font-serif">Alert & Telemetry Notifications</h3>
+                <p className="text-xs text-[#17211C]/65">Choose how ApnaSahara delivers real-time updates.</p>
               </div>
             </div>
 
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-[#CFB53B]/20">
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-slate-800">WhatsApp Emergency Dispatch Alerts</p>
-                  <p className="text-[11px] text-slate-500">Instant SOS triggers with GPS pin sent to family group.</p>
+                  <p className="text-xs font-bold text-[#17211C]">WhatsApp Emergency Dispatch Alerts</p>
+                  <p className="text-[11px] text-[#17211C]/65">Instant SOS triggers with GPS pin sent to family group.</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setWhatsappAlerts(!whatsappAlerts)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    whatsappAlerts ? 'bg-emerald-600' : 'bg-slate-300'
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors border ${
+                    whatsappAlerts ? 'bg-[#008080] border-[#008080]' : 'bg-[#FFFDD0] border-[#CFB53B]/50'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-[#FFFFF0] transition-transform ${
                       whatsappAlerts ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -556,18 +558,18 @@ export const ProfilePage: React.FC = () => {
 
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-slate-800">SMS Vital Warning Notifications</p>
-                  <p className="text-[11px] text-slate-500">Get notified if blood pressure or SpO2 exceeds thresholds.</p>
+                  <p className="text-xs font-bold text-[#17211C]">SMS Vital Warning Notifications</p>
+                  <p className="text-[11px] text-[#17211C]/65">Get notified if blood pressure or SpO2 exceeds thresholds.</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSmsVitals(!smsVitals)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    smsVitals ? 'bg-emerald-600' : 'bg-slate-300'
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors border ${
+                    smsVitals ? 'bg-[#008080] border-[#008080]' : 'bg-[#FFFDD0] border-[#CFB53B]/50'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-[#FFFFF0] transition-transform ${
                       smsVitals ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -576,18 +578,18 @@ export const ProfilePage: React.FC = () => {
 
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-slate-800">Emergency Audio Siren</p>
-                  <p className="text-[11px] text-slate-500">Play an audible siren on this browser when SOS is triggered.</p>
+                  <p className="text-xs font-bold text-[#17211C]">Emergency Audio Siren</p>
+                  <p className="text-[11px] text-[#17211C]/65">Play an audible siren on this browser when SOS is triggered.</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setEmergencySirens(!emergencySirens)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    emergencySirens ? 'bg-emerald-600' : 'bg-slate-300'
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors border ${
+                    emergencySirens ? 'bg-[#008080] border-[#008080]' : 'bg-[#FFFDD0] border-[#CFB53B]/50'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-[#FFFFF0] transition-transform ${
                       emergencySirens ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -596,18 +598,18 @@ export const ProfilePage: React.FC = () => {
 
               <div className="py-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs font-bold text-slate-800">Weekly Wellness & Visit Digest Email</p>
-                  <p className="text-[11px] text-slate-500">Receive comprehensive weekly summary PDF every Sunday.</p>
+                  <p className="text-xs font-bold text-[#17211C]">Weekly Wellness & Visit Digest Email</p>
+                  <p className="text-[11px] text-[#17211C]/65">Receive comprehensive weekly summary PDF every Sunday.</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setWeeklyDigest(!weeklyDigest)}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                    weeklyDigest ? 'bg-emerald-600' : 'bg-slate-300'
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors border ${
+                    weeklyDigest ? 'bg-[#008080] border-[#008080]' : 'bg-[#FFFDD0] border-[#CFB53B]/50'
                   }`}
                 >
                   <span
-                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                    className={`inline-block h-4 w-4 transform rounded-full bg-[#FFFFF0] transition-transform ${
                       weeklyDigest ? 'translate-x-6' : 'translate-x-1'
                     }`}
                   />
@@ -617,14 +619,14 @@ export const ProfilePage: React.FC = () => {
           </div>
 
           {/* Section 4: Security & Password */}
-          <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="art-card p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-sans">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold">
-                <Lock className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 text-[#008080] flex items-center justify-center font-bold">
+                <Lock className="w-5 h-5 text-[#008080]" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">Account Password & Security</h4>
-                <p className="text-xs text-slate-500">Receive a secure link on {email} to update password.</p>
+                <h4 className="text-sm font-bold text-[#17211C] font-serif">Account Password & Security</h4>
+                <p className="text-xs text-[#17211C]/65">Receive a secure link on <span className="font-mono">{email}</span> to update password.</p>
               </div>
             </div>
 
@@ -632,17 +634,17 @@ export const ProfilePage: React.FC = () => {
               type="button"
               onClick={handlePasswordReset}
               disabled={isResettingPassword}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors shrink-0"
+              className="art-btn-secondary px-4 py-2 text-xs font-bold shrink-0"
             >
               {isResettingPassword ? 'Sending link...' : 'Reset Password'}
             </button>
           </div>
 
           {/* Save Action Bar */}
-          <div className="flex items-center justify-end gap-3 pt-2">
+          <div className="flex items-center justify-end gap-3 pt-2 font-sans">
             <Link
               to={getPortalHome()}
-              className="px-5 py-2.5 rounded-2xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm transition-colors"
+              className="art-btn-secondary px-5 py-2.5 text-xs sm:text-sm font-bold"
             >
               Cancel
             </Link>
@@ -650,9 +652,9 @@ export const ProfilePage: React.FC = () => {
             <button
               type="submit"
               disabled={isSaving}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-emerald-600/20 transition-all active:scale-95 disabled:opacity-50"
+              className="art-btn-primary px-6 py-2.5 text-xs sm:text-sm font-serif font-bold shadow-md flex items-center gap-2 disabled:opacity-50"
             >
-              <Save className="w-4 h-4" />
+              <Save className="w-4 h-4 text-[#CFB53B]" />
               {isSaving ? 'Saving Changes...' : 'Save Profile Changes'}
             </button>
           </div>
