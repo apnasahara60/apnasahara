@@ -68,21 +68,15 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo & Brand */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-              <Heart className="w-6 h-6 fill-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">
-                  Apna<span className="text-brand-600">Sahara</span>
-                </span>
-                <span className="text-[10px] uppercase font-bold tracking-widest bg-brand-50 text-brand-700 px-1.5 py-0.5 rounded border border-brand-200">
-                  Live
-                </span>
-              </div>
-              <p className="text-[10px] text-slate-500 font-medium hidden sm:block">
-                Dedicated Care • 24/7 SOS • Family Peace
-              </p>
+            <img
+              src="/logo.png"
+              alt="ApnaSahara"
+              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+            />
+            <div className="hidden sm:block">
+              <span className="text-[10px] uppercase font-bold tracking-widest bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
+                Care, Close to Home
+              </span>
             </div>
           </Link>
 

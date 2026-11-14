@@ -51,12 +51,11 @@ export const Footer: React.FC = () => {
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-white font-bold">
-                <Heart className="w-5 h-5 fill-white" />
-              </div>
-              <span className="text-2xl font-black tracking-tight text-white">
-                Apna<span className="text-brand-400">Sahara</span>
-              </span>
+              <img
+                src="/logo.png"
+                alt="ApnaSahara"
+                className="h-12 w-auto object-contain bg-white/95 rounded-xl p-1"
+              />
             </div>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               Empowering families worldwide to care for their elderly parents in India with dignity, verified in-person caregivers, continuous vital monitoring, and rapid emergency coordination.

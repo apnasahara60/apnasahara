@@ -87,21 +87,11 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
           <div className="space-y-8">
             {/* Logo */}
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-[#1E4733] flex items-center justify-center text-white shadow-sm shadow-[#1E4733]/20">
-                {/* Brand Squircle Leaf/House Icon */}
-                <svg className="w-5 h-5 fill-none stroke-white stroke-[2.2]" viewBox="0 0 24 24">
-                  <path d="M3 10.5L12 3l9 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 19.5v-9z" />
-                  <path d="M12 9a3 3 0 0 0-3 3v7.5h6V12a3 3 0 0 0-3-3z" />
-                </svg>
-              </div>
-              <div>
-                <h1 className="font-extrabold text-xl tracking-tight text-[#1A2E22] leading-none">
-                  apnasahara
-                </h1>
-                <p className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#6D8374] mt-1">
-                  Care, close to home
-                </p>
-              </div>
+              <img
+                src="/logo.png"
+                alt="ApnaSahara"
+                className="h-12 w-auto object-contain"
+              />
             </div>
 
             {/* Navigation Menu */}
@@ -224,9 +214,11 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               </button>
 
               {/* Watermark Logo */}
-              <span className="hidden sm:inline text-xs font-extrabold tracking-tight text-[#2B4F3B]">
-                Apna<span className="text-[#4E775F]">Sahara</span>
-              </span>
+              <img
+                src="/logo.png"
+                alt="ApnaSahara"
+                className="hidden sm:inline h-7 w-auto object-contain opacity-95"
+              />
             </div>
           </div>
 
