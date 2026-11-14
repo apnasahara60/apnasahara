@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, Clock } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ContactPage: React.FC = () => {
   const { showToast } = useNotification();
@@ -37,7 +36,7 @@ export const ContactPage: React.FC = () => {
           <h1 className="text-4xl sm:text-5xl font-bold text-[#17211C] tracking-tight">
             We Are Here For Your Family
           </h1>
-          <WhiplashDivider color="#CFB53B" className="max-w-xs mx-auto" />
+          <div className="w-full max-w-xs mx-auto my-4 border-t border-[#CFB53B]/25" />
           <p className="text-base sm:text-lg text-[#17211C]/80 leading-relaxed font-sans">
             Have questions about care plans, need immediate emergency assistance, or want to speak with our Geriatric Care Director? Reach out anytime.
           </p>
@@ -47,8 +46,8 @@ export const ContactPage: React.FC = () => {
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-8">
             <div className="relative p-8 rounded-art bg-gradient-to-r from-[#17211C] to-[#232F28] text-[#FFFFF0] border-2 border-[#CFB53B] space-y-6 shadow-xl">
-              <OrnateCorner position="top-left" color="#CFB53B" size={32} />
-              <OrnateCorner position="top-right" color="#CFB53B" size={32} />
+              
+              
 
               <h3 className="text-2xl font-bold">Direct Contacts</h3>
               <p className="text-xs text-[#FFFDD0] font-sans">
@@ -110,8 +109,8 @@ export const ContactPage: React.FC = () => {
           {/* Form */}
           <div className="lg:col-span-7">
             <div className="relative art-card p-8 sm:p-10 shadow-xl">
-              <OrnateCorner position="top-left" color="#CFB53B" size={36} />
-              <OrnateCorner position="top-right" color="#CFB53B" size={36} />
+              
+              
 
               {submitted ? (
                 <div className="text-center py-12 space-y-4">
