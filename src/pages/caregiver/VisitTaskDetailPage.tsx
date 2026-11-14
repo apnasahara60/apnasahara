@@ -65,7 +65,7 @@ export const VisitTaskDetailPage: React.FC = () => {
 
   if (!activeVisit) {
     return (
-      <div className="p-8 text-center text-slate-500 bg-white rounded-3xl border border-slate-200">
+      <div className="art-card p-8 text-center text-[#17211C]/60 font-serif">
         No active visit in queue.
       </div>
     );
@@ -76,13 +76,14 @@ export const VisitTaskDetailPage: React.FC = () => {
   const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-serif">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CFB53B]/30 pb-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900">Task Execution Checklist</h1>
-          <p className="text-xs text-slate-500">
-            Active assignment for <strong>{activeVisit.elder_name}</strong> • {activeVisit.time_slot}
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Care Attendant Checklist</span>
+          <h1 className="text-2xl font-bold text-[#17211C]">Task Execution Checklist</h1>
+          <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">
+            Active assignment for <strong>{activeVisit.elder_name}</strong> • <span className="font-mono">{activeVisit.time_slot}</span>
           </p>
         </div>
 
@@ -90,66 +91,70 @@ export const VisitTaskDetailPage: React.FC = () => {
           {activeVisit.status !== 'in_progress' && activeVisit.status !== 'completed' && (
             <button
               onClick={handleCheckIn}
-              className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/30 flex items-center gap-2"
+              className="art-btn-primary px-5 py-2.5 flex items-center gap-2 text-xs shadow-md"
             >
-              <CheckCircle2 className="w-4 h-4" /> GPS Check-in
+              <CheckCircle2 className="w-4 h-4 text-[#CFB53B]" /> GPS Check-in
             </button>
           )}
 
           {activeVisit.status === 'in_progress' && (
             <button
               onClick={handleCheckOut}
-              className="px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-md shadow-purple-600/30 flex items-center gap-2"
+              className="px-5 py-2.5 rounded-art bg-[#808000] hover:bg-[#686800] text-[#FFFFF0] font-bold text-xs shadow-md border border-[#CFB53B]/50 flex items-center gap-2 transition-all"
             >
-              <CheckCircle2 className="w-4 h-4" /> Check-out & Sign Off
+              <CheckCircle2 className="w-4 h-4 text-[#FFFDD0]" /> Complete & Check-Out
             </button>
           )}
         </div>
       </div>
 
-      {/* Progress Card */}
-      <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-3">
-        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
-          <span>Task Completion Progress</span>
-          <span className="text-blue-600">{completedCount} of {totalCount} completed ({progressPercent}%)</span>
+      {/* Progress Bar Card */}
+      <div className="art-card p-6 space-y-3">
+        <div className="flex items-center justify-between text-xs">
+          <span className="font-bold text-[#17211C] uppercase tracking-wider">Protocol Completion</span>
+          <span className="font-bold text-[#008080] font-mono">{completedCount} of {totalCount} completed ({progressPercent}%)</span>
         </div>
-        <div className="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+        <div className="w-full h-3 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/50 overflow-hidden">
           <div
-            className="h-full bg-blue-600 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-[#008080] to-[#808000] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
       </div>
 
-      {/* Interactive Task Checklist */}
+      {/* Task Checklist Items */}
       <div className="space-y-3">
         {activeVisit.tasks.map((task) => (
           <div
             key={task.id}
             onClick={() => handleToggleTask(task.id)}
-            className={`p-5 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-3.5 select-none ${
-              task.completed
-                ? 'bg-emerald-50/70 border-emerald-300'
-                : 'bg-white border-slate-200 hover:border-blue-300'
+            className={`art-card p-5 cursor-pointer flex items-center justify-between gap-4 transition-all hover:border-[#CFB53B] ${
+              task.completed ? 'bg-[#FFFDD0]/40 opacity-85' : 'bg-[#FFFFF0]'
             }`}
           >
-            <div className={`w-5 h-5 rounded-full mt-0.5 flex items-center justify-center shrink-0 ${
-              task.completed ? 'bg-emerald-600 text-white' : 'border-2 border-slate-300'
-            }`}>
-              {task.completed && <CheckCircle2 className="w-4 h-4 stroke-[3]" />}
+            <div className="flex items-start gap-4">
+              <div className={`w-6 h-6 rounded-art border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                task.completed ? 'bg-[#808000] border-[#808000] text-[#FFFFF0]' : 'border-[#CFB53B] bg-[#FFFFF0]'
+              }`}>
+                {task.completed && <CheckCircle2 className="w-4 h-4 stroke-[3]" />}
+              </div>
+              <div>
+                <h3 className={`text-base font-bold ${task.completed ? 'line-through text-[#17211C]/50' : 'text-[#17211C]'}`}>
+                  {task.title}
+                </h3>
+                <p className="text-xs text-[#17211C]/65 font-sans mt-0.5">
+                  Category: <span className="font-semibold text-[#008080] capitalize">{task.category}</span>
+                </p>
+              </div>
             </div>
 
-            <div className="flex-1">
-              <h4 className={`text-sm font-bold ${task.completed ? 'text-slate-800 line-through' : 'text-slate-900'}`}>
-                {task.title}
-              </h4>
-              <p className="text-xs text-slate-500 mt-0.5">Tap to toggle completion</p>
-              {task.completed_at && (
-                <span className="text-[10px] font-bold text-emerald-700 mt-1 inline-block">
-                  Completed at {task.completed_at}
-                </span>
-              )}
-            </div>
+            <span className={`text-[11px] font-bold px-3 py-1 rounded-art border font-sans ${
+              task.completed
+                ? 'bg-[#808000]/15 text-[#808000] border-[#808000]/30'
+                : 'bg-[#FFFDD0] text-[#17211C]/75 border-[#CFB53B]/50'
+            }`}>
+              {task.completed ? 'Done ✓' : 'Pending'}
+            </span>
           </div>
         ))}
       </div>

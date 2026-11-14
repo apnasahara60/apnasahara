@@ -18,7 +18,6 @@ import { dbStore } from '../../lib/mongoStore';
 import { Medication, Visit } from '../../types';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
-import { WhiplashDivider, OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ElderDashboard: React.FC = () => {
   const { speak } = useAccessibility();
@@ -70,8 +69,8 @@ export const ElderDashboard: React.FC = () => {
     <div className="space-y-6 font-serif">
       {/* GIANT SOS BUTTON FOR ELDERS */}
       <div className="relative p-6 sm:p-8 rounded-art bg-gradient-to-r from-[#800020] via-[#5C0017] to-[#800020] text-[#FFFFF0] shadow-2xl border-2 border-[#CFB53B] text-center space-y-4 overflow-hidden">
-        <OrnateCorner position="top-left" color="#CFB53B" size={40} />
-        <OrnateCorner position="top-right" color="#CFB53B" size={40} />
+        
+        
 
         <div className="inline-flex items-center gap-2 bg-[#FFFFF0]/15 border border-[#CFB53B]/50 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-[#FFFDD0]">
           <AlertTriangle className="w-4 h-4 text-[#CFB53B]" />

@@ -11,10 +11,11 @@ import {
   MapPin,
   ArrowRight,
   Activity,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles
 } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
-import { Visit, CaregiverProfile } from '../../types';
+import { Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 
 export const CaregiverDashboard: React.FC = () => {
@@ -47,25 +48,31 @@ export const CaregiverDashboard: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 font-serif">
       {/* Top Welcome Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div className="relative art-card p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden">
+        
+        
+
         <div className="flex items-center gap-4">
           <img
             src={caregiver?.avatar_url || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80'}
             alt="Caregiver"
-            className="w-16 h-16 rounded-2xl object-cover border-2 border-blue-500 shadow-sm"
+            className="w-16 h-16 rounded-art object-cover border-2 border-[#CFB53B] shadow-sm"
           />
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-black text-slate-900">Welcome, {caregiver?.name}!</h1>
-              <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <h1 className="text-2xl font-bold text-[#17211C]">Welcome, {caregiver?.name}!</h1>
+              <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-[#808000]/15 text-[#808000] border border-[#808000]/30 flex items-center gap-1.5 font-sans">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#808000] animate-pulse" />
                 Active on Duty
               </span>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
-              General Duty Attendant • Sector 62 Noida Cluster • Rating ⭐ {caregiver?.rating || 4.9}
+            <p className="text-xs text-[#17211C]/70 mt-1 font-sans flex items-center gap-2">
+              <span>General Duty Attendant • Sector 62 Noida</span>
+              <span className="inline-flex items-center gap-1 text-[#CFB53B] font-bold">
+                <Star className="w-3.5 h-3.5 fill-[#CFB53B]" /> {caregiver?.rating || 4.9} Score
+              </span>
             </p>
           </div>
         </div>
@@ -73,9 +80,9 @@ export const CaregiverDashboard: React.FC = () => {
         <div className="flex items-center gap-2">
           <Link
             to="/caregiver/navigation"
-            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 flex items-center gap-1.5"
+            className="art-btn-primary px-5 py-2.5 flex items-center gap-1.5 text-xs shadow-md"
           >
-            <Navigation className="w-3.5 h-3.5" />
+            <Navigation className="w-3.5 h-3.5 text-[#CFB53B]" />
             Turn-by-Turn GPS
           </Link>
         </div>
@@ -83,54 +90,57 @@ export const CaregiverDashboard: React.FC = () => {
 
       {/* KPI Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Today's Visits</span>
-          <p className="text-3xl font-black text-slate-900">{visits.length}</p>
-          <span className="text-[11px] text-blue-600 font-bold">1 En Route, 1 Completed</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Today's Visits</span>
+          <p className="text-3xl font-bold text-[#17211C] font-mono">{visits.length}</p>
+          <span className="text-[11px] text-[#008080] font-semibold font-sans">1 En Route, 1 Completed</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Attendance Hours</span>
-          <p className="text-3xl font-black text-slate-900">4.5 <span className="text-xs text-slate-400 font-normal">hrs</span></p>
-          <span className="text-[11px] text-emerald-600 font-bold">Shift: 09:00 AM - 05:00 PM</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Attendance Hours</span>
+          <p className="text-3xl font-bold text-[#17211C] font-mono">4.5 <span className="text-xs text-[#17211C]/50 font-normal font-sans">hrs</span></p>
+          <span className="text-[11px] text-[#808000] font-semibold font-sans">Shift: 09:00 AM - 05:00 PM</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Feedback Rating</span>
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Feedback Rating</span>
           <div className="flex items-center gap-1">
-            <span className="text-3xl font-black text-slate-900">{caregiver?.rating || 4.9}</span>
-            <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
+            <span className="text-3xl font-bold text-[#17211C] font-mono">{caregiver?.rating || 4.9}</span>
+            <Star className="w-5 h-5 fill-[#CFB53B] text-[#CFB53B]" />
           </div>
-          <span className="text-[11px] text-amber-600 font-bold">Top 5% Sahayak Score</span>
+          <span className="text-[11px] text-[#CFB53B] font-semibold font-sans">Top 5% Sahayak Score</span>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-1">
-          <span className="text-xs font-semibold text-slate-500">Verification</span>
-          <p className="text-xl font-black text-emerald-700 flex items-center gap-1 mt-1">
-            <ShieldCheck className="w-5 h-5" /> 100% Cleared
+        <div className="art-card p-5 space-y-1">
+          <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">Verification Status</span>
+          <p className="text-lg font-bold text-[#808000] flex items-center gap-1.5 mt-1 font-sans">
+            <ShieldCheck className="w-5 h-5 text-[#808000]" /> 100% Cleared
           </p>
-          <span className="text-[11px] text-slate-500 font-medium">Police & Medical Certified</span>
+          <span className="text-[11px] text-[#17211C]/60 font-sans">Police & Medical Certified</span>
         </div>
       </div>
 
       {/* Primary Active Assignment Card */}
       {activeVisit && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border-2 border-blue-400 shadow-lg space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+        <div className="relative art-card p-6 sm:p-8 space-y-6">
+          
+          
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#CFB53B]/30">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#008080] bg-[#008080]/10 border border-[#008080]/30 px-3 py-1 rounded-full font-sans">
                 Current Active Assignment
               </span>
-              <h2 className="text-2xl font-black text-slate-900 mt-2">
+              <h2 className="text-2xl font-bold text-[#17211C] mt-2">
                 Visit with {activeVisit.elder_name}
               </h2>
-              <p className="text-xs text-slate-500 flex items-center gap-1 mt-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" /> {activeVisit.elder_address}
+              <p className="text-xs text-[#17211C]/70 flex items-center gap-1.5 mt-1 font-sans">
+                <MapPin className="w-3.5 h-3.5 text-[#008080]" /> {activeVisit.elder_address}
               </p>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-black uppercase bg-blue-100 text-blue-800">
+              <span className="px-3.5 py-1 rounded-art text-xs font-bold uppercase bg-[#FFFDD0] border border-[#CFB53B] text-[#17211C] font-mono">
                 {activeVisit.status.replace('_', ' ')}
               </span>
             </div>
@@ -141,53 +151,57 @@ export const CaregiverDashboard: React.FC = () => {
             {activeVisit.status === 'scheduled' && (
               <button
                 onClick={() => handleQuickStatusChange('en_route')}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs shadow-md shadow-blue-600/30 flex items-center gap-2"
+                className="art-btn-primary px-6 py-3 flex items-center gap-2 text-xs shadow-md"
               >
-                <Navigation className="w-4 h-4" /> Start Travel (Mark En Route)
+                <Navigation className="w-4 h-4 text-[#CFB53B]" /> Start Travel (Mark En Route)
               </button>
             )}
 
             {activeVisit.status === 'en_route' && (
               <button
                 onClick={() => handleQuickStatusChange('in_progress')}
-                className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/30 flex items-center gap-2"
+                className="px-6 py-3 rounded-art bg-[#808000] hover:bg-[#686800] text-[#FFFFF0] font-bold text-xs shadow-md border border-[#CFB53B]/50 flex items-center gap-2 transition-all"
               >
-                <CheckCircle2 className="w-4 h-4" /> GPS Check-in at Elder Residence
+                <CheckCircle2 className="w-4 h-4 text-[#FFFDD0]" /> GPS Check-in at Residence
               </button>
             )}
 
             {activeVisit.status === 'in_progress' && (
               <button
                 onClick={() => handleQuickStatusChange('completed')}
-                className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-md shadow-purple-600/30 flex items-center gap-2"
+                className="art-btn-primary px-6 py-3 flex items-center gap-2 text-xs shadow-md"
               >
-                <CheckCircle2 className="w-4 h-4" /> Complete Visit & Check-out
+                <CheckCircle2 className="w-4 h-4 text-[#CFB53B]" /> Complete Visit & Check-out
               </button>
             )}
 
             <Link
               to="/caregiver/tasks"
-              className="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center gap-2"
+              className="art-btn-secondary px-5 py-3 flex items-center gap-2 text-xs"
             >
-              <CheckSquare className="w-4 h-4" /> Open Task Checklist ({activeVisit.tasks.length} tasks)
+              <CheckSquare className="w-4 h-4 text-[#008080]" /> Open Task Checklist ({activeVisit.tasks.length} tasks)
             </Link>
 
             <Link
               to="/caregiver/documentation"
-              className="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center gap-2"
+              className="art-btn-secondary px-5 py-3 flex items-center gap-2 text-xs"
             >
               Record Vitals Log →
             </Link>
           </div>
 
           {/* Tasks snippet */}
-          <div className="space-y-2 pt-2">
-            <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">Visit Checklist Preview</h4>
+          <div className="space-y-2 pt-2 border-t border-[#CFB53B]/20">
+            <h4 className="text-xs font-bold text-[#008080] uppercase tracking-wider">Visit Checklist Preview</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {activeVisit.tasks.slice(0, 4).map((t) => (
-                <div key={t.id} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center gap-2.5 text-xs text-slate-700">
-                  <div className={`w-3.5 h-3.5 rounded-full ${t.completed ? 'bg-emerald-500' : 'border border-slate-300'}`} />
-                  <span className={t.completed ? 'line-through text-slate-400' : 'font-medium'}>{t.title}</span>
+                <div key={t.id} className="p-3 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center gap-2.5 text-xs text-[#17211C] font-sans">
+                  <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                    t.completed ? 'bg-[#808000] text-[#FFFFF0]' : 'border-2 border-[#CFB53B]'
+                  }`}>
+                    {t.completed && <CheckCircle2 className="w-3.5 h-3.5" />}
+                  </div>
+                  <span className={t.completed ? 'line-through text-[#17211C]/50' : 'font-semibold'}>{t.title}</span>
                 </div>
               ))}
             </div>

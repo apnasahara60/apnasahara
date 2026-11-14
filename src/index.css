@@ -34,7 +34,7 @@
 }
 
 /* ApnaSahara UI Textures */
-.art-nouveau-pattern {
+.sahara-pattern {
   background-color: #FFFFF0;
   background-image: 
     radial-gradient(#CFB53B 0.75px, transparent 0.75px),
@@ -59,7 +59,7 @@
   border-color: rgba(207, 181, 59, 0.75);
 }
 
-/* Whiplash Curve Borders */
+/* Accent Borders */
 .whiplash-border {
   position: relative;
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { FileText, Activity, Camera, CheckCircle2, Send, Heart } from 'lucide-react';
+import { FileText, Activity, CheckCircle2, Send, Heart, Camera } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
 import { Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
+import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const VisitDocumentationPage: React.FC = () => {
   const { showToast } = useNotification();
@@ -55,130 +56,132 @@ export const VisitDocumentationPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black text-slate-900">Post-Visit Documentation & Clinical Log</h1>
-        <p className="text-xs text-slate-500">
+    <div className="space-y-6 font-serif">
+      <div className="border-b border-[#CFB53B]/30 pb-4">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Post-Visit Documentation</span>
+        <h1 className="text-2xl font-bold text-[#17211C]">Clinical Log & Visit Record</h1>
+        <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">
           Document recorded vitals, tasks completed, and observations for <strong>{elder?.name}</strong>
         </p>
       </div>
 
       {submitted ? (
-        <div className="p-8 sm:p-12 rounded-3xl bg-white border border-slate-200 text-center space-y-4 shadow-xl">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+        <div className="relative art-card p-8 sm:p-12 text-center space-y-4 shadow-xl">
+          <OrnateCorner position="top-left" color="#CFB53B" size={36} />
+          <OrnateCorner position="top-right" color="#CFB53B" size={36} />
+
+          <div className="w-16 h-16 rounded-full bg-[#808000]/15 text-[#808000] border-2 border-[#808000] flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900">Report Successfully Submitted!</h2>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-            Your detailed visit report and vital readings have been saved and delivered directly to the family portal.
+          <h2 className="text-2xl font-bold text-[#17211C]">Report Successfully Submitted!</h2>
+          <p className="text-xs sm:text-sm text-[#17211C]/75 max-w-md mx-auto font-sans">
+            Your detailed visit report and vital readings have been saved to the permanent clinical record and dispatched to the family portal.
           </p>
           <button
             onClick={() => setSubmitted(false)}
-            className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
+            className="art-btn-primary px-6 py-2.5 text-xs shadow-md"
           >
             Edit or Submit Another Log
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmitReport} className="space-y-6 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+        <form onSubmit={handleSubmitReport} className="space-y-6 art-card p-6 sm:p-8">
           {/* Vitals Recording Section */}
           <div className="space-y-4">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-emerald-600" />
+            <h3 className="text-base font-bold text-[#17211C] flex items-center gap-2 border-b border-[#CFB53B]/30 pb-2">
+              <Activity className="w-5 h-5 text-[#008080]" />
               1. Record Vital Signs Taken During Visit
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Blood Pressure (mmHg)</label>
+                <label className="text-xs font-bold text-[#17211C] block mb-1 font-sans">Blood Pressure (mmHg)</label>
                 <input
                   type="text"
                   required
                   value={bp}
                   onChange={(e) => setBp(e.target.value)}
                   placeholder="120/80"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="art-input w-full font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Resting Pulse (bpm)</label>
+                <label className="text-xs font-bold text-[#17211C] block mb-1 font-sans">Resting Pulse (BPM)</label>
                 <input
                   type="number"
                   required
                   value={pulse}
                   onChange={(e) => setPulse(e.target.value)}
                   placeholder="72"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="art-input w-full font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Oxygen SpO2 (%)</label>
+                <label className="text-xs font-bold text-[#17211C] block mb-1 font-sans">Oxygen SpO2 (%)</label>
                 <input
                   type="number"
                   required
                   value={spo2}
                   onChange={(e) => setSpo2(e.target.value)}
                   placeholder="98"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="art-input w-full font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="text-xs font-bold text-slate-700 block mb-1">Blood Sugar (mg/dL)</label>
+                <label className="text-xs font-bold text-[#17211C] block mb-1 font-sans">Blood Glucose (mg/dL)</label>
                 <input
                   type="number"
                   required
                   value={glucose}
                   onChange={(e) => setGlucose(e.target.value)}
                   placeholder="110"
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="art-input w-full font-mono text-sm"
                 />
               </div>
             </div>
           </div>
 
-          {/* Observations */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <h3 className="text-base font-bold text-slate-900">2. Attendant Field Observations</h3>
+          {/* Observations and Notes */}
+          <div className="space-y-2">
+            <h3 className="text-base font-bold text-[#17211C] flex items-center gap-2 border-b border-[#CFB53B]/30 pb-2">
+              <FileText className="w-5 h-5 text-[#008080]" />
+              2. Observations & Wellness Summary
+            </h3>
             <textarea
               rows={4}
               required
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Record elder mood, hydration, appetite, and any physical complaints..."
-              className="w-full p-3.5 rounded-2xl border border-slate-200 text-xs sm:text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="art-input w-full font-sans text-sm"
+              placeholder="Record details of elder mood, dietary intake, mobility, and activities completed..."
             />
           </div>
 
-          {/* Photo Verification Upload */}
-          <div className="space-y-2 pt-2 border-t border-slate-100">
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Camera className="w-5 h-5 text-blue-600" />
-              3. Photo Verification (Medicine box / Exercise / Meal)
-            </h3>
-            <div className="p-4 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
-                  📷
-                </div>
-                <div>
-                  <p className="font-bold text-slate-800 text-xs">Dispenser_Box_Nov14.jpg</p>
-                  <p className="text-[10px] text-slate-400">Captured at 11:15 AM • 1.4 MB</p>
-                </div>
+          {/* Optional Photo Attachment */}
+          <div className="p-4 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/50 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-art bg-[#FFFFF0] border border-[#CFB53B]/60 flex items-center justify-center text-[#008080]">
+                <Camera className="w-5 h-5" />
               </div>
-              <span className="text-xs font-bold text-emerald-600">Attached ✓</span>
+              <div>
+                <p className="text-xs font-bold text-[#17211C]">Prescription Dispenser Verification Photo</p>
+                <p className="text-[11px] text-[#808000] font-semibold font-sans">✓ Verified timestamped photo attached</p>
+              </div>
             </div>
+            <span className="text-xs font-bold text-[#008080] font-mono">IMG_7402.JPG</span>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition-all"
-          >
-            <Send className="w-4 h-4" />
-            Submit Final Visit Report & Notify Family
-          </button>
+          <div className="pt-2">
+            <button
+              type="submit"
+              className="art-btn-primary w-full py-3.5 flex items-center justify-center gap-2 text-sm shadow-md"
+            >
+              <Send className="w-4 h-4 text-[#CFB53B]" /> Dispatch Visit Report to Family
+            </button>
+          </div>
         </form>
       )}
     </div>

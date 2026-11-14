@@ -13,7 +13,6 @@ import {
 import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ElderSosPage: React.FC = () => {
   const { speak } = useAccessibility();
@@ -90,8 +89,8 @@ export const ElderSosPage: React.FC = () => {
       {isTriggered ? (
         /* Emergency Confirmed State */
         <div className="relative p-8 sm:p-12 rounded-art bg-gradient-to-b from-[#800020] to-[#5C0017] text-[#FFFFF0] shadow-2xl border-2 border-[#CFB53B] space-y-6">
-          <OrnateCorner position="top-left" color="#CFB53B" size={48} />
-          <OrnateCorner position="top-right" color="#CFB53B" size={48} />
+          
+          
 
           <div className="w-24 h-24 rounded-full bg-[#FFFFF0] text-[#800020] border-4 border-[#CFB53B] flex items-center justify-center mx-auto shadow-xl">
             <Siren className="w-12 h-12 text-[#800020] animate-bounce" />
@@ -135,8 +134,8 @@ export const ElderSosPage: React.FC = () => {
       ) : countdown !== null ? (
         /* Countdown in progress (5 seconds to cancel) */
         <div className="relative p-8 sm:p-12 rounded-art bg-gradient-to-b from-[#CFB53B] to-[#B89B2B] text-[#17211C] shadow-2xl border-2 border-[#800020] space-y-6 animate-pulse">
-          <OrnateCorner position="top-left" color="#800020" size={40} />
-          <OrnateCorner position="top-right" color="#800020" size={40} />
+          
+          
 
           <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-wide">DISPATCHING SOS SANCTUARY IN...</h2>
           <div className="w-28 h-28 rounded-full bg-[#17211C] text-[#FFFFF0] text-6xl font-bold flex items-center justify-center mx-auto shadow-2xl border-4 border-[#FFFFF0] font-mono">
@@ -159,8 +158,8 @@ export const ElderSosPage: React.FC = () => {
       ) : (
         /* Default SOS Button */
         <div className="relative art-card p-8 sm:p-14 space-y-8">
-          <OrnateCorner position="top-left" color="#CFB53B" size={44} />
-          <OrnateCorner position="top-right" color="#CFB53B" size={44} />
+          
+          
 
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#008080]">Instant Telemetry Beacon</span>
@@ -170,7 +169,7 @@ export const ElderSosPage: React.FC = () => {
             </p>
           </div>
 
-          <WhiplashDivider color="#CFB53B" className="max-w-xs mx-auto" />
+          <div className="w-full max-w-xs mx-auto my-4 border-t border-[#CFB53B]/25" />
 
           <div className="py-4">
             <button

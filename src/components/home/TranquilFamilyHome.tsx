@@ -439,7 +439,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             {/* RIGHT 4 COLUMNS: Feature Banner & Local Care Contact */}
             <div className="lg:col-span-4 space-y-6">
               
-              {/* ============ 4. ART NOUVEAU HIGHLIGHT BANNER ============ */}
+              {/* ============ 4. CARE HIGHLIGHT BANNER ============ */}
               <div className="bg-gradient-to-br from-[#FFFDD0] to-[#E0B0FF]/25 rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/60 text-[#17211C] relative overflow-hidden space-y-5">
                 
 

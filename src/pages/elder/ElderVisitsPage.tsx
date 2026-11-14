@@ -2,7 +2,6 @@ import React from 'react';
 import { Calendar, PhoneCall, CheckCircle2, Volume2, Clock, ShieldCheck } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ElderVisitsPage: React.FC = () => {
   const { speak } = useAccessibility();
@@ -28,8 +27,8 @@ export const ElderVisitsPage: React.FC = () => {
 
       {todayVisit ? (
         <div className="relative art-card p-8 space-y-6">
-          <OrnateCorner position="top-left" color="#CFB53B" size={36} />
-          <OrnateCorner position="top-right" color="#CFB53B" size={36} />
+          
+          
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-[#CFB53B]/30">
             <div className="flex items-center gap-5">
