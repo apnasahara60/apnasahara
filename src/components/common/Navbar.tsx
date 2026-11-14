@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   Heart,
   Shield,
@@ -11,12 +11,38 @@ import {
   PhoneCall,
   Eye,
   Type,
-  CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  LayoutDashboard,
+  Activity,
+  MapPin,
+  Car,
+  Pill,
+  Calendar,
+  ClipboardList,
+  CreditCard,
+  CalendarCheck,
+  CheckSquare,
+  Navigation,
+  FileText,
+  Clock,
+  Users,
+  ShieldCheck,
+  BarChart3,
+  Settings,
+  HelpCircle,
+  Home,
+  ChevronDown
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
+
+interface NavItem {
+  to: string;
+  label: string;
+  end?: boolean;
+  icon?: React.ReactNode;
+}
 
 export const Navbar: React.FC = () => {
   const { user, role, logout } = useAuth();
@@ -25,6 +51,7 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showAccessMenu, setShowAccessMenu] = useState(false);
+  const [showPortalDropdown, setShowPortalDropdown] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,93 +61,185 @@ export const Navbar: React.FC = () => {
     setMobileMenuOpen(false);
   };
 
-  const getPortalLink = () => {
-    switch (role) {
-      case 'elder':
-        return '/parent';
+  // Determine current active section
+  const currentPath = location.pathname;
+  let activeSection: 'public' | 'family' | 'elder' | 'caregiver' | 'admin' = 'public';
+
+  if (currentPath.startsWith('/family')) {
+    activeSection = 'family';
+  } else if (currentPath.startsWith('/parent')) {
+    activeSection = 'elder';
+  } else if (currentPath.startsWith('/caregiver')) {
+    activeSection = 'caregiver';
+  } else if (currentPath.startsWith('/admin')) {
+    activeSection = 'admin';
+  } else if (user) {
+    if (role === 'elder') activeSection = 'elder';
+    else if (role === 'caregiver') activeSection = 'caregiver';
+    else if (role === 'admin') activeSection = 'admin';
+    else activeSection = 'family';
+  }
+
+  // Navigation Links for all sections
+  const publicLinks: NavItem[] = [
+    { to: '/', end: true, label: 'Home' },
+    { to: '/about', label: 'About Us' },
+    { to: '/services', label: 'Services' },
+    { to: '/how-it-works', label: 'How It Works' },
+    { to: '/pricing', label: 'Pricing' },
+    { to: '/contact', label: 'Contact' }
+  ];
+
+  const familyLinks: NavItem[] = [
+    { to: '/family', end: true, icon: <LayoutDashboard className="w-4 h-4" />, label: 'Dashboard' },
+    { to: '/family/health', icon: <Activity className="w-4 h-4" />, label: 'Health' },
+    { to: '/family/location', icon: <MapPin className="w-4 h-4" />, label: 'Live Location' },
+    { to: '/family/caregiver', icon: <Car className="w-4 h-4" />, label: 'Caregiver' },
+    { to: '/family/sos', icon: <AlertTriangle className="w-4 h-4 text-red-500" />, label: 'SOS Alert' },
+    { to: '/family/medications', icon: <Pill className="w-4 h-4" />, label: 'Medications' },
+    { to: '/family/appointments', icon: <Calendar className="w-4 h-4" />, label: 'Appointments' },
+    { to: '/family/visits', icon: <ClipboardList className="w-4 h-4" />, label: 'Visit Reports' },
+    { to: '/family/subscription', icon: <CreditCard className="w-4 h-4" />, label: 'Subscription' }
+  ];
+
+  const caregiverLinks: NavItem[] = [
+    { to: '/caregiver', end: true, icon: <LayoutDashboard className="w-4 h-4" />, label: 'Dashboard' },
+    { to: '/caregiver/visits', icon: <CalendarCheck className="w-4 h-4" />, label: 'Assigned Visits' },
+    { to: '/caregiver/tasks', icon: <CheckSquare className="w-4 h-4" />, label: 'Tasks' },
+    { to: '/caregiver/navigation', icon: <Navigation className="w-4 h-4" />, label: 'GPS Navigation' },
+    { to: '/caregiver/documentation', icon: <FileText className="w-4 h-4" />, label: 'Documentation' },
+    { to: '/caregiver/availability', icon: <Clock className="w-4 h-4" />, label: 'Availability' }
+  ];
+
+  const adminLinks: NavItem[] = [
+    { to: '/admin', end: true, icon: <LayoutDashboard className="w-4 h-4" />, label: 'Overview' },
+    { to: '/admin/users', icon: <Users className="w-4 h-4" />, label: 'Users' },
+    { to: '/admin/verification', icon: <ShieldCheck className="w-4 h-4" />, label: 'Verification' },
+    { to: '/admin/emergencies', icon: <AlertTriangle className="w-4 h-4 text-red-500" />, label: 'SOS Alerts' },
+    { to: '/admin/subscriptions', icon: <CreditCard className="w-4 h-4" />, label: 'Revenue' },
+    { to: '/admin/analytics', icon: <BarChart3 className="w-4 h-4" />, label: 'Analytics' },
+    { to: '/admin/config', icon: <Settings className="w-4 h-4" />, label: 'Config' }
+  ];
+
+  const elderLinks: NavItem[] = [
+    { to: '/parent', end: true, icon: <Home className="w-4 h-4" />, label: 'Home' },
+    { to: '/parent/sos', icon: <AlertTriangle className="w-4 h-4 text-red-500" />, label: 'Emergency SOS' },
+    { to: '/parent/meds', icon: <Pill className="w-4 h-4 text-amber-500" />, label: 'Medicines' },
+    { to: '/parent/vitals', icon: <Activity className="w-4 h-4 text-emerald-500" />, label: 'Health' },
+    { to: '/parent/visits', icon: <Calendar className="w-4 h-4 text-blue-500" />, label: 'Visits' },
+    { to: '/parent/contacts', icon: <PhoneCall className="w-4 h-4 text-indigo-500" />, label: 'Call Family' },
+    { to: '/parent/help', icon: <HelpCircle className="w-4 h-4 text-teal-500" />, label: 'Ask Help' }
+  ];
+
+  const getActiveLinks = (): NavItem[] => {
+    switch (activeSection) {
+      case 'family':
+        return familyLinks;
       case 'caregiver':
-        return '/caregiver';
+        return caregiverLinks;
       case 'admin':
-        return '/admin';
+        return adminLinks;
+      case 'elder':
+        return elderLinks;
       default:
-        return '/family';
+        return publicLinks;
     }
   };
 
-  const getRoleBadge = () => {
-    switch (role) {
-      case 'elder':
-        return { label: 'Elderly Parent Portal', bg: 'bg-amber-100 text-amber-800 border-amber-300' };
+  const currentLinks = getActiveLinks();
+
+  const getPortalInfo = () => {
+    switch (activeSection) {
+      case 'family':
+        return { label: 'Family Portal', bg: 'bg-emerald-50 text-emerald-800 border-emerald-300', activePill: 'bg-emerald-600 text-white shadow-sm' };
       case 'caregiver':
-        return { label: 'Caregiver Portal', bg: 'bg-blue-100 text-blue-800 border-blue-300' };
+        return { label: 'Caregiver Portal', bg: 'bg-blue-50 text-blue-800 border-blue-300', activePill: 'bg-blue-600 text-white shadow-sm' };
       case 'admin':
-        return { label: 'Admin Portal', bg: 'bg-purple-100 text-purple-800 border-purple-300' };
+        return { label: 'Admin Portal', bg: 'bg-purple-50 text-purple-800 border-purple-300', activePill: 'bg-purple-600 text-white shadow-sm' };
+      case 'elder':
+        return { label: 'Elder Portal', bg: 'bg-amber-50 text-amber-900 border-amber-300', activePill: 'bg-amber-500 text-slate-950 shadow-sm' };
       default:
-        return { label: 'Family Portal', bg: 'bg-emerald-100 text-emerald-800 border-emerald-300' };
+        return { label: 'Public Portal', bg: 'bg-slate-100 text-slate-800 border-slate-300', activePill: 'bg-brand-600 text-white shadow-sm' };
     }
   };
 
-  const badge = getRoleBadge();
+  const portalInfo = getPortalInfo();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+      {/* Primary Top Header Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo & Brand */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <img
-              src="/logo.png"
-              alt="ApnaSahara"
-              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
-            />
-            <div className="hidden sm:block">
-              <span className="text-[10px] uppercase font-bold tracking-widest bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
-                Care, Close to Home
-              </span>
+          {/* Brand & Logo */}
+          <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 group">
+              <img
+                src="/logo.png"
+                alt="ApnaSahara"
+                className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              />
+              <div className="hidden sm:block">
+                <span className="text-[10px] uppercase font-bold tracking-widest bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
+                  Care, Close to Home
+                </span>
+              </div>
+            </Link>
+
+            {/* Portal Switcher Dropdown */}
+            <div className="relative ml-2">
+              <button
+                onClick={() => setShowPortalDropdown(!showPortalDropdown)}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors ${portalInfo.bg}`}
+              >
+                <span>{portalInfo.label}</span>
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+
+              {showPortalDropdown && (
+                <div
+                  className="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-in fade-in slide-in-from-top-2"
+                  onClick={() => setShowPortalDropdown(false)}
+                >
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1">
+                    Select Navigation Menu
+                  </p>
+                  <Link
+                    to="/family"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-emerald-800 hover:bg-emerald-50 transition-colors"
+                  >
+                    👨‍👩‍👧 Family Portal
+                  </Link>
+                  <Link
+                    to="/parent"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-amber-900 hover:bg-amber-50 transition-colors"
+                  >
+                    👴 Elder Portal
+                  </Link>
+                  <Link
+                    to="/caregiver"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-blue-800 hover:bg-blue-50 transition-colors"
+                  >
+                    🩺 Caregiver Portal
+                  </Link>
+                  <Link
+                    to="/admin"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-purple-800 hover:bg-purple-50 transition-colors"
+                  >
+                    🛡️ Admin Portal
+                  </Link>
+                  <div className="border-t border-slate-100 my-1" />
+                  <Link
+                    to="/"
+                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                  >
+                    🌐 Public Website
+                  </Link>
+                </div>
+              )}
             </div>
-          </Link>
+          </div>
 
-          {/* Desktop Public Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600">
-            <Link
-              to="/"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/' ? 'text-brand-600' : ''}`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/about' ? 'text-brand-600' : ''}`}
-            >
-              About Us
-            </Link>
-            <Link
-              to="/services"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/services' ? 'text-brand-600' : ''}`}
-            >
-              Services
-            </Link>
-            <Link
-              to="/how-it-works"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/how-it-works' ? 'text-brand-600' : ''}`}
-            >
-              How It Works
-            </Link>
-            <Link
-              to="/pricing"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/pricing' ? 'text-brand-600' : ''}`}
-            >
-              Pricing
-            </Link>
-            <Link
-              to="/contact"
-              className={`hover:text-brand-600 transition-colors ${location.pathname === '/contact' ? 'text-brand-600' : ''}`}
-            >
-              Contact
-            </Link>
-          </nav>
-
-          {/* Action Area: Accessibility, Notifications, Role Portal Shortcut */}
+          {/* Action Area */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Accessibility Settings Toggle Button */}
             <div className="relative">
@@ -254,43 +373,36 @@ export const Navbar: React.FC = () => {
               </div>
             )}
 
-            {/* User Logged in Portal shortcut or Login button */}
+            {/* User Profile / Logout or Sign In */}
             {user ? (
-              <div className="flex items-center gap-2">
-                <Link
-                  to={getPortalLink()}
-                  className={`hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-colors ${badge.bg}`}
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+                <img
+                  src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                  alt={user.name}
+                  className="w-8 h-8 rounded-full object-cover border border-slate-200"
+                />
+                <span className="hidden md:inline text-xs font-bold text-slate-700 max-w-[100px] truncate">
+                  {user.name.split(' ')[0]}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  title="Sign Out"
                 >
-                  <Shield className="w-3.5 h-3.5" />
-                  {badge.label}
-                </Link>
-
-                <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200">
-                  <img
-                    src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full object-cover border border-slate-200"
-                  />
-                  <button
-                    onClick={handleLogout}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
-                    title="Sign Out"
-                  >
-                    <LogOut className="w-4 h-4" />
-                  </button>
-                </div>
+                  <LogOut className="w-4 h-4" />
+                </button>
               </div>
             ) : (
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3.5 py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-600"
+                  className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-600"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 text-xs sm:text-sm font-bold text-white bg-brand-600 hover:bg-brand-500 rounded-xl shadow-md shadow-brand-500/20 transition-all hover:shadow-lg"
+                  className="px-3.5 py-1.5 text-xs sm:text-sm font-bold text-white bg-brand-600 hover:bg-brand-500 rounded-xl shadow-sm transition-all"
                 >
                   Join Sahara
                 </Link>
@@ -309,74 +421,58 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top-2">
-          {user && (
-            <div className="p-3 mb-2 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between">
-              <div>
-                <p className="text-xs text-slate-500">Logged in as:</p>
-                <p className="font-bold text-slate-800 text-sm">{user.name}</p>
-                <span className={`inline-block mt-1 text-[11px] font-semibold px-2 py-0.5 rounded border ${badge.bg}`}>
-                  {badge.label}
-                </span>
-              </div>
-              <Link
-                to={getPortalLink()}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-1.5 rounded-lg bg-brand-600 text-white font-bold text-xs"
-              >
-                Go to Portal
-              </Link>
-            </div>
-          )}
+      {/* Horizontal Navbar Menus Row (No Sidebar - All Menus in Top Nav) */}
+      <nav className="bg-slate-50/90 border-t border-slate-200/80 px-4 sm:px-6 lg:px-8 py-2 overflow-x-auto select-none scrollbar-none">
+        <div className="max-w-7xl mx-auto flex items-center gap-1.5 min-w-max">
+          {currentLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              end={link.end}
+              className={({ isActive }) =>
+                `flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap ${
+                  isActive
+                    ? portalInfo.activePill
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                }`
+              }
+            >
+              {link.icon && <span className="shrink-0">{link.icon}</span>}
+              <span>{link.label}</span>
+            </NavLink>
+          ))}
+        </div>
+      </nav>
 
-          <Link
-            to="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Home
-          </Link>
-          <Link
-            to="/about"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            About Us
-          </Link>
-          <Link
-            to="/services"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Services
-          </Link>
-          <Link
-            to="/how-it-works"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            How It Works
-          </Link>
-          <Link
-            to="/pricing"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Pricing
-          </Link>
-          <Link
-            to="/contact"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block px-3 py-2 rounded-lg font-medium text-slate-700 hover:bg-slate-50"
-          >
-            Contact
-          </Link>
+      {/* Mobile Drawer (Accessible from top hamburger button) */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top-2 shadow-xl">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2">
+            {portalInfo.label} Menu
+          </p>
+
+          <div className="space-y-1">
+            {currentLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                onClick={() => setMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors ${
+                    isActive ? portalInfo.activePill : 'text-slate-700 hover:bg-slate-100'
+                  }`
+                }
+              >
+                {link.icon && <span className="shrink-0">{link.icon}</span>}
+                <span>{link.label}</span>
+              </NavLink>
+            ))}
+          </div>
 
           {/* Quick Portals Links on Mobile */}
           <div className="pt-3 border-t border-slate-200">
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider px-3 mb-2">Switch Dedicated Portals</p>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">Switch Portal</p>
             <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <Link to="/family" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-center">
                 👨‍👩‍👧 Family Portal
@@ -389,6 +485,11 @@ export const Navbar: React.FC = () => {
               </Link>
               <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-purple-50 text-purple-800 border border-purple-200 text-center">
                 🛡️ Admin Portal
+              </Link>
+            </div>
+            <div className="mt-2 text-center">
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold text-slate-600 hover:underline">
+                🌐 Back to Public Website
               </Link>
             </div>
           </div>

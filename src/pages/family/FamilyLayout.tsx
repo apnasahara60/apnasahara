@@ -1,65 +1,46 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet, Link } from 'react-router-dom';
-import {
-  LayoutDashboard,
-  Activity,
-  MapPin,
-  Car,
-  AlertTriangle,
-  Pill,
-  Calendar,
-  ClipboardList,
-  CreditCard,
-  ChevronLeft,
-  ChevronRight,
-  Shield,
-  PhoneCall,
-  Menu,
-  Heart
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Outlet, Link } from 'react-router-dom';
+import { AlertTriangle, UserPlus } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { dbStore } from '../../lib/supabase';
 
 export const FamilyLayout: React.FC = () => {
   const { user } = useAuth();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const elders = dbStore.getElders();
-  const [selectedElderId, setSelectedElderId] = useState(elders[0]?.id || 'elder-1');
+  const [elders, setElders] = useState(dbStore.getElders());
+  const userElder = elders.find((e) => e.family_user_id === user?.id);
+  const [selectedElderId, setSelectedElderId] = useState(userElder?.id || elders[0]?.id || 'elder-1');
 
-  const navLinks = [
-    { to: '/family', end: true, icon: <LayoutDashboard className="w-5 h-5" />, label: 'Family Dashboard' },
-    { to: '/family/health', icon: <Activity className="w-5 h-5" />, label: 'Health Monitoring' },
-    { to: '/family/location', icon: <MapPin className="w-5 h-5" />, label: 'Live Location Radar' },
-    { to: '/family/caregiver', icon: <Car className="w-5 h-5" />, label: 'Caregiver Tracking' },
-    { to: '/family/sos', icon: <AlertTriangle className="w-5 h-5 text-red-500" />, label: 'Emergency SOS' },
-    { to: '/family/medications', icon: <Pill className="w-5 h-5" />, label: 'Medications' },
-    { to: '/family/appointments', icon: <Calendar className="w-5 h-5" />, label: 'Appointments' },
-    { to: '/family/visits', icon: <ClipboardList className="w-5 h-5" />, label: 'Visit Reports' },
-    { to: '/family/subscription', icon: <CreditCard className="w-5 h-5" />, label: 'Subscription Plan' },
-  ];
+  useEffect(() => {
+    const updateElders = () => {
+      const list = dbStore.getElders();
+      setElders(list);
+      const uElder = list.find((e) => e.family_user_id === user?.id);
+      if (uElder) {
+        setSelectedElderId(uElder.id);
+      }
+    };
+    updateElders();
+    window.addEventListener('apnasahara_datachange', updateElders);
+    return () => window.removeEventListener('apnasahara_datachange', updateElders);
+  }, [user]);
 
-  const selectedElder = elders.find(e => e.id === selectedElderId) || elders[0];
+  const selectedElder = elders.find((e) => e.id === selectedElderId) || userElder || elders[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Desktop Sidebar */}
-      <aside
-        className={`hidden lg:flex flex-col border-r border-slate-200 bg-white transition-all duration-300 select-none ${
-          sidebarCollapsed ? 'w-20' : 'w-72'
-        }`}
-      >
-        {/* Sidebar Header: Elder Selector */}
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-          {!sidebarCollapsed ? (
-            <div className="flex-1">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-                Monitored Parent
+    <div className="min-h-screen bg-slate-50 flex flex-col w-full">
+      {/* Top Elder Context Banner */}
+      <div className="bg-white border-b border-slate-200 px-4 sm:px-6 lg:px-8 py-2.5">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="text-xl">👴</span>
+            <div className="flex items-center gap-2">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider hidden sm:inline">
+                Monitored Parent:
               </label>
               <select
                 value={selectedElderId}
                 onChange={(e) => setSelectedElderId(e.target.value)}
-                className="w-full text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl p-2 text-slate-800 focus:outline-none focus:ring-1 focus:ring-brand-500 cursor-pointer"
+                className="text-xs sm:text-sm font-bold bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded-xl px-3 py-1.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer transition-colors"
               >
                 {elders.map((elder) => (
                   <option key={elder.id} value={elder.id}>
@@ -68,100 +49,28 @@ export const FamilyLayout: React.FC = () => {
                 ))}
               </select>
             </div>
-          ) : (
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold mx-auto">
-              👴
-            </div>
-          )}
+          </div>
 
-          <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 ml-2"
-            title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {sidebarCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-          </button>
-        </div>
-
-        {/* Navigation list */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              end={link.end}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition-all ${
-                  isActive
-                    ? 'bg-emerald-50 text-emerald-800 shadow-sm font-bold border border-emerald-200'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                }`
-              }
-            >
-              <div className="shrink-0">{link.icon}</div>
-              {!sidebarCollapsed && <span className="truncate">{link.label}</span>}
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* SOS Rapid dispatch shortcut at sidebar bottom */}
-        {!sidebarCollapsed && (
-          <div className="p-4 border-t border-slate-100">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Live Telemetry Connected
+            </span>
             <Link
               to="/family/sos"
-              className="w-full py-3 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold flex items-center justify-center gap-2 transition-colors"
+              className="py-1 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-bold flex items-center gap-1.5 transition-colors"
             >
-              <AlertTriangle className="w-4 h-4 text-red-600 animate-pulse" />
-              Emergency SOS Room
+              <AlertTriangle className="w-3.5 h-3.5 text-red-600 animate-pulse" />
+              Emergency SOS
             </Link>
           </div>
-        )}
-      </aside>
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Mobile Top Sub-bar */}
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-2 rounded-xl text-slate-600 hover:bg-slate-50 flex items-center gap-2 text-xs font-bold"
-          >
-            <Menu className="w-5 h-5 text-emerald-700" />
-            Family Navigation
-          </button>
-
-          <span className="text-xs font-bold text-slate-700">
-            👴 {selectedElder?.name}
-          </span>
         </div>
-
-        {/* Mobile Nav Drawer */}
-        {mobileOpen && (
-          <div className="lg:hidden bg-white border-b border-slate-200 p-4 space-y-1 animate-in slide-in-from-top-2 shadow-lg">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.end}
-                onClick={() => setMobileOpen(false)}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold ${
-                    isActive ? 'bg-emerald-50 text-emerald-800 font-bold' : 'text-slate-600'
-                  }`
-                }
-              >
-                {link.icon}
-                <span>{link.label}</span>
-              </NavLink>
-            ))}
-          </div>
-        )}
-
-        {/* Child Page Outlet */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
-          <Outlet context={{ selectedElder }} />
-        </main>
       </div>
+
+      {/* Main Content Area - Full Width (No sidebar) */}
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        <Outlet context={{ selectedElder }} />
+      </main>
     </div>
   );
 };

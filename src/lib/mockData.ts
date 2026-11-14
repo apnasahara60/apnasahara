@@ -20,6 +20,7 @@ export const INITIAL_USERS: UserProfile[] = [
     role: 'family',
     phone: '+91 98765 43210',
     avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80',
+    is_onboarded: true,
     created_at: '2026-01-15T09:00:00Z'
   },
   {
@@ -29,6 +30,7 @@ export const INITIAL_USERS: UserProfile[] = [
     role: 'elder',
     phone: '+91 98111 22334',
     avatar_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=256&q=80',
+    is_onboarded: true,
     created_at: '2026-01-15T09:30:00Z'
   },
   {
@@ -38,6 +40,7 @@ export const INITIAL_USERS: UserProfile[] = [
     role: 'caregiver',
     phone: '+91 97222 33445',
     avatar_url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80',
+    is_onboarded: true,
     created_at: '2026-01-10T11:00:00Z'
   },
   {
@@ -47,6 +50,7 @@ export const INITIAL_USERS: UserProfile[] = [
     role: 'admin',
     phone: '+91 99999 88888',
     avatar_url: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=256&q=80',
+    is_onboarded: true,
     created_at: '2025-11-01T08:00:00Z'
   }
 ];

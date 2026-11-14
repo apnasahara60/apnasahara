@@ -24,9 +24,8 @@ export const RegisterPage: React.FC = () => {
     setIsLoading(false);
 
     if (res.success) {
-      if (role === 'elder') navigate('/parent');
-      else if (role === 'caregiver') navigate('/caregiver');
-      else navigate('/family');
+      // Direct newly registered user to input their custom details
+      navigate('/onboarding');
     } else {
       setError(res.error || 'Registration failed');
     }

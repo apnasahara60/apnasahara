@@ -91,6 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name: email.split('@')[0].toUpperCase(),
           role: 'family',
           phone: '+91 98000 00000',
+          is_onboarded: false,
           avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'
         };
         dbStore.saveUser(newUser);
@@ -125,6 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         name,
         role,
         phone,
+        is_onboarded: false,
         avatar_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'
       };
       dbStore.saveUser(newUser);

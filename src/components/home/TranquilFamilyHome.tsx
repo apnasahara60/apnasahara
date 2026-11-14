@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Bell,
@@ -49,14 +49,35 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
   const [visitType, setVisitType] = useState('Friendly Companionship');
   const [visitDate, setVisitDate] = useState('Tomorrow, 10:00 AM');
   const [taskDetail, setTaskDetail] = useState('');
-  const [cityPair, setCityPair] = useState('Bengaluru ↔ Indore');
 
-  const elders = dbStore.getElders();
-  const elder = elders[0] || {
+  const [elders, setElders] = useState(dbStore.getElders());
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      setElders(dbStore.getElders());
+    };
+    window.addEventListener('apnasahara_datachange', handleUpdate);
+    return () => window.removeEventListener('apnasahara_datachange', handleUpdate);
+  }, []);
+
+  const userElder = elders.find(e => e.family_user_id === user?.id);
+  const elder = userElder || elders[0] || {
     name: 'Rajesh Sharma',
+    relationship: 'Dad',
     city: 'Indore, Madhya Pradesh',
-    phone: '+91 98111 22334'
+    phone: '+91 98111 22334',
+    gender: 'Male' as const
   };
+
+  const relationshipTitle = elder.relationship || (elder.gender === 'Female' ? 'Mom' : 'Dad');
+  const userCity = user?.city || 'Bengaluru';
+  const parentCityShort = elder.city?.split(',')[0]?.trim() || 'Indore';
+  const dynamicCityPair = `${userCity} ↔ ${parentCityShort}`;
+  const [cityPair, setCityPair] = useState(dynamicCityPair);
+
+  useEffect(() => {
+    setCityPair(dynamicCityPair);
+  }, [dynamicCityPair]);
 
   const handleRequestVisitSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,13 +88,13 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
   const handleRequestTaskSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowTaskModal(false);
-    showToast('Task Assistance Logged', `Local Indore care team has received: "${taskDetail || 'Errands & essentials'}"`, 'info');
+    showToast('Task Assistance Logged', `Local ${parentCityShort} care team has received: "${taskDetail || 'Errands & essentials'}"`, 'info');
     setTaskDetail('');
   };
 
   const handleSimulateCall = () => {
     setShowCallModal(false);
-    showToast('Call Connected', `Calling Dad (${elder.name})... Check-in logged.`, 'health');
+    showToast('Call Connected', `Calling ${relationshipTitle} (${elder.name})... Check-in logged.`, 'health');
     window.open(`tel:${elder.phone || '+919811122334'}`, '_self');
   };
 
@@ -264,14 +285,14 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                   <div className="flex items-center gap-4">
                     {/* Illustrated Senior Avatar */}
                     <div className="w-14 h-14 rounded-full bg-[#F4EDE2] border-2 border-white shadow-xs flex items-center justify-center text-2xl shrink-0 overflow-hidden">
-                      👴🏼
+                      {elder.gender === 'Female' ? '👵🏼' : '👴🏼'}
                     </div>
                     <div>
                       <h4 className="text-lg font-extrabold text-[#1A2E22]">
-                        Rajesh Sharma
+                        {elder.name}
                       </h4>
                       <p className="text-xs text-[#63796C] font-medium">
-                        Dad · Indore, Madhya Pradesh
+                        {relationshipTitle} · {elder.city}
                       </p>
                     </div>
                   </div>
@@ -295,7 +316,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                   </div>
                   <div className="space-y-0.5">
                     <p className="text-base sm:text-lg font-extrabold text-[#1A2E22]">All good</p>
-                    <p className="text-[11px] text-[#697E71] font-medium">Dad's update</p>
+                    <p className="text-[11px] text-[#697E71] font-medium">{relationshipTitle}'s update</p>
                   </div>
                 </div>
 

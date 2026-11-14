@@ -105,11 +105,24 @@ export const dbStore = {
   },
   updateElder: (elder: ElderProfile) => {
     const elders = dbStore.getElders();
-    const idx = elders.findIndex(e => e.id === elder.id);
+    const idx = elders.findIndex(e => e.id === elder.id || (elder.family_user_id && e.family_user_id === elder.family_user_id));
     if (idx >= 0) {
       elders[idx] = { ...elders[idx], ...elder };
-      setStorage(STORAGE_KEYS.ELDERS, elders);
+    } else {
+      elders.push(elder);
     }
+    setStorage(STORAGE_KEYS.ELDERS, elders);
+  },
+  saveElder: (elder: ElderProfile): ElderProfile => {
+    const elders = dbStore.getElders();
+    const idx = elders.findIndex(e => e.id === elder.id || (elder.family_user_id && e.family_user_id === elder.family_user_id));
+    if (idx >= 0) {
+      elders[idx] = { ...elders[idx], ...elder };
+    } else {
+      elders.push(elder);
+    }
+    setStorage(STORAGE_KEYS.ELDERS, elders);
+    return elder;
   },
 
   // Caregivers
@@ -119,11 +132,24 @@ export const dbStore = {
   },
   updateCaregiver: (caregiver: CaregiverProfile) => {
     const list = dbStore.getCaregivers();
-    const idx = list.findIndex(c => c.id === caregiver.id);
+    const idx = list.findIndex(c => c.id === caregiver.id || (caregiver.user_id && c.user_id === caregiver.user_id));
     if (idx >= 0) {
       list[idx] = { ...list[idx], ...caregiver };
-      setStorage(STORAGE_KEYS.CAREGIVERS, list);
+    } else {
+      list.push(caregiver);
     }
+    setStorage(STORAGE_KEYS.CAREGIVERS, list);
+  },
+  saveCaregiver: (caregiver: CaregiverProfile): CaregiverProfile => {
+    const list = dbStore.getCaregivers();
+    const idx = list.findIndex(c => c.id === caregiver.id || (caregiver.user_id && c.user_id === caregiver.user_id));
+    if (idx >= 0) {
+      list[idx] = { ...list[idx], ...caregiver };
+    } else {
+      list.push(caregiver);
+    }
+    setStorage(STORAGE_KEYS.CAREGIVERS, list);
+    return caregiver;
   },
 
   // Health Metrics

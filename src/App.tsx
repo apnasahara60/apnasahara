@@ -22,6 +22,7 @@ import { ContactPage } from './pages/public/ContactPage';
 import { LoginPage } from './pages/public/LoginPage';
 import { RegisterPage } from './pages/public/RegisterPage';
 import { ForgotPasswordPage } from './pages/public/ForgotPasswordPage';
+import { OnboardingPage } from './pages/public/OnboardingPage';
 
 // Family Portal
 import { FamilyLayout } from './pages/family/FamilyLayout';
@@ -70,7 +71,7 @@ export function App() {
       <AuthProvider>
         <AccessibilityProvider>
           <NotificationProvider>
-            <div className="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-800">
+            <div className="min-h-[100dvh] flex flex-col bg-[#FFFFF0] text-[#17211C] font-serif">
               {/* Top Navigation & Offline Warning */}
               <Navbar />
               <OfflineBanner />
@@ -88,6 +89,7 @@ export function App() {
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                  <Route path="/onboarding" element={<OnboardingPage />} />
 
                   {/* Family Portal */}
                   <Route

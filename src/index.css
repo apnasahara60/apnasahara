@@ -3,9 +3,80 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply antialiased font-sans bg-slate-50 text-slate-800;
+  :root {
+    --color-primary: #008080;
+    --color-secondary: #CFB53B;
+    --color-tertiary: #E0B0FF;
+    --color-neutral: #FFFFF0;
+    --color-surface: #808000;
+    --color-accent: #800020;
+    --color-peacock: #005F9E;
+    --color-cream: #FFFDD0;
+    --color-charcoal: #17211C;
   }
+
+  body {
+    @apply antialiased bg-[#FFFFF0] text-[#17211C];
+    font-family: 'Quattrocento', Georgia, serif;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Quattrocento', Georgia, serif;
+    color: #17211C;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+  }
+}
+
+/* Art Nouveau Floral & Stained Glass Textures */
+.art-nouveau-pattern {
+  background-color: #FFFFF0;
+  background-image: 
+    radial-gradient(#CFB53B 0.75px, transparent 0.75px),
+    radial-gradient(#008080 0.5px, #FFFFF0 0.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.art-stained-glass {
+  background: linear-gradient(135deg, rgba(0, 128, 128, 0.05) 0%, rgba(207, 181, 59, 0.07) 50%, rgba(224, 176, 255, 0.08) 100%);
+}
+
+.art-card-border {
+  border: 1px solid rgba(207, 181, 59, 0.35);
+  box-shadow: 0 2px 12px rgba(23, 33, 28, 0.05);
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease-out, border-color 200ms ease;
+}
+
+.art-card-border:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(23, 33, 28, 0.1);
+  border-color: rgba(207, 181, 59, 0.75);
+}
+
+/* Whiplash Curve Borders */
+.whiplash-border {
+  position: relative;
+}
+
+.whiplash-border::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #CFB53B, #008080, #CFB53B, transparent);
+}
+
+/* Spring Animations */
+.spring-transition {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms ease;
 }
 
 /* Accessibility Modes */
@@ -22,33 +93,33 @@ body.high-contrast {
 }
 
 body.high-contrast * {
-  border-color: #0f172a !important;
+  border-color: #17211C !important;
 }
 
-/* Custom scrollbars */
+/* Custom scrollbars with Old Gold & Teal */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #FFFFF0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #CFB53B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #008080;
 }
 
 /* SOS Pulse animation */
 @keyframes sos-glow {
   0%, 100% {
-    box-shadow: 0 0 20px 6px rgba(239, 68, 68, 0.6), 0 0 60px 15px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 20px 6px rgba(128, 0, 32, 0.5), 0 0 60px 15px rgba(207, 181, 59, 0.25);
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 35px 12px rgba(239, 68, 68, 0.9), 0 0 90px 25px rgba(239, 68, 68, 0.5);
+    box-shadow: 0 0 35px 12px rgba(128, 0, 32, 0.8), 0 0 90px 25px rgba(207, 181, 59, 0.45);
     transform: scale(1.03);
   }
 }

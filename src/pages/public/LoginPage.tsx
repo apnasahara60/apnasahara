@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Heart, Lock, Mail, ArrowRight, Sparkles, Shield, UserCheck, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types';
+import { dbStore } from '../../lib/supabase';
 
 export const LoginPage: React.FC = () => {
   const { login, switchDemoRole } = useAuth();
@@ -24,6 +25,16 @@ export const LoginPage: React.FC = () => {
     setIsLoading(false);
 
     if (res.success) {
+      const saved = localStorage.getItem('apnasahara_current_session');
+      let sessionUser: any = null;
+      if (saved) {
+        try { sessionUser = JSON.parse(saved); } catch (e) {}
+      }
+      if (sessionUser && sessionUser.is_onboarded === false) {
+        navigate('/onboarding');
+        return;
+      }
+
       if (from) {
         navigate(from);
       } else {
@@ -41,6 +52,22 @@ export const LoginPage: React.FC = () => {
   const handleQuickDemoLogin = (role: UserRole, targetPath: string) => {
     switchDemoRole(role);
     navigate(targetPath);
+  };
+
+  const handleStartOnboardingDemo = () => {
+    // Switch to a new un-onboarded user for demonstration
+    const demoUser = {
+      id: `user-new-${Date.now()}`,
+      email: 'newfamily@apnasahara.com',
+      name: 'Ananya Sharma',
+      role: 'family' as UserRole,
+      phone: '+91 98765 00000',
+      is_onboarded: false,
+      city: 'Bengaluru'
+    };
+    dbStore.saveUser(demoUser);
+    localStorage.setItem('apnasahara_current_session', JSON.stringify(demoUser));
+    window.location.href = '/onboarding';
   };
 
   return (
@@ -110,6 +137,16 @@ export const LoginPage: React.FC = () => {
               <p className="text-[10px] text-slate-400 font-normal truncate mt-0.5">Dr. Ananya Roy</p>
             </button>
           </div>
+
+          {/* Direct link to test new user onboarding experience */}
+          <button
+            type="button"
+            onClick={handleStartOnboardingDemo}
+            className="w-full mt-2 p-2 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-800 text-xs font-bold border border-brand-200 transition-colors flex items-center justify-center gap-1.5"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+            <span>Test New User Onboarding Flow (Input Custom Family Data) →</span>
+          </button>
         </div>
 
         <div className="relative flex items-center justify-center">

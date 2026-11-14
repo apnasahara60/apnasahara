@@ -30,6 +30,11 @@ export const RoleProtectedRoute: React.FC<RoleProtectedRouteProps> = ({
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
+  // If user is logged in but hasn't entered their customized data yet, route to onboarding
+  if (user && user.is_onboarded === false && location.pathname !== '/onboarding') {
+    return <Navigate to="/onboarding" replace />;
+  }
+
   if (allowedRoles && role && !allowedRoles.includes(role)) {
     // If user's role doesn't match the required role for this portal route,
     // redirect to their corresponding home portal:

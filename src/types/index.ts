@@ -7,6 +7,8 @@ export interface UserProfile {
   role: UserRole;
   phone: string;
   avatar_url?: string;
+  city?: string;
+  is_onboarded?: boolean;
   created_at?: string;
 }
 
@@ -15,6 +17,7 @@ export interface ElderProfile {
   user_id?: string;
   family_user_id: string;
   name: string;
+  relationship?: string;
   age: number;
   gender: 'Male' | 'Female' | 'Other';
   blood_group: string;
