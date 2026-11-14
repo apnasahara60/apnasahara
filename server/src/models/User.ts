@@ -6,6 +6,8 @@ export interface IUser extends Document {
   passwordHash: string;
   role: 'family' | 'elder' | 'caregiver' | 'admin';
   phone: string;
+  city?: string;
+  isOnboarded?: boolean;
   avatarUrl?: string;
   createdAt: Date;
 }
@@ -16,6 +18,8 @@ const UserSchema = new Schema<IUser>({
   passwordHash: { type: String, required: true },
   role: { type: String, enum: ['family', 'elder', 'caregiver', 'admin'], default: 'family' },
   phone: { type: String, default: '' },
+  city: { type: String, default: '' },
+  isOnboarded: { type: Boolean, default: false },
   avatarUrl: { type: String },
   createdAt: { type: Date, default: Date.now }
 });

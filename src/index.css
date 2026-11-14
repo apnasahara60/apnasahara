@@ -79,6 +79,142 @@
   transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 200ms ease;
 }
 
+/* Global Art Nouveau Florido Component Classes */
+.art-card {
+  background-color: #FFFFF0;
+  border: 1px solid rgba(207, 181, 59, 0.4);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(23, 33, 28, 0.05);
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 200ms ease;
+}
+
+.art-card:hover {
+  box-shadow: 0 6px 20px rgba(23, 33, 28, 0.09);
+}
+
+.art-card-cream {
+  background-color: #FFFDD0;
+  border: 1px solid rgba(207, 181, 59, 0.45);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(23, 33, 28, 0.05);
+}
+
+.art-btn-primary {
+  background-color: #008080;
+  color: #FFFFF0;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.625rem 1.25rem;
+  transition: all 200ms ease;
+  box-shadow: 0 2px 8px rgba(0, 128, 128, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.art-btn-primary:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
+.art-btn-primary:active {
+  transform: translateY(1px);
+}
+
+.art-btn-secondary {
+  background-color: transparent;
+  color: #008080;
+  border: 1.5px solid #CFB53B;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.625rem 1.25rem;
+  transition: all 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.art-btn-secondary:hover {
+  background-color: rgba(0, 128, 128, 0.06);
+  border-color: #008080;
+}
+
+.art-btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.art-btn-danger {
+  background-color: #800020;
+  color: #FFFFF0;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 0.625rem 1.25rem;
+  transition: all 200ms ease;
+  box-shadow: 0 2px 10px rgba(128, 0, 32, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.art-btn-danger:hover {
+  filter: brightness(1.1);
+}
+
+.art-btn-danger:active {
+  transform: translateY(1px);
+}
+
+.art-input {
+  background-color: #FFFFF0;
+  border: 1px solid rgba(207, 181, 59, 0.5);
+  border-radius: 12px;
+  padding: 0.625rem 0.875rem;
+  color: #17211C;
+  font-size: 0.875rem;
+  transition: all 200ms ease;
+}
+
+.art-input:focus {
+  outline: none;
+  ring: 2px solid #008080;
+  box-shadow: 0 0 0 2px #008080;
+}
+
+.art-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #FFFFF0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(207, 181, 59, 0.35);
+}
+
+.art-table th {
+  background-color: #FFFDD0;
+  color: #008080;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(207, 181, 59, 0.35);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.art-table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(207, 181, 59, 0.2);
+  color: #17211C;
+  font-size: 0.875rem;
+}
+
+.art-table tr:hover td {
+  background-color: rgba(255, 253, 208, 0.4);
+}
+
 /* Accessibility Modes */
 body.text-large {
   font-size: 115% !important;

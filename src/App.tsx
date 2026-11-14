@@ -23,6 +23,7 @@ import { LoginPage } from './pages/public/LoginPage';
 import { RegisterPage } from './pages/public/RegisterPage';
 import { ForgotPasswordPage } from './pages/public/ForgotPasswordPage';
 import { OnboardingPage } from './pages/public/OnboardingPage';
+import { ProfilePage } from './pages/public/ProfilePage';
 
 // Family Portal
 import { FamilyLayout } from './pages/family/FamilyLayout';
@@ -90,6 +91,7 @@ export function App() {
                   <Route path="/register" element={<RegisterPage />} />
                   <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                   <Route path="/onboarding" element={<OnboardingPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
 
                   {/* Family Portal */}
                   <Route

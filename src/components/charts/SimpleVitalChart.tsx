@@ -97,18 +97,18 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
     : null;
 
   return (
-    <div className="w-full">
+    <div className="w-full font-serif">
       {title && (
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-bold text-slate-700">{title}</span>
-          <div className="flex items-center gap-3 text-[11px] text-slate-500">
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" />
+          <span className="text-xs font-bold text-[#17211C]">{title}</span>
+          <div className="flex items-center gap-3 text-[11px] text-[#17211C]/70">
+            <span className="flex items-center gap-1 font-medium">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#008080] inline-block shadow-xs" />
               {primaryLabel}
             </span>
             {secondaryLabel && (
-              <span className="flex items-center gap-1">
-                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block" />
+              <span className="flex items-center gap-1 font-medium">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#005F9E] inline-block shadow-xs" />
                 {secondaryLabel}
               </span>
             )}
@@ -118,37 +118,37 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
 
       <div className="w-full overflow-x-auto">
         <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="w-full h-40">
-          {/* Horizontal Grid lines */}
+          {/* Horizontal Grid lines with Old Gold tint */}
           {[yMin, (yMin + yMax) / 2, yMax].map((tickVal) => {
             const y = scaleY(tickVal);
             return (
               <g key={tickVal}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="#e2e8f0" strokeDasharray="3 3" />
-                <text x={padLeft - 6} y={y + 3} textAnchor="end" fontSize="9" fill="#94a3b8">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="#CFB53B" strokeOpacity="0.3" strokeDasharray="3 3" />
+                <text x={padLeft - 6} y={y + 3} textAnchor="end" fontSize="9" fill="#17211C" opacity="0.6" className="font-mono">
                   {Math.round(tickVal)}
                 </text>
               </g>
             );
           })}
 
-          {/* Normal Target Range Band */}
+          {/* Normal Target Range Band - Olive Green (#808000) */}
           {normalMax > normalMin && (
             <rect
               x={padLeft}
               y={scaleY(normalMax)}
               width={plotW}
               height={Math.abs(scaleY(normalMin) - scaleY(normalMax))}
-              fill="#10b981"
-              opacity="0.08"
+              fill="#808000"
+              opacity="0.12"
             />
           )}
 
-          {/* Secondary Line (e.g. Diastolic) */}
+          {/* Secondary Line (e.g. Diastolic) - Peacock Blue (#005F9E) */}
           {secondaryPoints && (
             <>
               <polyline
                 fill="none"
-                stroke="#3b82f6"
+                stroke="#005F9E"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -160,18 +160,18 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
                   cx={scaleX(i)}
                   cy={scaleY(getSecondaryY(m)!)}
                   r="3.5"
-                  fill="#ffffff"
-                  stroke="#3b82f6"
+                  fill="#FFFFF0"
+                  stroke="#005F9E"
                   strokeWidth="2"
                 />
               ))}
             </>
           )}
 
-          {/* Primary Line (e.g. Systolic or Glucose) */}
+          {/* Primary Line (e.g. Systolic or Glucose) - Deep Teal (#008080) */}
           <polyline
             fill="none"
-            stroke="#10b981"
+            stroke="#008080"
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -183,8 +183,8 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
                 cx={scaleX(i)}
                 cy={scaleY(getY(m))}
                 r="4"
-                fill="#ffffff"
-                stroke="#10b981"
+                fill="#FFFFF0"
+                stroke="#008080"
                 strokeWidth="2.5"
               />
               {/* Date label at bottom */}
@@ -193,7 +193,9 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
                 y={svgHeight - 10}
                 textAnchor="middle"
                 fontSize="9"
-                fill="#64748b"
+                fill="#17211C"
+                opacity="0.6"
+                className="font-mono"
               >
                 {new Date(m.recorded_at).toLocaleDateString([], { month: 'numeric', day: 'numeric' })}
               </text>
@@ -202,9 +204,9 @@ export const SimpleVitalChart: React.FC<SimpleVitalChartProps> = ({
         </svg>
       </div>
 
-      <div className="flex items-center justify-between text-[11px] text-slate-500 mt-1 px-1">
-        <span>Target Normal: {normalMin} - {normalMax} {unit}</span>
-        <span>Latest: <strong>{getY(sorted[sorted.length - 1])} {getSecondaryY(sorted[sorted.length - 1]) !== null ? `/ ${getSecondaryY(sorted[sorted.length - 1])}` : ''} {unit}</strong></span>
+      <div className="flex items-center justify-between text-[11px] text-[#17211C]/75 mt-1 px-1">
+        <span>Target Normal: <strong className="text-[#808000]">{normalMin} - {normalMax} {unit}</strong></span>
+        <span>Latest: <strong className="text-[#008080] font-mono">{getY(sorted[sorted.length - 1])} {getSecondaryY(sorted[sorted.length - 1]) !== null ? `/ ${getSecondaryY(sorted[sorted.length - 1])}` : ''} {unit}</strong></span>
       </div>
     </div>
   );

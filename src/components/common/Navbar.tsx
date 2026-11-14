@@ -390,14 +390,27 @@ export const Navbar: React.FC = () => {
             {/* User Profile / Logout or Sign In */}
             {user ? (
               <div className="flex items-center gap-2 pl-2 border-l border-[#CFB53B]/30">
-                <img
-                  src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
-                  alt={user.name}
-                  className="w-8 h-8 rounded-full object-cover border border-[#CFB53B]/50"
-                />
-                <span className="hidden md:inline text-xs font-bold text-[#17211C] max-w-[100px] truncate">
-                  {user.name.split(' ')[0]}
-                </span>
+                <Link
+                  to="/profile"
+                  className="flex items-center gap-2 group hover:opacity-90 transition-opacity"
+                  title="Edit Profile"
+                >
+                  <img
+                    src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full object-cover border border-[#CFB53B]/50 group-hover:border-[#008080] transition-colors"
+                  />
+                  <span className="hidden md:inline text-xs font-bold text-[#17211C] group-hover:text-[#008080] max-w-[100px] truncate transition-colors">
+                    {user.name.split(' ')[0]}
+                  </span>
+                </Link>
+                <Link
+                  to="/profile"
+                  className="p-1.5 rounded-[8px] text-[#17211C]/60 hover:text-[#008080] hover:bg-[#008080]/10 transition-colors"
+                  title="Profile Settings"
+                >
+                  <User className="w-4 h-4" />
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="p-1.5 rounded-[8px] text-[#17211C]/60 hover:text-[#800020] hover:bg-[#800020]/10 transition-colors"
@@ -486,6 +499,28 @@ export const Navbar: React.FC = () => {
 
           {/* Quick Portals Links on Mobile (No emojis) */}
           <div className="pt-3 border-t border-[#CFB53B]/30">
+            {user && (
+              <div className="mb-3 px-2">
+                <Link
+                  to="/profile"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between p-2.5 rounded-[12px] bg-[#FFFDD0] border border-[#CFB53B]/50 hover:bg-[#CFB53B]/20 transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
+                      alt={user.name}
+                      className="w-7 h-7 rounded-full object-cover border border-[#CFB53B]"
+                    />
+                    <div>
+                      <p className="text-xs font-bold text-[#17211C] leading-none">{user.name}</p>
+                      <p className="text-[10px] text-[#008080] font-semibold mt-0.5">Edit Profile & Settings</p>
+                    </div>
+                  </div>
+                  <User className="w-4 h-4 text-[#008080]" />
+                </Link>
+              </div>
+            )}
             <p className="text-xs font-bold text-[#17211C]/60 uppercase tracking-wider px-2 mb-2">Switch Portal</p>
             <div className="grid grid-cols-2 gap-2 text-xs font-bold">
               <Link to="/family" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-[12px] bg-[#FFFDD0] text-[#008080] border border-[#CFB53B]/40 flex items-center justify-center gap-2">

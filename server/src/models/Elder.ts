@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IElder extends Document {
   familyUserId: string;
   name: string;
+  relationship?: string;
   age: number;
   gender: 'Male' | 'Female' | 'Other';
   bloodGroup: string;
@@ -26,6 +27,7 @@ export interface IElder extends Document {
 const ElderSchema = new Schema<IElder>({
   familyUserId: { type: String, required: true },
   name: { type: String, required: true },
+  relationship: { type: String, default: 'Dad' },
   age: { type: Number, required: true },
   gender: { type: String, enum: ['Male', 'Female', 'Other'], default: 'Male' },
   bloodGroup: { type: String, default: 'B+' },
