@@ -8,6 +8,29 @@ export default {
   theme: {
     extend: {
       colors: {
+        canvas: '#F5F6F2',
+        forest: {
+          DEFAULT: '#1E4733',
+          50: '#F2F6F3',
+          100: '#E2ECE5',
+          200: '#C7DACD',
+          600: '#26573F',
+          700: '#1E4733',
+          800: '#173627',
+          900: '#0F241A',
+        },
+        sage: {
+          50: '#F7F8F5',
+          100: '#EFF2EC',
+          200: '#DFE5DB',
+          300: '#C8D3C3',
+          400: '#9FB098',
+          500: '#758C6E',
+          600: '#566B50',
+          700: '#3D4D39',
+          800: '#2A3527',
+          900: '#1A2118',
+        },
         brand: {
           50: '#f0fdf4',
           100: '#dcfce7',
@@ -20,35 +43,11 @@ export default {
           800: '#166534',
           900: '#14532d',
           950: '#052e16',
-        },
-        navy: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
-          950: '#071828',
-        },
-        coral: {
-          50: '#fff5f5',
-          100: '#ffe3e3',
-          200: '#ffc9c9',
-          300: '#ffa8a8',
-          400: '#ff8787',
-          500: '#ff6b6b',
-          600: '#fa5252',
-          700: '#f03e3e',
-          800: '#e03131',
-          900: '#c92a2a',
         }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
       },
       animation: {
         'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
