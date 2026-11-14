@@ -372,7 +372,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                     <Phone className="w-5 h-5 text-[#BA4234]" />
                   </div>
                   <div>
-                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Call Dad</h5>
+                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Call {relationshipTitle}</h5>
                     <p className="text-xs text-[#6B8173] font-medium mt-0.5">Say hello today</p>
                   </div>
                 </button>
@@ -399,10 +399,10 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-extrabold text-sm text-[#1A2E22]">
-                          Weekly check-in with Dad
+                          Weekly check-in with {relationshipTitle}
                         </h4>
                         <p className="text-xs text-[#52685B] leading-relaxed">
-                          He's feeling good and plans to visit the market this afternoon.
+                          {elder.gender === 'Female' ? 'She' : 'He'}'s feeling good and plans to visit the market this afternoon.
                         </p>
                         <p className="text-[11px] text-[#788C80]">
                           Today · 10:42 am &nbsp;|&nbsp; Meera, Care Coordinator
@@ -425,7 +425,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                           Medicine pickup reminder
                         </h4>
                         <p className="text-xs text-[#52685B] leading-relaxed">
-                          Dad's monthly prescription is due this week.
+                          {relationshipTitle}'s monthly prescription is due this week.
                         </p>
                       </div>
                     </div>
@@ -551,7 +551,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                 </div>
                 <div>
                   <h3 className="font-black text-lg text-[#1A2E22]">Request a Visit</h3>
-                  <p className="text-xs text-[#63796C]">For Rajesh Sharma in Indore</p>
+                  <p className="text-xs text-[#63796C]">For {elder.name} in {parentCityShort}</p>
                 </div>
               </div>
               <button onClick={() => setShowVisitModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22] p-1">
@@ -686,12 +686,12 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             </div>
 
             <div>
-              <h3 className="font-black text-xl text-[#1A2E22]">Call Dad (Rajesh Sharma)</h3>
+              <h3 className="font-black text-xl text-[#1A2E22]">Call {relationshipTitle} ({elder.name})</h3>
               <p className="text-xs text-[#63796C] mt-1">Direct voice call to {elder.phone}</p>
             </div>
 
             <div className="p-3 bg-[#F7F9F6] rounded-2xl border border-[#E7ECE5] text-xs text-[#4C6455]">
-              Local Time in Indore: <strong>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</strong>
+              Local Time in {parentCityShort}: <strong>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</strong>
             </div>
 
             <div className="flex items-center gap-3 pt-2">
@@ -718,7 +718,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#DCE4DE] space-y-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-[#EDF1EB]">
               <div>
-                <h3 className="font-black text-xl text-[#1A2E22]">Local Eldercare Support in Indore</h3>
+                <h3 className="font-black text-xl text-[#1A2E22]">Local Eldercare Support in {parentCityShort}</h3>
                 <p className="text-xs text-[#63796C]">Everything available for your family on-ground</p>
               </div>
               <button onClick={() => setShowSupportModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22]">
@@ -751,7 +751,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                 onClick={() => { setShowSupportModal(false); setShowVisitModal(true); }}
                 className="w-full py-3.5 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white font-extrabold text-xs shadow-md"
               >
-                Schedule Local Support for Dad
+                Schedule Local Support for {relationshipTitle}
               </button>
             </div>
           </div>
@@ -775,8 +775,8 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             <div className="space-y-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-[#F7F9F6] border border-[#E7ECE5] flex items-center justify-between">
                 <div>
-                  <p className="font-extrabold text-slate-900">Rajesh Sharma (Dad)</p>
-                  <p className="text-[#63796C] text-[11px]">Primary Elder · Indore, MP</p>
+                  <p className="font-extrabold text-slate-900">{elder.name} ({relationshipTitle})</p>
+                  <p className="text-[#63796C] text-[11px]">Primary Elder · {elder.city}</p>
                 </div>
                 <span className="text-[10px] font-bold bg-[#EDF5EE] text-[#2B6141] px-2 py-0.5 rounded-full">
                   Active Care
@@ -785,8 +785,8 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
               <div className="p-3.5 rounded-2xl bg-[#F7F9F6] border border-[#E7ECE5] flex items-center justify-between">
                 <div>
-                  <p className="font-extrabold text-slate-900">Ananya Sharma (You)</p>
-                  <p className="text-[#63796C] text-[11px]">Daughter · Bengaluru</p>
+                  <p className="font-extrabold text-slate-900">{user?.name || 'You'}</p>
+                  <p className="text-[#63796C] text-[11px]">Family Admin · {userCity}</p>
                 </div>
                 <span className="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">
                   Family Admin
@@ -794,13 +794,22 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 space-y-2">
+              <button
+                onClick={() => {
+                  setShowManageFamilyModal(false);
+                  navigate('/onboarding');
+                }}
+                className="w-full py-2.5 rounded-full bg-[#E3EBE4] hover:bg-[#D5E3D8] text-[#1E4733] text-xs font-bold transition-colors"
+              >
+                ✏️ Edit / Update Senior Profile Details
+              </button>
               <button
                 onClick={() => {
                   setShowManageFamilyModal(false);
                   navigate('/family');
                 }}
-                className="w-full py-3 rounded-full bg-[#1E4733] text-white text-xs font-bold"
+                className="w-full py-3 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white text-xs font-bold"
               >
                 Go to Full Family Portal Settings
               </button>

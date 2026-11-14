@@ -111,6 +111,21 @@ export const DemoRoleSwitcher: React.FC = () => {
                 <p className="text-[10px] text-slate-400">Home, About, Pricing</p>
               </div>
             </button>
+
+            {/* Test Onboarding Flow */}
+            <button
+              onClick={() => {
+                navigate('/onboarding');
+                setIsOpen(false);
+              }}
+              className="w-full p-2 rounded-xl flex items-center gap-2.5 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 transition-colors text-left mt-1"
+            >
+              <Sparkles className="w-4 h-4 text-brand-400" />
+              <div>
+                <p className="font-bold">Family Onboarding Flow</p>
+                <p className="text-[10px] text-brand-200">Input Custom Parent & City Data</p>
+              </div>
+            </button>
           </div>
         </div>
       )}
