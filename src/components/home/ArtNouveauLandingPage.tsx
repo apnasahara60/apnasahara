@@ -67,14 +67,14 @@ export const ArtNouveauLandingPage: React.FC = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#008080]/10 via-[#CFB53B]/10 to-[#E0B0FF]/15 blur-3xl pointer-events-none -z-0" />
         <div className="absolute bottom-0 left-0 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-[#800020]/5 via-[#CFB53B]/10 to-[#FFFFF0] blur-2xl pointer-events-none -z-0" />
 
-        <div className="max-w-[1280px] mx-auto px-6 relative z-10">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Top Badge */}
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/60 shadow-[0_2px_8px_rgba(207,181,59,0.15)] text-xs font-medium text-[#17211C]">
-              <span className="w-2 h-2 rounded-full bg-[#008080] animate-pulse" />
-              <span className="font-semibold tracking-wide">ApnaSahara</span>
-              <span className="text-[#CFB53B]">·</span>
-              <span className="text-xs text-[#17211C]/80">Compassionate Eldercare & Dedicated Family Support</span>
+          <div className="flex items-center justify-between flex-wrap gap-3 mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/60 shadow-[0_2px_8px_rgba(207,181,59,0.15)] text-xs font-medium text-[#17211C] max-w-full">
+              <span className="w-2 h-2 rounded-full bg-[#008080] animate-pulse shrink-0" />
+              <span className="font-semibold tracking-wide shrink-0">ApnaSahara</span>
+              <span className="text-[#CFB53B] shrink-0">·</span>
+              <span className="text-xs text-[#17211C]/80 truncate">Compassionate Eldercare & Dedicated Support</span>
             </div>
 
             <div className="font-mono text-[11px] text-[#008080] bg-[#FFFFF0] px-3 py-1 rounded-md border border-[#008080]/30 hidden md:block">
@@ -83,16 +83,16 @@ export const ArtNouveauLandingPage: React.FC = () => {
           </div>
 
           {/* Asymmetric Hero Grid: 7 cols (left) vs 5 cols (right) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 items-center">
             {/* Left Column (7 cols): Editorial Typography & Direct Action */}
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
               <div className="flex items-center gap-2 text-[#008080]">
                 <span className="text-xs uppercase tracking-widest font-bold text-[#008080]">
                   Dedicated Eldercare & Family Support
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#17211C] leading-[1.12]">
+              <h1 className="text-[clamp(1.85rem,4.5vw+0.75rem,3.75rem)] font-bold tracking-tight text-[#17211C] leading-[1.18] sm:leading-[1.12]">
                 Loving Care for Parents,{' '}
                 <span className="italic font-normal text-[#008080] decoration-[#CFB53B] underline underline-offset-8">
                   Pure Tranquility
@@ -100,27 +100,27 @@ export const ArtNouveauLandingPage: React.FC = () => {
                 for Families.
               </h1>
 
-              <p className="text-base sm:text-lg text-[#17211C]/85 leading-relaxed max-w-[72ch]">
+              <p className="text-sm sm:text-base lg:text-lg text-[#17211C]/85 leading-relaxed max-w-[72ch]">
                 ApnaSahara unites compassionate care with rigorous eldercare infrastructure. We provide
                 background-verified companion caregivers, real-time vitals monitoring, daily medication
                 adherence, and guaranteed 24/7 emergency dispatch across India.
               </p>
 
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-4">
+              {/* Action Buttons - Full-width stacked on mobile, row on tablet/desktop */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
                 <Link
                   to="/register"
-                  className="bg-[#008080] text-[#FFFFF0] px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base hover:brightness-90 active:translate-y-[1px] transition-all shadow-[0_2px_12px_rgba(0,128,128,0.2)] flex items-center gap-2"
+                  className="bg-[#008080] text-[#FFFFF0] px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base hover:brightness-90 active:translate-y-[1px] transition-all shadow-[0_2px_12px_rgba(0,128,128,0.2)] flex items-center justify-center gap-2 w-full sm:w-auto text-center"
                 >
                   <span>Get Started with ApnaSahara</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
 
                 <Link
                   to="/services"
-                  className="border-[1.5px] border-[#CFB53B] text-[#008080] bg-transparent hover:bg-[#008080]/5 px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base active:translate-y-[1px] transition-all flex items-center gap-2"
+                  className="border-[1.5px] border-[#CFB53B] text-[#008080] bg-transparent hover:bg-[#008080]/5 px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base active:translate-y-[1px] transition-all flex items-center justify-center gap-2 w-full sm:w-auto text-center"
                 >
-                  <Eye className="w-4 h-4 text-[#CFB53B]" />
+                  <Eye className="w-4 h-4 text-[#CFB53B] shrink-0" />
                   <span>Explore Care Services</span>
                 </Link>
               </div>

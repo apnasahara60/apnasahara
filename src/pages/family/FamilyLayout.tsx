@@ -29,20 +29,20 @@ export const FamilyLayout: React.FC = () => {
   return (
     <div className="min-h-[100dvh] bg-[#FFFFF0] text-[#17211C] flex flex-col w-full font-serif">
       {/* Top Elder Context Banner */}
-      <div className="bg-[#FFFDD0] border-b border-[#CFB53B]/40 px-4 sm:px-6 lg:px-8 py-2.5">
-        <div className="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-[8px] bg-[#008080]/15 text-[#008080] border border-[#CFB53B]/40 flex items-center justify-center font-bold">
-              <Heart className="w-4 h-4 text-[#800020]" />
+      <div className="bg-[#FFFDD0] border-b border-[#CFB53B]/40 px-3 sm:px-6 lg:px-8 py-2">
+        <div className="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 max-w-[65%] sm:max-w-none">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-[8px] bg-[#008080]/15 text-[#008080] border border-[#CFB53B]/40 flex items-center justify-center font-bold shrink-0">
+              <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#800020]" />
             </div>
-            <div className="flex items-center gap-2">
-              <label className="text-xs font-bold text-[#17211C]/70 uppercase tracking-wider hidden sm:inline">
+            <div className="flex items-center gap-1.5 min-w-0">
+              <label className="text-xs font-bold text-[#17211C]/70 uppercase tracking-wider hidden md:inline shrink-0">
                 Monitored Parent:
               </label>
               <select
                 value={selectedElderId}
                 onChange={(e) => setSelectedElderId(e.target.value)}
-                className="text-xs sm:text-sm font-bold bg-[#FFFFF0] hover:bg-[#FFFFF0]/80 border border-[#CFB53B]/50 rounded-[12px] px-3 py-1.5 text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#008080] cursor-pointer transition-colors"
+                className="text-xs sm:text-sm font-bold bg-[#FFFFF0] hover:bg-[#FFFFF0]/80 border border-[#CFB53B]/50 rounded-[10px] sm:rounded-[12px] px-2 sm:px-3 py-1 sm:py-1.5 text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#008080] cursor-pointer transition-colors max-w-[170px] sm:max-w-none truncate"
               >
                 {elders.map((elder) => (
                   <option key={elder.id} value={elder.id}>
@@ -53,14 +53,14 @@ export const FamilyLayout: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#808000] bg-[#FFFFF0] px-3 py-1 rounded-full border border-[#808000]/30">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[#808000] bg-[#FFFFF0] px-2.5 sm:px-3 py-1 rounded-full border border-[#808000]/30">
               <span className="w-2 h-2 rounded-full bg-[#808000] animate-pulse" />
-              Live Telemetry Connected
+              Live Telemetry
             </span>
             <Link
               to="/family/sos"
-              className="py-1.5 px-3.5 rounded-[12px] bg-[#800020] hover:brightness-110 text-[#FFFFF0] border border-[#CFB53B]/40 text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
+              className="py-1 sm:py-1.5 px-2.5 sm:px-3.5 rounded-[10px] sm:rounded-[12px] bg-[#800020] hover:brightness-110 text-[#FFFFF0] border border-[#CFB53B]/40 text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
             >
               <AlertTriangle className="w-3.5 h-3.5 text-[#CFB53B] animate-pulse" />
               <span>Emergency SOS</span>
