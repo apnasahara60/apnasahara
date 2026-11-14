@@ -31,7 +31,8 @@ import {
   Settings,
   HelpCircle,
   Home,
-  ChevronDown
+  ChevronDown,
+  Compass
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useAccessibility } from '../../context/AccessibilityContext';
