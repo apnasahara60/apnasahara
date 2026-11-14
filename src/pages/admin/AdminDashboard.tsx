@@ -14,7 +14,7 @@ import {
   MapPin,
   RefreshCw
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { SosAlert, CaregiverProfile, UserProfile } from '../../types';
 
 export const AdminDashboard: React.FC = () => {

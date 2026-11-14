@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, PhoneCall, CheckCircle2, Volume2, ShieldCheck } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
 
 export const ElderVisitsPage: React.FC = () => {

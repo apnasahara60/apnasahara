@@ -13,7 +13,7 @@ import {
   ArrowRight,
   HelpCircle
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { ElderProfile, Medication, Visit, HealthMetric } from '../../types';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';

@@ -62,32 +62,32 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
   }, [isSimulating, caregiverStatus, elderPos]);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+    <div className="bg-[#FFFFF0] rounded-[12px] border border-[#CFB53B]/50 overflow-hidden shadow-[0_2px_12px_rgba(23,33,28,0.06)] font-serif">
       {/* Top Map Header */}
-      <div className="p-4 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-3">
+      <div className="p-4 bg-[#17211C] text-[#FFFFF0] flex flex-wrap items-center justify-between gap-3 border-b border-[#CFB53B]/40">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
+          <div className="w-10 h-10 rounded-[12px] bg-[#008080]/20 border border-[#CFB53B]/50 flex items-center justify-center text-[#CFB53B]">
             <Compass className="w-5 h-5 animate-spin-slow" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white text-base">Real-time Location Radar</span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <span className="font-bold text-[#FFFFF0] text-base">Real-time Location Radar</span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#808000]/20 text-[#CFB53B] border border-[#CFB53B]/40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#008080] animate-ping" />
                 Live GPS
               </span>
             </div>
-            <p className="text-xs text-slate-400 truncate max-w-xs md:max-w-md">{elderAddress}</p>
+            <p className="text-xs text-[#FFFFF0]/70 truncate max-w-xs md:max-w-md">{elderAddress}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-4 text-xs">
-          <div className="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">
-            <Battery className="w-4 h-4 text-emerald-400" />
-            <span className="text-slate-300">Elder Device:</span>
-            <span className="font-bold text-white">{batteryLevel}%</span>
+          <div className="flex items-center gap-1.5 bg-[#101714] px-3 py-1.5 rounded-[8px] border border-[#CFB53B]/40">
+            <Battery className="w-4 h-4 text-[#808000]" />
+            <span className="text-[#FFFFF0]/70">Elder Device:</span>
+            <span className="font-bold text-[#FFFFF0] font-mono">{batteryLevel}%</span>
           </div>
-          <div className="flex items-center gap-1.5 text-slate-400">
+          <div className="flex items-center gap-1.5 text-[#FFFFF0]/60 font-mono text-[11px]">
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Updated: {lastUpdated}</span>
           </div>
@@ -95,23 +95,23 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
       </div>
 
       {/* SVG Interactive Map Area */}
-      <div className="relative w-full h-[360px] md:h-[420px] bg-slate-100 overflow-hidden select-none">
+      <div className="relative w-full h-[360px] md:h-[420px] bg-[#FFFDD0]/30 overflow-hidden select-none">
         <svg className="w-full h-full" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet">
           <defs>
             {/* Background grid */}
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e2e8f0" strokeWidth="1" />
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#CFB53B" strokeOpacity="0.15" strokeWidth="1" />
             </pattern>
             {/* Safe zone radial gradient */}
             <radialGradient id="safeZoneGrad">
-              <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-              <stop offset="85%" stopColor="#10b981" stopOpacity="0.08" />
-              <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+              <stop offset="0%" stopColor="#808000" stopOpacity="0.25" />
+              <stop offset="85%" stopColor="#808000" stopOpacity="0.08" />
+              <stop offset="100%" stopColor="#808000" stopOpacity="0" />
             </radialGradient>
             {/* Route dashed line gradient */}
             <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#10b981" />
+              <stop offset="0%" stopColor="#005F9E" />
+              <stop offset="100%" stopColor="#008080" />
             </linearGradient>
           </defs>
 
@@ -119,16 +119,16 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
           <rect width="100%" height="100%" fill="url(#grid)" />
 
           {/* Simulated Street Network */}
-          <path d="M -10 200 L 650 200" stroke="#cbd5e1" strokeWidth="16" />
-          <path d="M 220 -10 L 220 410" stroke="#cbd5e1" strokeWidth="14" />
-          <path d="M 420 -10 L 420 410" stroke="#cbd5e1" strokeWidth="14" />
-          <path d="M 100 80 L 560 340" stroke="#e2e8f0" strokeWidth="10" />
-          <path d="M 60 320 L 580 80" stroke="#e2e8f0" strokeWidth="10" />
+          <path d="M -10 200 L 650 200" stroke="#CFB53B" strokeOpacity="0.25" strokeWidth="14" />
+          <path d="M 220 -10 L 220 410" stroke="#CFB53B" strokeOpacity="0.22" strokeWidth="12" />
+          <path d="M 420 -10 L 420 410" stroke="#CFB53B" strokeOpacity="0.22" strokeWidth="12" />
+          <path d="M 100 80 L 560 340" stroke="#CFB53B" strokeOpacity="0.18" strokeWidth="10" />
+          <path d="M 60 320 L 580 80" stroke="#CFB53B" strokeOpacity="0.18" strokeWidth="10" />
 
           {/* Street Names */}
-          <text x="30" y="194" fill="#94a3b8" fontSize="10" fontWeight="600">CAPTAIN VIKRAM MARG</text>
-          <text x="430" y="70" fill="#94a3b8" fontSize="10" fontWeight="600">SECTOR 62 CENTRAL AVE</text>
-          <text x="140" y="380" fill="#94a3b8" fontSize="10" fontWeight="600">GREEN VALLEY RESIDENCY ROAD</text>
+          <text x="30" y="194" fill="#17211C" opacity="0.5" fontSize="10" fontWeight="600" fontFamily="Quattrocento">CAPTAIN VIKRAM MARG</text>
+          <text x="430" y="70" fill="#17211C" opacity="0.5" fontSize="10" fontWeight="600" fontFamily="Quattrocento">SECTOR 62 CENTRAL AVE</text>
+          <text x="140" y="380" fill="#17211C" opacity="0.5" fontSize="10" fontWeight="600" fontFamily="Quattrocento">GREEN VALLEY RESIDENCY ROAD</text>
 
           {/* Safe Zone Geofence Circle around Elder */}
           <circle
@@ -136,51 +136,45 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
             cy={elderPos.y}
             r="85"
             fill="url(#safeZoneGrad)"
-            stroke="#10b981"
-            strokeWidth="2"
+            stroke="#808000"
+            strokeWidth="1.5"
             strokeDasharray="4 4"
           />
 
           {/* Route Line if Caregiver is En Route */}
           {showCaregiverRoute && caregiverStatus === 'en_route' && (
-            <>
-              <line
-                x1={caregiverOffset.x}
-                y1={caregiverOffset.y}
-                x2={elderPos.x}
-                y2={elderPos.y}
-                stroke="url(#routeGrad)"
-                strokeWidth="4"
-                strokeDasharray="6 6"
-              />
-            </>
+            <line
+              x1={caregiverOffset.x}
+              y1={caregiverOffset.y}
+              x2={elderPos.x}
+              y2={elderPos.y}
+              stroke="url(#routeGrad)"
+              strokeWidth="3.5"
+              strokeDasharray="6 6"
+            />
           )}
 
           {/* Elder Pin Marker */}
           <g transform={`translate(${elderPos.x}, ${elderPos.y})`}>
-            {/* Radar wave pulse */}
-            <circle cx="0" cy="0" r="28" fill="#10b981" opacity="0.2">
+            <circle cx="0" cy="0" r="28" fill="#808000" opacity="0.2">
               <animate attributeName="r" values="18;36;18" dur="2.4s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.3;0;0.3" dur="2.4s" repeatCount="indefinite" />
             </circle>
-            {/* Center icon pin */}
-            <circle cx="0" cy="0" r="18" fill="#047857" stroke="#ffffff" strokeWidth="3" />
-            <circle cx="0" cy="0" r="8" fill="#ffffff" />
-            {/* Callout box */}
-            <rect x="-80" y="-55" width="160" height="30" rx="8" fill="#0f172a" opacity="0.92" />
-            <text x="0" y="-36" fill="#ffffff" fontSize="11" fontWeight="700" textAnchor="middle">
-              🏡 {elderName}
+            <circle cx="0" cy="0" r="18" fill="#008080" stroke="#CFB53B" strokeWidth="2.5" />
+            <circle cx="0" cy="0" r="7" fill="#FFFFF0" />
+            <rect x="-80" y="-55" width="160" height="30" rx="8" fill="#17211C" stroke="#CFB53B" strokeWidth="1" opacity="0.95" />
+            <text x="0" y="-36" fill="#FFFFF0" fontSize="11" fontWeight="700" textAnchor="middle" fontFamily="Quattrocento">
+              {elderName}
             </text>
           </g>
 
-          {/* Caregiver Pin / Vehicle Marker */}
+          {/* Caregiver Pin / Vehicle Marker (No emojis) */}
           {showCaregiverRoute && (
             <g transform={`translate(${caregiverOffset.x}, ${caregiverOffset.y})`}>
-              <circle cx="0" cy="0" r="20" fill="#2563eb" stroke="#ffffff" strokeWidth="3" />
-              <text x="0" y="5" fill="#ffffff" fontSize="14" textAnchor="middle">🛵</text>
-              {/* Caregiver ETA label */}
-              <rect x="-60" y="-46" width="120" height="24" rx="6" fill="#1e293b" />
-              <text x="0" y="-30" fill="#38bdf8" fontSize="10" fontWeight="700" textAnchor="middle">
+              <circle cx="0" cy="0" r="18" fill="#005F9E" stroke="#CFB53B" strokeWidth="2.5" />
+              <circle cx="0" cy="0" r="6" fill="#FFFFF0" />
+              <rect x="-65" y="-46" width="130" height="24" rx="6" fill="#17211C" stroke="#005F9E" strokeWidth="1" />
+              <text x="0" y="-30" fill="#CFB53B" fontSize="10" fontWeight="700" textAnchor="middle" fontFamily="Quattrocento">
                 Caregiver ({etaMinutes}m away)
               </text>
             </g>
@@ -189,26 +183,26 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
 
         {/* Floating Controls Overlay */}
         <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 pointer-events-none">
-          <div className="pointer-events-auto bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-200 shadow-md flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+          <div className="pointer-events-auto bg-[#FFFFF0]/95 backdrop-blur-md px-4 py-2.5 rounded-[12px] border border-[#CFB53B]/50 shadow-md flex items-center gap-3">
+            <div className="w-8 h-8 rounded-[8px] bg-[#808000]/15 text-[#808000] flex items-center justify-center font-bold">
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-800">Geofence Safe Zone: Active</p>
-              <p className="text-[11px] text-slate-500">Inside home perimeter (350m radius)</p>
+              <p className="text-xs font-bold text-[#17211C]">Geofence Safe Zone: Active</p>
+              <p className="text-[11px] text-[#17211C]/70">Inside home perimeter (350m radius)</p>
             </div>
           </div>
 
           {showCaregiverRoute && caregiverStatus === 'en_route' && (
-            <div className="pointer-events-auto bg-slate-900/95 backdrop-blur-md text-white px-4 py-2.5 rounded-xl border border-slate-800 shadow-lg flex items-center gap-4">
+            <div className="pointer-events-auto bg-[#17211C]/95 backdrop-blur-md text-[#FFFFF0] px-4 py-2.5 rounded-[12px] border border-[#CFB53B]/50 shadow-lg flex items-center gap-4">
               <div>
-                <p className="text-[11px] text-slate-400">Estimated Arrival</p>
-                <p className="text-base font-extrabold text-brand-400">{etaMinutes} mins ({distanceKm} km)</p>
+                <p className="text-[11px] text-[#CFB53B]">Estimated Arrival</p>
+                <p className="text-base font-bold text-[#FFFFF0]">{etaMinutes} mins ({distanceKm} km)</p>
               </div>
               {onCallCaregiver && (
                 <button
                   onClick={onCallCaregiver}
-                  className="px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
+                  className="px-3.5 py-1.5 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] font-medium text-xs flex items-center gap-1.5 transition-all"
                 >
                   <Phone className="w-3.5 h-3.5" />
                   Call Caregiver
@@ -220,13 +214,13 @@ export const LiveMapTracker: React.FC<LiveMapTrackerProps> = ({
       </div>
 
       {/* Bottom Summary Bar */}
-      <div className="p-4 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between text-xs text-slate-600 gap-2">
+      <div className="p-4 bg-[#FFFDD0] border-t border-[#CFB53B]/30 flex flex-wrap items-center justify-between text-xs text-[#17211C] gap-2">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#808000]" />
           <span>Parent GPS: <strong>Accurate to 5 meters</strong></span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#005F9E]" />
           <span>Caregiver Status: <strong>{caregiverStatus.replace('_', ' ').toUpperCase()}</strong> ({caregiverName})</span>
         </div>
       </div>

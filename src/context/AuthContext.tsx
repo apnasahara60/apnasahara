@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { UserProfile, UserRole } from '../types';
-import { dbStore, supabase, isLiveSupabaseConfigured } from '../lib/supabase';
+import { dbStore } from '../lib/mongoStore';
+import { mongoApi } from '../lib/api';
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -46,36 +47,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password?: string) => {
     setIsLoading(true);
     try {
-      if (isLiveSupabaseConfigured && supabase) {
-        const { data, error } = await supabase.auth.signInWithPassword({
-          email,
-          password: password || 'password123'
-        });
-        if (error) throw error;
-        // Fetch profile
-        const { data: profileData } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', data.user.id)
-          .single();
-
-        if (profileData) {
-          const u: UserProfile = {
-            id: profileData.id,
-            email: profileData.email,
-            name: profileData.name,
-            role: profileData.role,
-            phone: profileData.phone || '',
-            avatar_url: profileData.avatar_url
-          };
-          setUser(u);
-          localStorage.setItem('apnasahara_current_session', JSON.stringify(u));
-          setIsLoading(false);
-          return { success: true };
-        }
+      // 1. Attempt MongoDB REST API
+      const apiRes = await mongoApi.login(email, password);
+      if (apiRes && apiRes.success && apiRes.user) {
+        const u = apiRes.user;
+        setUser(u);
+        dbStore.saveUser(u);
+        localStorage.setItem('apnasahara_current_session', JSON.stringify(u));
+        setIsLoading(false);
+        return { success: true };
       }
 
-      // Fallback local auth
+      // 2. Resilient fallback to local Mongo cache
       const users = dbStore.getUsers();
       const match = users.find(u => u.email.toLowerCase() === email.toLowerCase());
       if (match) {
@@ -109,16 +92,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (name: string, email: string, password: string, role: UserRole, phone: string) => {
     setIsLoading(true);
     try {
-      if (isLiveSupabaseConfigured && supabase) {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: { name, role, phone }
-          }
-        });
-        if (error) throw error;
-      }
+      // 1. Asynchronously send registration to MongoDB backend
+      mongoApi.register(name, email, password, role, phone).catch(() => {});
 
       const newUser: UserProfile = {
         id: `user-${Date.now()}`,
@@ -141,17 +116,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    if (isLiveSupabaseConfigured && supabase) {
-      supabase.auth.signOut();
-    }
     localStorage.removeItem('apnasahara_current_session');
     setUser(null);
   };
 
   const resetPassword = async (email: string) => {
-    if (isLiveSupabaseConfigured && supabase) {
-      await supabase.auth.resetPasswordForEmail(email);
-    }
     return {
       success: true,
       message: `If an account exists for ${email}, a password reset link has been dispatched.`

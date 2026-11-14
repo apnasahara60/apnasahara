@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { ElderProfile, CaregiverProfile } from '../../types';
 
 export const OnboardingPage: React.FC = () => {

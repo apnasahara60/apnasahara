@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigation, MapPin, ExternalLink, Compass, PhoneCall, AlertTriangle, ShieldCheck } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { LiveMapTracker } from '../../components/maps/LiveMapTracker';
 
 export const CaregiverNavigationPage: React.FC = () => {

@@ -11,7 +11,7 @@ import {
   ArrowRight,
   ShieldAlert
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { Visit } from '../../types';
 
 export const AssignedVisitsPage: React.FC = () => {

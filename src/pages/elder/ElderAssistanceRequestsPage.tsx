@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HelpCircle, CheckCircle2, Volume2, ShoppingCart, Pill, Stethoscope, Car, MessageCircle } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
 import { useNotification } from '../../context/NotificationContext';
 

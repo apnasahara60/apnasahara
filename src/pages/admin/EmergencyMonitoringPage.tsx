@@ -10,7 +10,7 @@ import {
   Building2,
   Volume2
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { SosAlert } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 

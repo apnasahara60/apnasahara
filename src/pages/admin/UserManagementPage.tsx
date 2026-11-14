@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Search, Plus, Shield, Phone, Mail, CheckCircle2, UserCheck } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { UserProfile, UserRole } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 

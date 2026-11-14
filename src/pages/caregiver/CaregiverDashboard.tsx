@@ -13,7 +13,7 @@ import {
   Activity,
   CheckCircle2
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { Visit, CaregiverProfile } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 

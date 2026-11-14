@@ -1,6 +1,6 @@
 import React from 'react';
 import { Activity, Heart, TrendingUp, ShieldCheck, Volume2 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { useAccessibility } from '../../context/AccessibilityContext';
 
 export const ElderVitalsPage: React.FC = () => {

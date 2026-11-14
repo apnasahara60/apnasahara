@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { AppNotification, SosAlert } from '../types';
-import { dbStore, supabase, isLiveSupabaseConfigured } from '../lib/supabase';
+import { dbStore } from '../lib/mongoStore';
 import { useAuth } from './AuthContext';
 
 interface ToastItem {
@@ -61,25 +61,6 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
     };
 
     window.addEventListener('apnasahara_datachange', handleDataChange);
-
-    // If Supabase live is configured, listen to realtime channels
-    if (isLiveSupabaseConfigured && supabase) {
-      const channel = supabase
-        .channel('public:sos_alerts')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'sos_alerts' }, (payload) => {
-          showToast('🚨 EMERGENCY ALERT', `New SOS from ${payload.new.elder_name}`, 'sos');
-          triggerEmergencySiren();
-          refreshData();
-        })
-        .subscribe();
-
-      return () => {
-        window.removeEventListener('apnasahara_datachange', handleDataChange);
-        if (supabase) {
-          supabase.removeChannel(channel);
-        }
-      };
-    }
 
     return () => {
       window.removeEventListener('apnasahara_datachange', handleDataChange);

@@ -9,7 +9,7 @@ import {
   Activity,
   ArrowRight
 } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 

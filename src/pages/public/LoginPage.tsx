@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Heart, Lock, Mail, ArrowRight, Sparkles, Shield, UserCheck, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { UserRole } from '../../types';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 
 export const LoginPage: React.FC = () => {
   const { login, switchDemoRole } = useAuth();

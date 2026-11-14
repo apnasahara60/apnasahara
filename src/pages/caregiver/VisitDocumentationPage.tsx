@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FileText, Activity, Camera, CheckCircle2, Send, Heart } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
 

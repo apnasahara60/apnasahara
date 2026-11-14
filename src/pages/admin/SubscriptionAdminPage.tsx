@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CreditCard, TrendingUp, CheckCircle2, Clock, AlertCircle, Download } from 'lucide-react';
-import { dbStore } from '../../lib/supabase';
+import { dbStore } from '../../lib/mongoStore';
 import { Subscription } from '../../types';
 
 export const SubscriptionAdminPage: React.FC = () => {
