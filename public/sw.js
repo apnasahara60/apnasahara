@@ -1,4 +1,4 @@
-const CACHE_NAME = 'apnasahara-v1.0.0';
+const CACHE_NAME = 'apnasahara-v1.0.1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -37,8 +37,20 @@ self.addEventListener('fetch', (event) => {
   // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
+  // Bypass cache completely for localhost / dev server / HMR
+  const url = event.request.url;
+  if (
+    url.includes('localhost') ||
+    url.includes('127.0.0.1') ||
+    url.includes('/@') ||
+    url.includes('/src/') ||
+    url.includes('node_modules')
+  ) {
+    return;
+  }
+
   // Let real-time and Supabase API calls bypass cache or handle gracefully
-  if (event.request.url.includes('supabase.co') || event.request.url.includes('/api/')) {
+  if (url.includes('supabase.co') || url.includes('/api/')) {
     event.respondWith(
       fetch(event.request).catch(() => {
         return new Response(JSON.stringify({ 

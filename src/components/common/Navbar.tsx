@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import {
   Heart,
@@ -225,14 +226,15 @@ export const Navbar: React.FC = () => {
   const portalInfo = getPortalInfo();
 
   return (
-    <header className="sticky top-0 z-[100] bg-[#FFFFF0]/95 backdrop-blur-md border-b border-[#CFB53B]/35 shadow-[0_2px_12px_rgba(23,33,28,0.04)] font-serif w-full">
-      {/* =========================================================================
-          1. COMPACT RESPONSIVE MOBILE HEADER (< 1024px)
-          Layout:
-          - Left: ApnaSahara logo.
-          - Center: Current portal selector in a compact dropdown.
-          - Right: Notification icon with unread badge + hamburger menu.
-          ========================================================================= */}
+    <>
+      <header className="sticky top-0 z-[100] bg-[#FFFFF0]/95 backdrop-blur-md border-b border-[#CFB53B]/35 shadow-[0_2px_12px_rgba(23,33,28,0.04)] font-serif w-full">
+        {/* =========================================================================
+            1. COMPACT RESPONSIVE MOBILE HEADER (< 1024px)
+            Layout:
+            - Left: ApnaSahara logo.
+            - Center: Current portal selector in a compact dropdown.
+            - Right: Notification icon with unread badge + hamburger menu.
+            ========================================================================= */}
       <div className="flex lg:hidden items-center justify-between h-14 px-3 sm:px-4 max-w-full">
         {/* Left: ApnaSahara Logo */}
         <Link to="/" className="flex items-center shrink-0 group">
@@ -666,278 +668,305 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
       )}
+    </header>
 
-      {/* =========================================================================
-          5. POLISHED MOBILE SLIDE-OUT NAVIGATION DRAWER (HAMBURGER MENU)
-          Features:
-          - User profile & account information.
-          - Portal switching grid.
-          - All primary navigation links.
-          - Accessibility & Text Size settings.
-          - 24/7 Helpline & Support.
-          - Profile Settings & Logout.
-          - Smooth slide-in from right with dark overlay.
-          - Close on tap outside or link selection.
-          ========================================================================= */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[200]">
-          {/* Backdrop Overlay */}
-          <div
-            className="fixed inset-0 bg-[#17211C]/60 backdrop-blur-xs transition-opacity animate-in fade-in"
-            onClick={() => setMobileMenuOpen(false)}
-            aria-hidden="true"
-          />
+    {/* =========================================================================
+        5. POLISHED MOBILE SLIDE-OUT NAVIGATION DRAWER (HAMBURGER MENU)
+        Rendered outside <header> via React Portal to prevent clipping from
+        parent stacking contexts (e.g. backdrop-filter, transform, overflow).
+        Spans full viewport height (100dvh) with body scroll locked while open.
+        ========================================================================= */}
+    {mobileMenuOpen && typeof document !== 'undefined' && createPortal(
+      <div
+        id="apnasahara-mobile-drawer-portal"
+        className="lg:hidden fixed inset-0 h-[100dvh] w-screen z-[99999]"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100vw',
+          height: '100dvh',
+          zIndex: 99999
+        }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation drawer"
+      >
+        {/* Backdrop Overlay */}
+        <div
+          className="fixed inset-0 h-[100dvh] w-screen bg-[#17211C]/60 backdrop-blur-xs transition-opacity"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100vw',
+            height: '100dvh'
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
 
-          {/* Slide-out Drawer Panel */}
-          <div
-            className="fixed inset-y-0 right-0 z-[201] w-[86vw] max-w-sm bg-[#FFFFF0] border-l-2 border-[#CFB53B] shadow-2xl flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-300 font-serif"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation drawer"
-          >
-            {/* Top Section */}
-            <div className="p-4 sm:p-5 space-y-5">
-              {/* Drawer Header Strip: Logo + Close Button */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/35">
-                <div className="flex items-center gap-2">
-                  <img src="/logo.png" alt="ApnaSahara" className="h-8 w-auto object-contain" />
-                  <span className="text-xs font-bold text-[#008080] font-sans uppercase tracking-wider">Sanctuary</span>
+        {/* Slide-out Drawer Panel */}
+        <div
+          className="fixed inset-y-0 right-0 z-[100000] w-[86vw] max-w-sm h-full h-[100dvh] max-h-[100dvh] bg-[#FFFFF0] border-l-2 border-[#CFB53B] shadow-2xl flex flex-col justify-between overflow-hidden font-serif"
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            height: '100dvh',
+            maxHeight: '100dvh',
+            zIndex: 100000
+          }}
+        >
+          {/* Drawer Header Strip: Logo + Close Button */}
+          <div className="shrink-0 p-4 sm:p-5 pb-3 bg-[#FFFFF0] border-b border-[#CFB53B]/35 flex items-center justify-between z-10">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="ApnaSahara" className="h-8 w-auto object-contain" />
+              <span className="text-xs font-bold text-[#008080] font-sans uppercase tracking-wider">Sanctuary</span>
+            </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-1.5 rounded-[10px] text-[#17211C]/70 hover:text-[#17211C] hover:bg-[#CFB53B]/20 transition-colors"
+              aria-label="Close navigation drawer"
+            >
+              <X className="w-5 h-5 text-[#17211C]" />
+            </button>
+          </div>
+
+          {/* Scrollable Drawer Content */}
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-5 overscroll-contain">
+            {/* User Profile Card or Authentication Actions */}
+            {user ? (
+              <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 shadow-xs space-y-3 font-sans">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'}
+                    alt={user.name}
+                    className="w-11 h-11 rounded-full object-cover border-2 border-[#CFB53B]"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-[#17211C] truncate font-serif">{user.name}</p>
+                    <p className="text-[11px] text-[#17211C]/65 truncate font-mono">{user.email}</p>
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#008080] bg-[#008080]/10 border border-[#008080]/30 px-2 py-0.5 rounded-full mt-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#808000]" />
+                      {portalInfo.label}
+                    </span>
+                  </div>
                 </div>
-                <button
+
+                <Link
+                  to="/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-[10px] text-[#17211C]/70 hover:text-[#17211C] hover:bg-[#CFB53B]/20 transition-colors"
-                  aria-label="Close navigation drawer"
+                  className="w-full py-1.5 px-3 rounded-art bg-[#FFFFF0] border border-[#CFB53B]/50 hover:bg-[#FFFDD0] text-[#008080] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <X className="w-5 h-5 text-[#17211C]" />
-                </button>
+                  <Settings className="w-3.5 h-3.5 text-[#CFB53B]" />
+                  <span>Manage Profile & Settings</span>
+                </Link>
               </div>
-
-              {/* User Profile Card or Authentication Actions */}
-              {user ? (
-                <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 shadow-xs space-y-3 font-sans">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80'}
-                      alt={user.name}
-                      className="w-11 h-11 rounded-full object-cover border-2 border-[#CFB53B]"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-[#17211C] truncate font-serif">{user.name}</p>
-                      <p className="text-[11px] text-[#17211C]/65 truncate font-mono">{user.email}</p>
-                      <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#008080] bg-[#008080]/10 border border-[#008080]/30 px-2 py-0.5 rounded-full mt-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#808000]" />
-                        {portalInfo.label}
-                      </span>
-                    </div>
-                  </div>
-
+            ) : (
+              <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 space-y-2.5 font-sans">
+                <p className="text-xs font-bold text-[#17211C] font-serif">Welcome to ApnaSahara</p>
+                <p className="text-[11px] text-[#17211C]/70">Access personalized eldercare and family monitoring portals.</p>
+                <div className="grid grid-cols-2 gap-2 pt-1">
                   <Link
-                    to="/profile"
+                    to="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-full py-1.5 px-3 rounded-art bg-[#FFFFF0] border border-[#CFB53B]/50 hover:bg-[#FFFDD0] text-[#008080] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                    className="art-btn-secondary py-2 text-xs font-bold text-center justify-center"
                   >
-                    <Settings className="w-3.5 h-3.5 text-[#CFB53B]" />
-                    <span>Manage Profile & Settings</span>
+                    Sign In
                   </Link>
-                </div>
-              ) : (
-                <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 space-y-2.5 font-sans">
-                  <p className="text-xs font-bold text-[#17211C] font-serif">Welcome to ApnaSahara</p>
-                  <p className="text-[11px] text-[#17211C]/70">Access personalized eldercare and family monitoring portals.</p>
-                  <div className="grid grid-cols-2 gap-2 pt-1">
-                    <Link
-                      to="/login"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="art-btn-secondary py-2 text-xs font-bold text-center justify-center"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      to="/register"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="art-btn-primary py-2 text-xs font-bold text-center justify-center shadow-xs"
-                    >
-                      Join Sahara
-                    </Link>
-                  </div>
-                </div>
-              )}
-
-              {/* Portal Switcher Grid */}
-              <div className="space-y-2">
-                <p className="text-[10px] font-bold text-[#008080] uppercase tracking-wider px-1 font-sans">
-                  Switch Active Portal
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs font-bold font-sans">
                   <Link
-                    to="/family"
+                    to="/register"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
-                      activeSection === 'family'
-                        ? 'bg-[#008080] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
-                        : 'bg-[#FFFDD0] text-[#008080] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
-                    }`}
+                    className="art-btn-primary py-2 text-xs font-bold text-center justify-center shadow-xs"
                   >
-                    <Users className="w-4 h-4 shrink-0" />
-                    <span>Family</span>
-                  </Link>
-
-                  <Link
-                    to="/parent"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
-                      activeSection === 'elder'
-                        ? 'bg-[#808000] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
-                        : 'bg-[#FFFDD0] text-[#808000] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
-                    }`}
-                  >
-                    <Heart className="w-4 h-4 shrink-0" />
-                    <span>Elder</span>
-                  </Link>
-
-                  <Link
-                    to="/caregiver"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
-                      activeSection === 'caregiver'
-                        ? 'bg-[#005F9E] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
-                        : 'bg-[#FFFDD0] text-[#005F9E] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
-                    }`}
-                  >
-                    <Compass className="w-4 h-4 shrink-0" />
-                    <span>Caregiver</span>
-                  </Link>
-
-                  <Link
-                    to="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
-                      activeSection === 'admin'
-                        ? 'bg-[#800020] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
-                        : 'bg-[#FFFDD0] text-[#800020] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
-                    }`}
-                  >
-                    <Shield className="w-4 h-4 shrink-0" />
-                    <span>Admin</span>
+                    Join Sahara
                   </Link>
                 </div>
               </div>
+            )}
 
-              {/* All Primary Navigation Links */}
-              <div className="space-y-1 pt-1">
-                <p className="text-[10px] font-bold text-[#17211C]/60 uppercase tracking-wider px-1 font-sans">
-                  {portalInfo.label} Navigation
-                </p>
-                <div className="space-y-1">
-                  {currentLinks.map((link) => (
-                    <NavLink
-                      key={link.to}
-                      to={link.to}
-                      end={link.end}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={({ isActive }) =>
-                        `flex items-center gap-3 px-3.5 py-2.5 rounded-art text-xs font-bold transition-all ${
-                          isActive
-                            ? 'bg-[#008080] text-[#FFFFF0] border border-[#CFB53B] shadow-xs'
-                            : 'text-[#17211C] hover:bg-[#FFFDD0] hover:text-[#008080]'
-                        }`
-                      }
-                    >
-                      {link.icon && <span className="shrink-0">{link.icon}</span>}
-                      <span>{link.label}</span>
-                    </NavLink>
-                  ))}
-                </div>
+            {/* Portal Switcher Grid */}
+            <div className="space-y-2">
+              <p className="text-[10px] font-bold text-[#008080] uppercase tracking-wider px-1 font-sans">
+                Switch Active Portal
+              </p>
+              <div className="grid grid-cols-2 gap-2 text-xs font-bold font-sans">
+                <Link
+                  to="/family"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
+                    activeSection === 'family'
+                      ? 'bg-[#008080] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
+                      : 'bg-[#FFFDD0] text-[#008080] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
+                  }`}
+                >
+                  <Users className="w-4 h-4 shrink-0" />
+                  <span>Family</span>
+                </Link>
+
+                <Link
+                  to="/parent"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
+                    activeSection === 'elder'
+                      ? 'bg-[#808000] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
+                      : 'bg-[#FFFDD0] text-[#808000] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
+                  }`}
+                >
+                  <Heart className="w-4 h-4 shrink-0" />
+                  <span>Elder</span>
+                </Link>
+
+                <Link
+                  to="/caregiver"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
+                    activeSection === 'caregiver'
+                      ? 'bg-[#005F9E] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
+                      : 'bg-[#FFFDD0] text-[#005F9E] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
+                  }`}
+                >
+                  <Compass className="w-4 h-4 shrink-0" />
+                  <span>Caregiver</span>
+                </Link>
+
+                <Link
+                  to="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`p-2 rounded-art border flex items-center gap-2 transition-colors ${
+                    activeSection === 'admin'
+                      ? 'bg-[#800020] text-[#FFFFF0] border-[#CFB53B] shadow-xs'
+                      : 'bg-[#FFFDD0] text-[#800020] border-[#CFB53B]/40 hover:bg-[#FFFFF0]'
+                  }`}
+                >
+                  <Shield className="w-4 h-4 shrink-0" />
+                  <span>Admin</span>
+                </Link>
               </div>
+            </div>
 
-              {/* Senior Accessibility Section */}
-              <div className="pt-2 border-t border-[#CFB53B]/30 space-y-2.5 font-sans">
-                <p className="text-[10px] font-bold text-[#008080] uppercase tracking-wider px-1">
-                  Senior Readability & Accessibility
-                </p>
-                <div className="flex items-center justify-between gap-2 p-2.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 text-xs">
-                  <span className="font-bold text-[#17211C]">Text Scale</span>
-                  <div className="flex items-center gap-1 bg-[#FFFFF0] p-1 rounded-art border border-[#CFB53B]/30">
-                    <button
-                      onClick={() => setTextSize('normal')}
-                      className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'normal' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
-                    >
-                      A
-                    </button>
-                    <button
-                      onClick={() => setTextSize('large')}
-                      className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'large' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
-                    >
-                      A+
-                    </button>
-                    <button
-                      onClick={() => setTextSize('xlarge')}
-                      className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'xlarge' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
-                    >
-                      A++
-                    </button>
-                  </div>
-                </div>
+            {/* All Primary Navigation Links */}
+            <div className="space-y-1 pt-1">
+              <p className="text-[10px] font-bold text-[#17211C]/60 uppercase tracking-wider px-1 font-sans">
+                {portalInfo.label} Navigation
+              </p>
+              <div className="space-y-1">
+                {currentLinks.map((link) => (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.end}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-3.5 py-2.5 rounded-art text-xs font-bold transition-all ${
+                        isActive
+                          ? 'bg-[#008080] text-[#FFFFF0] border border-[#CFB53B] shadow-xs'
+                          : 'text-[#17211C] hover:bg-[#FFFDD0] hover:text-[#008080]'
+                      }`
+                    }
+                  >
+                    {link.icon && <span className="shrink-0">{link.icon}</span>}
+                    <span>{link.label}</span>
+                  </NavLink>
+                ))}
+              </div>
+            </div>
 
-                <div className="flex items-center justify-between p-2.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 text-xs">
-                  <span className="font-bold text-[#17211C]">High Contrast Mode</span>
+            {/* Senior Accessibility Section */}
+            <div className="pt-2 border-t border-[#CFB53B]/30 space-y-2.5 font-sans">
+              <p className="text-[10px] font-bold text-[#008080] uppercase tracking-wider px-1">
+                Senior Readability & Accessibility
+              </p>
+              <div className="flex items-center justify-between gap-2 p-2.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 text-xs">
+                <span className="font-bold text-[#17211C]">Text Scale</span>
+                <div className="flex items-center gap-1 bg-[#FFFFF0] p-1 rounded-art border border-[#CFB53B]/30">
                   <button
-                    onClick={toggleHighContrast}
-                    className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${highContrast ? 'bg-[#008080]' : 'bg-slate-300'}`}
+                    onClick={() => setTextSize('normal')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'normal' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
                   >
-                    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${highContrast ? 'translate-x-4' : 'translate-x-1'}`} />
+                    A
+                  </button>
+                  <button
+                    onClick={() => setTextSize('large')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'large' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
+                  >
+                    A+
+                  </button>
+                  <button
+                    onClick={() => setTextSize('xlarge')}
+                    className={`px-2 py-0.5 rounded text-[11px] font-bold transition-colors ${textSize === 'xlarge' ? 'bg-[#008080] text-[#FFFFF0]' : 'text-[#17211C]/70'}`}
+                  >
+                    A++
                   </button>
                 </div>
               </div>
 
-              {/* 24/7 Helpline & Support */}
-              <div className="pt-2 border-t border-[#CFB53B]/30 space-y-2 font-sans">
-                <p className="text-[10px] font-bold text-[#800020] uppercase tracking-wider px-1">
-                  24/7 Emergency Sanctuary
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <a
-                    href="tel:112"
-                    className="p-2 rounded-art bg-[#800020] text-[#FFFFF0] border border-[#CFB53B] font-bold flex items-center justify-center gap-1.5 shadow-xs"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#CFB53B]" />
-                    <span>Dial 112 (Police)</span>
-                  </a>
-                  <a
-                    href="tel:18002081122"
-                    className="p-2 rounded-art bg-[#FFFDD0] text-[#17211C] border border-[#CFB53B] font-bold flex items-center justify-center gap-1.5"
-                  >
-                    <PhoneCall className="w-3.5 h-3.5 text-[#008080]" />
-                    <span>1800-208-1122</span>
-                  </a>
-                </div>
+              <div className="flex items-center justify-between p-2.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 text-xs">
+                <span className="font-bold text-[#17211C]">High Contrast Mode</span>
+                <button
+                  onClick={toggleHighContrast}
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${highContrast ? 'bg-[#008080]' : 'bg-slate-300'}`}
+                >
+                  <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${highContrast ? 'translate-x-4' : 'translate-x-1'}`} />
+                </button>
               </div>
             </div>
 
-            {/* Bottom Footer Actions */}
-            <div className="p-4 bg-[#FFFDD0] border-t-2 border-[#CFB53B]/40 space-y-2 font-sans">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2 px-3 rounded-art bg-[#FFFFF0] border border-[#CFB53B]/50 hover:bg-[#FFFDD0] text-[#17211C] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors font-serif"
-              >
-                <Home className="w-3.5 h-3.5 text-[#008080]" />
-                <span>Visit Public Website</span>
-              </Link>
-
-              {user && (
-                <button
-                  onClick={handleLogout}
-                  className="w-full py-2 px-3 rounded-art bg-[#800020]/10 border border-[#800020]/30 hover:bg-[#800020]/20 text-[#800020] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors font-serif"
+            {/* 24/7 Helpline & Support */}
+            <div className="pt-2 border-t border-[#CFB53B]/30 space-y-2 font-sans">
+              <p className="text-[10px] font-bold text-[#800020] uppercase tracking-wider px-1">
+                24/7 Emergency Sanctuary
+              </p>
+              <div className="grid grid-cols-2 gap-2 text-xs">
+                <a
+                  href="tel:112"
+                  className="p-2 rounded-art bg-[#800020] text-[#FFFFF0] border border-[#CFB53B] font-bold flex items-center justify-center gap-1.5 shadow-xs"
                 >
-                  <LogOut className="w-3.5 h-3.5 text-[#800020]" />
-                  <span>Sign Out of Account</span>
-                </button>
-              )}
+                  <PhoneCall className="w-3.5 h-3.5 text-[#CFB53B]" />
+                  <span>Dial 112 (Police)</span>
+                </a>
+                <a
+                  href="tel:18002081122"
+                  className="p-2 rounded-art bg-[#FFFDD0] text-[#17211C] border border-[#CFB53B] font-bold flex items-center justify-center gap-1.5"
+                >
+                  <PhoneCall className="w-3.5 h-3.5 text-[#008080]" />
+                  <span>1800-208-1122</span>
+                </a>
+              </div>
             </div>
           </div>
+
+          {/* Bottom Footer Actions */}
+          <div className="shrink-0 p-4 bg-[#FFFDD0] border-t-2 border-[#CFB53B]/40 space-y-2 font-sans">
+            <Link
+              to="/"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-2 px-3 rounded-art bg-[#FFFFF0] border border-[#CFB53B]/50 hover:bg-[#FFFDD0] text-[#17211C] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors font-serif"
+            >
+              <Home className="w-3.5 h-3.5 text-[#008080]" />
+              <span>Visit Public Website</span>
+            </Link>
+
+            {user && (
+              <button
+                onClick={handleLogout}
+                className="w-full py-2 px-3 rounded-art bg-[#800020]/10 border border-[#800020]/30 hover:bg-[#800020]/20 text-[#800020] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors font-serif"
+              >
+                <LogOut className="w-3.5 h-3.5 text-[#800020]" />
+                <span>Sign Out of Account</span>
+              </button>
+            )}
+          </div>
         </div>
-      )}
-    </header>
-  );
+      </div>,
+      document.body
+    )}
+  </>
+);
 };
