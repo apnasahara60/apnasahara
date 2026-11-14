@@ -35,10 +35,11 @@ export const CaregiverVerificationPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black text-slate-900">Caregiver Verification & Accreditation</h1>
-        <p className="text-xs text-slate-500">
+    <div className="space-y-6 font-serif">
+      <div className="border-b border-[#CFB53B]/30 pb-4">
+        <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Background & Credentialing</span>
+        <h1 className="text-2xl font-bold text-[#17211C]">Caregiver Verification & Accreditation</h1>
+        <p className="text-xs sm:text-sm text-[#17211C]/75 font-sans">
           Review police clearances, Aadhaar e-KYC records, and geriatric nursing certifications
         </p>
       </div>
@@ -47,32 +48,32 @@ export const CaregiverVerificationPage: React.FC = () => {
         {caregivers.map((cg) => (
           <div
             key={cg.id}
-            className="p-6 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-5"
+            className="art-card p-6 space-y-5"
           >
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#CFB53B]/30">
               <div className="flex items-center gap-4">
                 <img
                   src={cg.avatar_url || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80'}
                   alt={cg.name}
-                  className="w-16 h-16 rounded-2xl object-cover border-2 border-purple-500 shadow-sm"
+                  className="w-16 h-16 rounded-art object-cover border-2 border-[#CFB53B] shadow-sm"
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-black text-slate-900">{cg.name}</h3>
-                    <span className={`px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
+                    <h3 className="text-lg font-bold text-[#17211C]">{cg.name}</h3>
+                    <span className={`px-2.5 py-0.5 rounded-art font-bold uppercase text-[10px] font-mono border ${
                       cg.verification_status === 'verified'
-                        ? 'bg-emerald-100 text-emerald-800'
+                        ? 'bg-[#808000]/15 text-[#808000] border-[#808000]/40'
                         : cg.verification_status === 'pending'
-                        ? 'bg-amber-100 text-amber-800'
-                        : 'bg-red-100 text-red-800'
+                        ? 'bg-[#CFB53B]/20 text-[#17211C] border-[#CFB53B]'
+                        : 'bg-[#800020]/15 text-[#800020] border-[#800020]/40'
                     }`}>
                       {cg.verification_status}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-[#17211C]/65 mt-0.5 font-sans">
                     {cg.email} • {cg.phone} • {cg.experience_years} Years Geriatric Experience
                   </p>
-                  <p className="text-xs font-semibold text-brand-700 mt-1">
+                  <p className="text-xs font-semibold text-[#008080] mt-1 font-sans">
                     Certifications: {cg.certifications.join(', ')}
                   </p>
                 </div>
@@ -83,14 +84,14 @@ export const CaregiverVerificationPage: React.FC = () => {
                 {cg.verification_status !== 'verified' ? (
                   <button
                     onClick={() => handleUpdateStatus(cg, 'verified')}
-                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md shadow-emerald-600/30 flex items-center gap-1.5"
+                    className="art-btn-primary px-5 py-2.5 text-xs shadow-md flex items-center gap-1.5"
                   >
-                    <CheckCircle2 className="w-4 h-4" /> Approve & Certify
+                    <CheckCircle2 className="w-4 h-4 text-[#CFB53B]" /> Approve & Certify
                   </button>
                 ) : (
                   <button
                     onClick={() => handleUpdateStatus(cg, 'pending')}
-                    className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs"
+                    className="art-btn-secondary px-4 py-2 text-xs"
                   >
                     Reopen Review
                   </button>
@@ -98,38 +99,38 @@ export const CaregiverVerificationPage: React.FC = () => {
                 {cg.verification_status !== 'rejected' && (
                   <button
                     onClick={() => handleUpdateStatus(cg, 'rejected')}
-                    className="px-4 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 font-bold text-xs border border-red-200"
+                    className="art-btn-danger px-4 py-2 text-xs flex items-center gap-1"
                   >
-                    Reject
+                    <XCircle className="w-3.5 h-3.5" /> Flag
                   </button>
                 )}
               </div>
             </div>
 
             {/* Verification Checklist */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <span className="text-slate-400 font-semibold block text-[10px]">Aadhaar Biometric e-KYC</span>
-                <p className="font-bold text-slate-900 flex items-center gap-1.5">
-                  <CheckCircle2 className={`w-4 h-4 ${cg.aadhaar_verified ? 'text-emerald-600' : 'text-slate-400'}`} />
-                  {cg.aadhaar_verified ? 'UIDAI Verified' : 'Pending Verification'}
-                </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center gap-3">
+                <FileCheck className="w-5 h-5 text-[#808000]" />
+                <div className="text-xs font-sans">
+                  <p className="font-bold text-[#17211C]">Aadhaar Biometric e-KYC</p>
+                  <p className="text-[#808000] font-semibold">{cg.aadhaar_verified ? 'Verified & Authenticated' : 'Pending Verification'}</p>
+                </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <span className="text-slate-400 font-semibold block text-[10px]">Police Criminal Clearance</span>
-                <p className="font-bold text-slate-900 flex items-center gap-1.5">
-                  <CheckCircle2 className={`w-4 h-4 ${cg.police_verification ? 'text-emerald-600' : 'text-slate-400'}`} />
-                  {cg.police_verification ? 'Clear Background Record' : 'Documentation In Review'}
-                </p>
+              <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center gap-3">
+                <ShieldCheck className="w-5 h-5 text-[#808000]" />
+                <div className="text-xs font-sans">
+                  <p className="font-bold text-[#17211C]">Police Criminal Record Check</p>
+                  <p className="text-[#808000] font-semibold">{cg.police_verification ? 'Clear Background (Delhi Police)' : 'Under Investigation'}</p>
+                </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                <span className="text-slate-400 font-semibold block text-[10px]">Medical Accreditation</span>
-                <p className="font-bold text-slate-900 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  GDA Council Certified
-                </p>
+              <div className="p-3.5 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center gap-3">
+                <Star className="w-5 h-5 fill-[#CFB53B] text-[#CFB53B]" />
+                <div className="text-xs font-sans">
+                  <p className="font-bold text-[#17211C]">Client Family Rating</p>
+                  <p className="text-[#008080] font-semibold font-mono">{cg.rating || 4.9} / 5.0 (52 reviews)</p>
+                </div>
               </div>
             </div>
           </div>

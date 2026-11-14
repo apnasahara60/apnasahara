@@ -17,7 +17,6 @@ import {
 } from 'lucide-react';
 import { dbStore } from '../../lib/mongoStore';
 import { SosAlert, CaregiverProfile, UserProfile } from '../../types';
-import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const AdminDashboard: React.FC = () => {
   const [users, setUsers] = useState<UserProfile[]>([]);
@@ -89,8 +88,8 @@ export const AdminDashboard: React.FC = () => {
 
       {/* Emergency Radar Alert Panel */}
       <div className="relative art-card p-6 space-y-4">
-        <OrnateCorner position="top-left" color="#CFB53B" size={32} />
-        <OrnateCorner position="top-right" color="#CFB53B" size={32} />
+        
+        
 
         <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
           <div className="flex items-center gap-3">

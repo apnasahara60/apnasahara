@@ -21,6 +21,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import { dbStore } from '../../lib/mongoStore';
 import { ElderProfile, CaregiverProfile } from '../../types';
+import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const OnboardingPage: React.FC = () => {
   const { user, updateProfile } = useAuth();
@@ -212,7 +213,7 @@ export const OnboardingPage: React.FC = () => {
       });
 
       showToast(
-        'Onboarding Complete 🎉',
+        'Onboarding Complete',
         `Welcome to ApnaSahara! Family care bridge active for ${elderNameFinal}.`,
         'system'
       );
@@ -273,7 +274,7 @@ export const OnboardingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F6F2] py-8 px-4 sm:px-6 lg:px-8 text-[#1A2E22]">
+    <div className="min-h-screen bg-[#FFFFF0] py-8 px-4 sm:px-6 lg:px-8 text-[#17211C] font-serif">
       <div className="max-w-2xl mx-auto space-y-6">
         
         {/* Brand Header */}
@@ -282,10 +283,11 @@ export const OnboardingPage: React.FC = () => {
             <img src="/logo.png" alt="ApnaSahara" className="h-12 w-auto object-contain" />
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-[#172E21] tracking-tight">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#008080]">Art Nouveau Sanctuary Onboarding</span>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#17211C] tracking-tight mt-1">
               Let's Set Up Your ApnaSahara Care Space
             </h1>
-            <p className="text-xs sm:text-sm text-[#5B7163] mt-1">
+            <p className="text-xs sm:text-sm text-[#17211C]/75 mt-1 font-sans">
               {userRole === 'family'
                 ? 'Tell us about your parent so we can personalize their daily check-ins, medical alerts, and local caregiver support.'
                 : 'Help us personalize your experience with accurate details.'}
@@ -293,56 +295,58 @@ export const OnboardingPage: React.FC = () => {
           </div>
 
           {/* Quick Pre-fill badge for convenience */}
-          <div className="flex justify-center pt-1">
+          <div className="flex justify-center pt-1 font-sans">
             <button
               type="button"
               onClick={handlePreFillSample}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold bg-[#E3EBE4] hover:bg-[#D5E3D8] text-[#1E4733] transition-colors border border-[#CDDCD1] shadow-xs"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-[#FFFDD0] hover:bg-[#FFFFF0] text-[#008080] border border-[#CFB53B] shadow-sm transition-all"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#2B6141]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#CFB53B]" />
               <span>Fill with sample parent data (Rajesh Sharma • Indore)</span>
             </button>
           </div>
         </div>
 
         {/* Step Progress Bar */}
-        <div className="bg-white rounded-2xl p-4 border border-[#E3E7DE] shadow-xs">
-          <div className="flex items-center justify-between text-xs font-bold text-[#688070] mb-2">
+        <div className="art-card p-4">
+          <div className="flex items-center justify-between text-xs font-bold text-[#008080] mb-2 font-sans">
             <span>Step {currentStep} of {totalSteps}</span>
-            <span>
+            <span className="font-serif">
               {currentStep === 1 && 'Senior Details'}
               {currentStep === 2 && 'Location & City Bridge'}
               {currentStep === 3 && 'Health & Medications'}
               {currentStep === 4 && 'Emergency & Local Sahayak'}
             </span>
           </div>
-          <div className="w-full bg-[#E8ECE6] h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-[#FFFDD0] h-2.5 rounded-full overflow-hidden border border-[#CFB53B]/40">
             <div
-              className="bg-[#2B6141] h-full transition-all duration-300 rounded-full"
+              className="bg-gradient-to-r from-[#008080] to-[#808000] h-full transition-all duration-300 rounded-full"
               style={{ width: `${(currentStep / totalSteps) * 100}%` }}
             />
           </div>
         </div>
 
         {/* Main Step Form Card */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E3E7DE] shadow-md space-y-6">
+        <div className="relative art-card p-6 sm:p-8 space-y-6 shadow-xl">
+          <OrnateCorner position="top-left" color="#CFB53B" size={36} />
+          <OrnateCorner position="top-right" color="#CFB53B" size={36} />
 
           {/* ================= STEP 1: SENIOR PROFILE ================= */}
           {currentStep === 1 && (
-            <div className="space-y-5 animate-fadeIn">
-              <div className="border-b border-[#EDF1EB] pb-3">
-                <h3 className="text-lg font-extrabold text-[#1A2E22] flex items-center gap-2">
-                  <User className="w-5 h-5 text-[#2B6141]" />
+            <div className="space-y-5">
+              <div className="border-b border-[#CFB53B]/30 pb-3">
+                <h3 className="text-lg font-bold text-[#17211C] flex items-center gap-2">
+                  <User className="w-5 h-5 text-[#008080]" />
                   <span>Who are you caring for?</span>
                 </h3>
-                <p className="text-xs text-[#63796C]">
+                <p className="text-xs text-[#17211C]/70 font-sans">
                   We will address your parent with utmost warmth and respect in all check-ins.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
                 <div className="sm:col-span-2">
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Parent / Senior Full Name *
                   </label>
                   <input
@@ -351,18 +355,18 @@ export const OnboardingPage: React.FC = () => {
                     value={parentName}
                     onChange={(e) => setParentName(e.target.value)}
                     placeholder="e.g. Rajesh Sharma"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full font-serif text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Relationship
                   </label>
                   <select
                     value={relationship}
                     onChange={(e) => setRelationship(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#D3DCD4] text-sm font-semibold focus:ring-2 focus:ring-[#2B6141] focus:outline-none bg-white"
+                    className="art-input w-full text-sm font-semibold bg-[#FFFFF0]"
                   >
                     <option value="Father / Dad">Father / Dad</option>
                     <option value="Mother / Mom">Mother / Mom</option>
@@ -375,7 +379,7 @@ export const OnboardingPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Age
                   </label>
                   <input
@@ -383,12 +387,12 @@ export const OnboardingPage: React.FC = () => {
                     value={age}
                     onChange={(e) => setAge(e.target.value ? parseInt(e.target.value, 10) : '')}
                     placeholder="e.g. 74"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Gender
                   </label>
                   <div className="grid grid-cols-3 gap-2">
@@ -397,10 +401,10 @@ export const OnboardingPage: React.FC = () => {
                         key={g}
                         type="button"
                         onClick={() => setGender(g)}
-                        className={`py-2 rounded-xl text-xs font-bold border transition-all ${
+                        className={`py-2 rounded-art text-xs font-bold border transition-all ${
                           gender === g
-                            ? 'bg-[#E3EBE4] border-[#2B6141] text-[#1E4733]'
-                            : 'border-[#D3DCD4] text-[#55695D] hover:bg-[#F7FAF7]'
+                            ? 'bg-[#008080] text-[#FFFFF0] border-[#008080]'
+                            : 'border-[#CFB53B]/50 bg-[#FFFFF0] text-[#17211C]/75 hover:bg-[#FFFDD0]'
                         }`}
                       >
                         {g}
@@ -410,13 +414,13 @@ export const OnboardingPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Blood Group
                   </label>
                   <select
                     value={bloodGroup}
                     onChange={(e) => setBloodGroup(e.target.value)}
-                    className="w-full px-3 py-2.5 rounded-xl border border-[#D3DCD4] text-sm font-semibold focus:ring-2 focus:ring-[#2B6141] focus:outline-none bg-white"
+                    className="art-input w-full text-sm font-semibold bg-[#FFFFF0]"
                   >
                     {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map((bg) => (
                       <option key={bg} value={bg}>
@@ -431,20 +435,20 @@ export const OnboardingPage: React.FC = () => {
 
           {/* ================= STEP 2: LOCATION & CITY BRIDGE ================= */}
           {currentStep === 2 && (
-            <div className="space-y-5 animate-fadeIn">
-              <div className="border-b border-[#EDF1EB] pb-3">
-                <h3 className="text-lg font-extrabold text-[#1A2E22] flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-[#2B6141]" />
+            <div className="space-y-5">
+              <div className="border-b border-[#CFB53B]/30 pb-3">
+                <h3 className="text-lg font-bold text-[#17211C] flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-[#008080]" />
                   <span>Location & Distance Bridge</span>
                 </h3>
-                <p className="text-xs text-[#63796C]">
+                <p className="text-xs text-[#17211C]/70 font-sans">
                   ApnaSahara connects your city to your parents' city with local care coordination.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Senior's City *
                   </label>
                   <input
@@ -453,15 +457,15 @@ export const OnboardingPage: React.FC = () => {
                     value={parentCity}
                     onChange={(e) => setParentCity(e.target.value)}
                     placeholder="e.g. Indore, Madhya Pradesh"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-serif"
                   />
-                  <p className="text-[11px] text-[#71887A] mt-1">
+                  <p className="text-[11px] text-[#17211C]/60 mt-1">
                     Where your parent currently resides
                   </p>
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Your Current City (Family Bridge) *
                   </label>
                   <input
@@ -470,15 +474,15 @@ export const OnboardingPage: React.FC = () => {
                     value={userCity}
                     onChange={(e) => setUserCity(e.target.value)}
                     placeholder="e.g. Bengaluru, Karnataka"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-serif"
                   />
-                  <p className="text-[11px] text-[#71887A] mt-1">
+                  <p className="text-[11px] text-[#17211C]/60 mt-1">
                     Creates your live ribbon: <strong>{userCity || 'Bengaluru'} ↔ {parentCity || 'Indore'}</strong>
                   </p>
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Parent's Residential Address / Society *
                   </label>
                   <textarea
@@ -486,43 +490,43 @@ export const OnboardingPage: React.FC = () => {
                     value={parentAddress}
                     onChange={(e) => setParentAddress(e.target.value)}
                     placeholder="e.g. Flat B-402, Green Valley Apartments, Sector 62 / Old Palasia..."
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-serif"
                   />
-                  <p className="text-[11px] text-[#71887A] mt-0.5">
+                  <p className="text-[11px] text-[#17211C]/60 mt-0.5">
                     Used strictly by verified caregivers during dispatched visits and SOS assistance.
                   </p>
                 </div>
               </div>
 
               {/* Visual Bridge Preview */}
-              <div className="p-4 rounded-2xl bg-[#F6FAF6] border border-[#D8E6DB] flex items-center justify-between">
+              <div className="p-4 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/60 flex items-center justify-between font-sans">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#2B6141] animate-pulse" />
-                  <span className="text-xs font-bold text-[#204732]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#808000] animate-pulse" />
+                  <span className="text-xs font-bold text-[#008080]">
                     Active Distance Bridge: {userCity || 'Your City'} ↔ {parentCity || 'Senior City'}
                   </span>
                 </div>
-                <span className="text-[11px] text-[#5A7364] font-semibold">24/7 Monitored</span>
+                <span className="text-[11px] text-[#808000] font-semibold">24/7 Monitored</span>
               </div>
             </div>
           )}
 
           {/* ================= STEP 3: HEALTH & MEDICATIONS ================= */}
           {currentStep === 3 && (
-            <div className="space-y-5 animate-fadeIn">
-              <div className="border-b border-[#EDF1EB] pb-3">
-                <h3 className="text-lg font-extrabold text-[#1A2E22] flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-[#2B6141]" />
+            <div className="space-y-5">
+              <div className="border-b border-[#CFB53B]/30 pb-3">
+                <h3 className="text-lg font-bold text-[#17211C] flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-[#008080]" />
                   <span>Health Conditions & Daily Medications</span>
                 </h3>
-                <p className="text-xs text-[#63796C]">
+                <p className="text-xs text-[#17211C]/70 font-sans">
                   Ensures scheduled reminders and accurate medical records for emergency responders.
                 </p>
               </div>
 
               {/* Conditions Chips */}
-              <div>
-                <label className="text-xs font-bold text-[#34483B] block mb-2">
+              <div className="font-sans">
+                <label className="text-xs font-bold text-[#17211C] block mb-2">
                   Select Pre-existing Medical Conditions:
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -533,10 +537,10 @@ export const OnboardingPage: React.FC = () => {
                         key={cond}
                         type="button"
                         onClick={() => toggleCondition(cond)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                        className={`px-3 py-1.5 rounded-art text-xs font-semibold border transition-all ${
                           isSelected
-                            ? 'bg-[#2B6141] text-white border-[#2B6141] shadow-xs'
-                            : 'bg-white text-[#4A5E51] border-[#D3DCD4] hover:bg-[#F7FAF7]'
+                            ? 'bg-[#008080] text-[#FFFFF0] border-[#008080] shadow-sm'
+                            : 'bg-[#FFFFF0] text-[#17211C] border-[#CFB53B]/50 hover:bg-[#FFFDD0]'
                         }`}
                       >
                         {cond} {isSelected && '✓'}
@@ -551,12 +555,12 @@ export const OnboardingPage: React.FC = () => {
                     value={customCondition}
                     onChange={(e) => setCustomCondition(e.target.value)}
                     placeholder="Add other medical condition..."
-                    className="flex-1 px-3 py-2 rounded-xl border border-[#D3DCD4] text-xs focus:outline-none focus:ring-1 focus:ring-[#2B6141]"
+                    className="art-input flex-1 px-3 py-2 text-xs"
                   />
                   <button
                     type="button"
                     onClick={handleAddCustomCondition}
-                    className="px-3 py-2 rounded-xl bg-[#E3EBE4] text-[#1E4733] text-xs font-bold hover:bg-[#D5E3D8]"
+                    className="art-btn-secondary px-3 py-2 text-xs font-bold"
                   >
                     + Add
                   </button>
@@ -564,8 +568,8 @@ export const OnboardingPage: React.FC = () => {
               </div>
 
               {/* Allergies */}
-              <div>
-                <label className="text-xs font-bold text-[#34483B] block mb-1">
+              <div className="font-sans">
+                <label className="text-xs font-bold text-[#17211C] block mb-1">
                   Known Allergies (Food or Drugs)
                 </label>
                 <input
@@ -573,22 +577,22 @@ export const OnboardingPage: React.FC = () => {
                   value={allergies}
                   onChange={(e) => setAllergies(e.target.value)}
                   placeholder="e.g. Penicillin, Sulfa drugs, Peanuts, None"
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                  className="art-input w-full text-sm font-serif"
                 />
               </div>
 
               {/* Daily Medications List */}
-              <div className="space-y-3">
+              <div className="space-y-3 font-sans">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#34483B] block">
+                  <label className="text-xs font-bold text-[#17211C] block">
                     Daily Prescribed Medications:
                   </label>
                   <button
                     type="button"
                     onClick={handleAddMedication}
-                    className="text-xs font-bold text-[#2B6141] hover:underline flex items-center gap-1"
+                    className="text-xs font-bold text-[#008080] hover:underline flex items-center gap-1"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Plus className="w-3.5 h-3.5 text-[#CFB53B]" />
                     <span>Add Medication</span>
                   </button>
                 </div>
@@ -597,41 +601,41 @@ export const OnboardingPage: React.FC = () => {
                   {medications.map((med, idx) => (
                     <div
                       key={idx}
-                      className="p-3 rounded-2xl bg-[#FAFBF9] border border-[#E3E7DE] flex flex-col sm:flex-row items-center gap-2"
+                      className="p-3 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/40 flex flex-col sm:flex-row items-center gap-2"
                     >
                       <input
                         type="text"
                         value={med.name}
                         onChange={(e) => handleMedChange(idx, 'name', e.target.value)}
                         placeholder="Medicine name (e.g. Telma 40)"
-                        className="w-full sm:flex-1 px-3 py-1.5 rounded-xl border border-[#D3DCD4] text-xs bg-white"
+                        className="art-input w-full sm:flex-1 text-xs bg-[#FFFFF0]"
                       />
                       <input
                         type="text"
                         value={med.dosage}
                         onChange={(e) => handleMedChange(idx, 'dosage', e.target.value)}
                         placeholder="Dosage (40mg)"
-                        className="w-full sm:w-24 px-3 py-1.5 rounded-xl border border-[#D3DCD4] text-xs bg-white"
+                        className="art-input w-full sm:w-24 text-xs bg-[#FFFFF0] font-mono"
                       />
                       <input
                         type="text"
                         value={med.scheduled_time}
                         onChange={(e) => handleMedChange(idx, 'scheduled_time', e.target.value)}
                         placeholder="Time (08:00 AM)"
-                        className="w-full sm:w-28 px-3 py-1.5 rounded-xl border border-[#D3DCD4] text-xs bg-white"
+                        className="art-input w-full sm:w-28 text-xs bg-[#FFFFF0] font-mono"
                       />
                       <input
                         type="text"
                         value={med.instructions}
                         onChange={(e) => handleMedChange(idx, 'instructions', e.target.value)}
                         placeholder="Instructions (After food)"
-                        className="w-full sm:flex-1 px-3 py-1.5 rounded-xl border border-[#D3DCD4] text-xs bg-white"
+                        className="art-input w-full sm:flex-1 text-xs bg-[#FFFFF0]"
                       />
                       {medications.length > 1 && (
                         <button
                           type="button"
                           onClick={() => handleRemoveMedication(idx)}
-                          className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg"
+                          className="p-1.5 text-[#800020] hover:bg-[#800020]/10 rounded-art"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -645,20 +649,20 @@ export const OnboardingPage: React.FC = () => {
 
           {/* ================= STEP 4: EMERGENCY CONTACTS & LOCAL SAHAYAK ================= */}
           {currentStep === 4 && (
-            <div className="space-y-5 animate-fadeIn">
-              <div className="border-b border-[#EDF1EB] pb-3">
-                <h3 className="text-lg font-extrabold text-[#1A2E22] flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-[#2B6141]" />
+            <div className="space-y-5">
+              <div className="border-b border-[#CFB53B]/30 pb-3">
+                <h3 className="text-lg font-bold text-[#17211C] flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-[#008080]" />
                   <span>Emergency Contacts & Dedicated Sahayak</span>
                 </h3>
-                <p className="text-xs text-[#63796C]">
+                <p className="text-xs text-[#17211C]/70 font-sans">
                   Direct speed-dial numbers for emergencies and your verified local care coordinator.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans">
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Senior's Direct Phone Number *
                   </label>
                   <input
@@ -667,15 +671,15 @@ export const OnboardingPage: React.FC = () => {
                     value={parentPhone}
                     onChange={(e) => setParentPhone(e.target.value)}
                     placeholder="+91 98111 22334"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-mono"
                   />
-                  <p className="text-[11px] text-[#71887A] mt-1">
+                  <p className="text-[11px] text-[#17211C]/60 mt-1">
                     Used for daily check-in calls & 1-click speed dial
                   </p>
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Secondary / Doctor Emergency Contact Name
                   </label>
                   <input
@@ -683,12 +687,12 @@ export const OnboardingPage: React.FC = () => {
                     value={emergencyContactName}
                     onChange={(e) => setEmergencyContactName(e.target.value)}
                     placeholder="e.g. Dr. Joshi / Local relative"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-serif"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Secondary Emergency Phone Number
                   </label>
                   <input
@@ -696,12 +700,12 @@ export const OnboardingPage: React.FC = () => {
                     value={emergencyContactPhone}
                     onChange={(e) => setEmergencyContactPhone(e.target.value)}
                     placeholder="+91 98222 33445"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-[#34483B] block mb-1">
+                  <label className="text-xs font-bold text-[#17211C] block mb-1">
                     Assigned Local Care Coordinator
                   </label>
                   <input
@@ -709,21 +713,21 @@ export const OnboardingPage: React.FC = () => {
                     value={coordinatorName}
                     onChange={(e) => setCoordinatorName(e.target.value)}
                     placeholder="e.g. Meera Joshi (Family Care Coordinator)"
-                    className="w-full px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-sm focus:ring-2 focus:ring-[#2B6141] focus:outline-none"
+                    className="art-input w-full text-sm font-serif"
                   />
-                  <p className="text-[11px] text-[#71887A] mt-1">
+                  <p className="text-[11px] text-[#17211C]/60 mt-1">
                     Your single point of contact on the ground in {parentCity || 'Indore'}
                   </p>
                 </div>
               </div>
 
               {/* Summary Card */}
-              <div className="p-4 rounded-2xl bg-[#FAFBF9] border border-[#E3E7DE] space-y-2">
-                <span className="text-xs font-extrabold text-[#1E4733] flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#2B6141]" />
-                  <span>Ready to finalize setup for {parentName || 'Dad'}</span>
+              <div className="p-4 rounded-art bg-[#FFFDD0] border border-[#CFB53B]/50 space-y-1.5 font-sans">
+                <span className="text-xs font-bold text-[#008080] flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#808000]" />
+                  <span>Ready to finalize sanctuary setup for {parentName || 'Dad'}</span>
                 </span>
-                <p className="text-xs text-[#52685B]">
+                <p className="text-xs text-[#17211C]/75">
                   Your dashboard will instantly adapt to {parentName || 'your parent'}, showing live status in {parentCity || 'Indore'}, local visits, and connected family actions.
                 </p>
               </div>
@@ -731,14 +735,14 @@ export const OnboardingPage: React.FC = () => {
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex items-center justify-between pt-4 border-t border-[#EDF1EB]">
+          <div className="flex items-center justify-between pt-4 border-t border-[#CFB53B]/30 font-sans">
             {currentStep > 1 ? (
               <button
                 type="button"
                 onClick={() => setCurrentStep(currentStep - 1)}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-[#D3DCD4] text-[#42584A] text-xs font-bold hover:bg-[#F5F8F5]"
+                className="art-btn-secondary px-4 py-2.5 inline-flex items-center gap-1.5 text-xs"
               >
-                <ArrowLeft className="w-4 h-4" />
+                <ArrowLeft className="w-4 h-4 text-[#008080]" />
                 <span>Previous Step</span>
               </button>
             ) : (
@@ -749,18 +753,18 @@ export const OnboardingPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCurrentStep(currentStep + 1)}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#2B6141] hover:bg-[#204931] text-white text-xs font-bold shadow-sm transition-all"
+                className="art-btn-primary px-6 py-2.5 inline-flex items-center gap-2 text-xs shadow-md"
               >
                 <span>Continue</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#CFB53B]" />
               </button>
             ) : (
               <button
                 type="button"
                 onClick={handleCompleteOnboarding}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#2B6141] hover:bg-[#1E4733] text-white text-xs font-black shadow-md transition-all scale-100 hover:scale-105"
+                className="art-btn-primary px-6 py-2.5 inline-flex items-center gap-2 text-xs shadow-md font-serif font-bold"
               >
-                <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                <CheckCircle2 className="w-4 h-4 text-[#CFB53B]" />
                 <span>Launch My Family Care Space →</span>
               </button>
             )}
@@ -768,8 +772,9 @@ export const OnboardingPage: React.FC = () => {
         </div>
 
         {/* Footer Guarantee */}
-        <p className="text-center text-[11px] text-[#71887A]">
-          🔒 HIPAA & Indian Digital Personal Data Protection (DPDP) compliant • AES-256 encrypted
+        <p className="text-center text-[11px] text-[#17211C]/60 font-sans flex items-center justify-center gap-1.5">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#008080]" />
+          <span>HIPAA & Indian Digital Personal Data Protection (DPDP) compliant • AES-256 encrypted</span>
         </p>
       </div>
     </div>

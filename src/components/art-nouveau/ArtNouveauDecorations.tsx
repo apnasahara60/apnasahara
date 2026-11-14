@@ -5,7 +5,10 @@ import React from 'react';
  */
 
 // Simple clean divider
-export const WhiplashDivider: React.FC<{ className?: string }> = ({ className = '' }) => (
+export const WhiplashDivider: React.FC<{
+  className?: string;
+  color?: string;
+}> = ({ className = '' }) => (
   <div className={`w-full max-w-5xl mx-auto px-6 my-8 ${className}`}>
     <hr className="border-[#CFB53B]/20" />
   </div>
@@ -15,10 +18,18 @@ export const WhiplashDivider: React.FC<{ className?: string }> = ({ className = 
 export const OrnateCorner: React.FC<{
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   className?: string;
+  color?: string;
+  size?: number;
 }> = () => null;
 
 // Medallion removed
-export const StainedGlassMedallion: React.FC<{ className?: string }> = () => null;
+export const StainedGlassMedallion: React.FC<{
+  className?: string;
+  color?: string;
+}> = () => null;
 
 // Floral branch crest removed
-export const BotanicalBranch: React.FC<{ className?: string; flipped?: boolean }> = () => null;
+export const BotanicalBranch: React.FC<{
+  className?: string;
+  flipped?: boolean;
+}> = () => null;

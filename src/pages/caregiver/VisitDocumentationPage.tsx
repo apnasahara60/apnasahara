@@ -3,7 +3,6 @@ import { FileText, Activity, CheckCircle2, Send, Heart, Camera } from 'lucide-re
 import { dbStore } from '../../lib/mongoStore';
 import { Visit } from '../../types';
 import { useNotification } from '../../context/NotificationContext';
-import { OrnateCorner } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const VisitDocumentationPage: React.FC = () => {
   const { showToast } = useNotification();
@@ -67,8 +66,8 @@ export const VisitDocumentationPage: React.FC = () => {
 
       {submitted ? (
         <div className="relative art-card p-8 sm:p-12 text-center space-y-4 shadow-xl">
-          <OrnateCorner position="top-left" color="#CFB53B" size={36} />
-          <OrnateCorner position="top-right" color="#CFB53B" size={36} />
+          
+          
 
           <div className="w-16 h-16 rounded-full bg-[#808000]/15 text-[#808000] border-2 border-[#808000] flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-10 h-10" />

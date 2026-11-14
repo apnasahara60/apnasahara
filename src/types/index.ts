@@ -71,6 +71,7 @@ export interface HealthMetric {
   sleep_hours?: number;
   mood?: 'Very Good' | 'Good' | 'Fair' | 'Unwell' | 'Critical';
   notes?: string;
+  resolution_notes?: string;
 }
 
 export interface Medication {
@@ -96,6 +97,7 @@ export interface SosAlert {
   elder_name: string;
   elder_phone: string;
   address: string;
+  elder_address?: string;
   lat: number;
   lng: number;
   triggered_at: string;
@@ -105,6 +107,7 @@ export interface SosAlert {
   dispatched_at?: string;
   resolved_at?: string;
   notes?: string;
+  resolution_notes?: string;
 }
 
 export interface VisitTask {
@@ -113,6 +116,7 @@ export interface VisitTask {
   description?: string;
   completed: boolean;
   completed_at?: string;
+  category?: string;
 }
 
 export interface Visit {
