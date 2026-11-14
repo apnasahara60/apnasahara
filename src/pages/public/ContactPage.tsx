@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare, Clock } from 'lucide-react';
 import { useNotification } from '../../context/NotificationContext';
+import { OrnateCorner, WhiplashDivider } from '../../components/art-nouveau/ArtNouveauDecorations';
 
 export const ContactPage: React.FC = () => {
   const { showToast } = useNotification();
@@ -27,16 +28,17 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="py-12 space-y-16">
+    <div className="py-12 space-y-16 font-serif text-[#17211C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <span className="text-xs uppercase font-extrabold tracking-widest text-brand-600 bg-brand-50 px-3 py-1 rounded-full border border-brand-200">
+          <span className="text-xs uppercase font-bold tracking-widest text-[#008080] bg-[#008080]/10 border border-[#008080]/30 px-3.5 py-1 rounded-full font-sans">
             24/7 Helpline & Care Concierge
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold text-[#17211C] tracking-tight">
             We Are Here For Your Family
           </h1>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+          <WhiplashDivider color="#CFB53B" className="max-w-xs mx-auto" />
+          <p className="text-base sm:text-lg text-[#17211C]/80 leading-relaxed font-sans">
             Have questions about care plans, need immediate emergency assistance, or want to speak with our Geriatric Care Director? Reach out anytime.
           </p>
         </div>
@@ -44,214 +46,183 @@ export const ContactPage: React.FC = () => {
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Contact Details */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="p-8 rounded-3xl bg-slate-900 text-white space-y-6 shadow-xl">
-              <h3 className="text-2xl font-black">Direct Contacts</h3>
-              <p className="text-xs text-slate-400">
+            <div className="relative p-8 rounded-art bg-gradient-to-r from-[#17211C] to-[#232F28] text-[#FFFFF0] border-2 border-[#CFB53B] space-y-6 shadow-xl">
+              <OrnateCorner position="top-left" color="#CFB53B" size={32} />
+              <OrnateCorner position="top-right" color="#CFB53B" size={32} />
+
+              <h3 className="text-2xl font-bold">Direct Contacts</h3>
+              <p className="text-xs text-[#FFFDD0] font-sans">
                 Operating round-the-clock across Delhi NCR, Bengaluru, Mumbai, Pune, and Hyderabad.
               </p>
 
-              <div className="space-y-4 text-xs sm:text-sm">
+              <div className="space-y-4 text-xs sm:text-sm font-sans">
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-art bg-[#800020]/30 border border-[#800020] text-[#FFFDD0] flex items-center justify-center shrink-0">
+                    <Phone className="w-4 h-4 text-[#CFB53B]" />
                   </div>
                   <div>
-                    <p className="font-bold text-white">Emergency Desk (24/7)</p>
-                    <a href="tel:18002081122" className="text-red-400 font-extrabold hover:underline">
+                    <p className="font-bold text-[#FFFFF0] font-serif">Emergency Telemetry Desk (24/7)</p>
+                    <a href="tel:18002081122" className="text-[#CFB53B] font-bold font-mono hover:underline">
                       1800-208-1122 (Toll Free)
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center shrink-0">
-                    <Mail className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-art bg-[#008080]/30 border border-[#008080] text-[#FFFDD0] flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-[#CFB53B]" />
                   </div>
                   <div>
-                    <p className="font-bold text-white">Care Coordination Email</p>
-                    <a href="mailto:care@apnasahara.com" className="text-slate-300 hover:underline">
+                    <p className="font-bold text-[#FFFFF0] font-serif">Care Coordination Email</p>
+                    <a href="mailto:care@apnasahara.com" className="text-[#FFFDD0] hover:underline font-mono">
                       care@apnasahara.com
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
-                    <MapPin className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-art bg-[#005F9E]/30 border border-[#005F9E] text-[#FFFDD0] flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-[#CFB53B]" />
                   </div>
                   <div>
-                    <p className="font-bold text-white">Care Operations Centre</p>
-                    <p className="text-slate-400 text-xs">
+                    <p className="font-bold text-[#FFFFF0] font-serif">Care Operations Centre</p>
+                    <p className="text-[#FFFDD0]/80 text-xs">
                       Tower B, Cyber City, DLF Phase 2, Gurugram, NCR, India
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-art bg-[#CFB53B]/20 border border-[#CFB53B] text-[#FFFDD0] flex items-center justify-center shrink-0">
+                    <Clock className="w-4 h-4 text-[#CFB53B]" />
                   </div>
                   <div>
-                    <p className="font-bold text-white">Response Time</p>
-                    <p className="text-slate-400 text-xs">
+                    <p className="font-bold text-[#FFFFF0] font-serif">Response Time</p>
+                    <p className="text-[#FFFDD0]/80 text-xs">
                       Inquiries answered within 15 minutes. Emergency SOS immediate.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Senior helpline info */}
-            <div className="p-6 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-2">
-              <p className="font-bold text-sm">Govt. Elderline Integration</p>
-              <p>
-                In addition to ApnaSahara's private caregiver network, we are integrated with India's National Senior Citizen Helpline <strong>14567</strong> for legal and social security support.
-              </p>
-            </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-8 sm:p-10 border border-slate-200 shadow-xl">
-            {submitted ? (
-              <div className="text-center py-12 space-y-4 animate-in fade-in">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-10 h-10" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">Message Received!</h3>
-                <p className="text-sm text-slate-600 max-w-md mx-auto">
-                  Thank you, <strong>{formData.name}</strong>. A dedicated ApnaSahara care manager has been notified and will reach out to <strong>{formData.phone || formData.email}</strong> shortly.
-                </p>
-                <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setFormData({
-                      name: '',
-                      email: '',
-                      phone: '',
-                      parentCity: 'NCR (Delhi, Noida, Gurugram)',
-                      message: '',
-                      urgency: 'Routine Consultation'
-                    });
-                  }}
-                  className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs"
-                >
-                  Send Another Inquiry
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="border-b border-slate-100 pb-4">
-                  <h3 className="text-xl font-black text-slate-900">Request Eldercare Consultation</h3>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Fill in your details and tell us about your parent’s care needs.
+          {/* Form */}
+          <div className="lg:col-span-7">
+            <div className="relative art-card p-8 sm:p-10 shadow-xl">
+              <OrnateCorner position="top-left" color="#CFB53B" size={36} />
+              <OrnateCorner position="top-right" color="#CFB53B" size={36} />
+
+              {submitted ? (
+                <div className="text-center py-12 space-y-4">
+                  <div className="w-16 h-16 rounded-full bg-[#808000]/15 text-[#808000] border-2 border-[#808000] flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-10 h-10" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-[#17211C]">Thank You for Reaching Out</h3>
+                  <p className="text-xs sm:text-sm text-[#17211C]/75 max-w-md mx-auto font-sans">
+                    Our Senior Care Manager has received your inquiry and will contact you via phone or WhatsApp within 30 minutes.
                   </p>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="art-btn-secondary px-6 py-2.5 text-xs font-bold"
+                  >
+                    Send Another Message
+                  </button>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5 font-sans">
                   <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Your Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rahul Sharma"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"
-                    />
+                    <h3 className="text-2xl font-bold text-[#17211C] font-serif">Send Us a Message</h3>
+                    <p className="text-xs text-[#17211C]/65 mt-1">
+                      Fill out the form below and our care team will get back to you shortly.
+                    </p>
                   </div>
 
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="name@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-[#17211C] block mb-1">Your Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="e.g. Rahul Sharma"
+                        className="art-input w-full text-sm font-serif"
+                      />
+                    </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Phone Number (with country code) *</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+91 98765 43210 or +1 ..."
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"
-                    />
-                  </div>
+                    <div>
+                      <label className="text-xs font-bold text-[#17211C] block mb-1">Your Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="rahul@example.com"
+                        className="art-input w-full text-sm font-mono"
+                      />
+                    </div>
 
-                  <div>
-                    <label className="text-xs font-bold text-slate-700 block mb-1">Parent's City in India</label>
-                    <select
-                      value={formData.parentCity}
-                      onChange={(e) => setFormData({ ...formData, parentCity: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none bg-white"
-                    >
-                      <option>NCR (Delhi, Noida, Gurugram, Faridabad)</option>
-                      <option>Bengaluru</option>
-                      <option>Mumbai & Navi Mumbai</option>
-                      <option>Pune</option>
-                      <option>Hyderabad</option>
-                      <option>Chennai</option>
-                      <option>Kolkata</option>
-                      <option>Other Tier-1/2 City</option>
-                    </select>
-                  </div>
-                </div>
+                    <div>
+                      <label className="text-xs font-bold text-[#17211C] block mb-1">Your Phone (+91) *</label>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        className="art-input w-full text-sm font-mono"
+                      />
+                    </div>
 
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Care Urgency</label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['Urgent (within 24 hrs)', 'Routine Consultation', 'Exploring Future Care'].map((u) => (
-                      <button
-                        key={u}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, urgency: u })}
-                        className={`py-2 px-3 rounded-xl text-xs font-semibold border transition-all text-center ${
-                          formData.urgency === u
-                            ? 'bg-brand-50 border-brand-500 text-brand-700 font-bold'
-                            : 'border-slate-200 text-slate-600 hover:bg-slate-50'
-                        }`}
+                    <div>
+                      <label className="text-xs font-bold text-[#17211C] block mb-1">Parent's City in India</label>
+                      <select
+                        value={formData.parentCity}
+                        onChange={(e) => setFormData({ ...formData, parentCity: e.target.value })}
+                        className="art-input w-full text-sm bg-[#FFFFF0]"
                       >
-                        {u}
-                      </button>
-                    ))}
+                        <option>NCR (Delhi, Noida, Gurugram)</option>
+                        <option>Bengaluru, Karnataka</option>
+                        <option>Mumbai / Thane / Navi Mumbai</option>
+                        <option>Pune, Maharashtra</option>
+                        <option>Indore, Madhya Pradesh</option>
+                        <option>Hyderabad, Telangana</option>
+                        <option>Other / Not Listed</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="text-xs font-bold text-slate-700 block mb-1">Tell us about your parents' needs</label>
-                  <textarea
-                    rows={4}
-                    placeholder="e.g. My 74-year-old father has mild mobility issues and hypertension. Need someone for morning BP checks, companionship, and escort to Max Hospital..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none"
-                  />
-                </div>
+                  <div>
+                    <label className="text-xs font-bold text-[#17211C] block mb-1">Message or Care Requirement</label>
+                    <textarea
+                      rows={4}
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Tell us about your parents' living arrangement, health conditions, or questions about our plans..."
+                      className="art-input w-full text-sm font-serif"
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  disabled={isSending}
-                  className="w-full py-4 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/30 flex items-center justify-center gap-2 transition-all"
-                >
-                  {isSending ? (
-                    <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4" />
-                      Submit Consultation Request
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={isSending}
+                      className="art-btn-primary w-full py-3.5 text-sm font-serif font-bold shadow-md flex items-center justify-center gap-2 transition-all"
+                    >
+                      {isSending ? (
+                        <span className="w-4 h-4 border-2 border-[#FFFFF0] border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 text-[#CFB53B]" /> Send Consultation Request
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
           </div>
         </div>
       </div>
