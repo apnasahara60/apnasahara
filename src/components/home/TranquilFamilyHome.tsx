@@ -233,13 +233,6 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                 <Bell className="w-4 h-4" />
                 <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#E5484D] ring-2 ring-white" />
               </button>
-
-              {/* Watermark Logo */}
-              <img
-                src="/logo.png"
-                alt="ApnaSahara"
-                className="hidden sm:inline h-7 w-auto object-contain opacity-95"
-              />
             </div>
           </div>
 

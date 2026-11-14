@@ -151,36 +151,36 @@ export const Navbar: React.FC = () => {
   const getPortalInfo = () => {
     switch (activeSection) {
       case 'family':
-        return { label: 'Family Portal', bg: 'bg-emerald-50 text-emerald-800 border-emerald-300', activePill: 'bg-emerald-600 text-white shadow-sm' };
+        return { label: 'Family Portal', bg: 'bg-[#FFFDD0] text-[#008080] border-[#CFB53B]/50', activePill: 'bg-[#008080] text-[#FFFFF0] shadow-sm' };
       case 'caregiver':
-        return { label: 'Caregiver Portal', bg: 'bg-blue-50 text-blue-800 border-blue-300', activePill: 'bg-blue-600 text-white shadow-sm' };
+        return { label: 'Caregiver Portal', bg: 'bg-[#FFFDD0] text-[#005F9E] border-[#CFB53B]/50', activePill: 'bg-[#005F9E] text-[#FFFFF0] shadow-sm' };
       case 'admin':
-        return { label: 'Admin Portal', bg: 'bg-purple-50 text-purple-800 border-purple-300', activePill: 'bg-purple-600 text-white shadow-sm' };
+        return { label: 'Admin Portal', bg: 'bg-[#FFFDD0] text-[#800020] border-[#CFB53B]/50', activePill: 'bg-[#800020] text-[#FFFFF0] shadow-sm' };
       case 'elder':
-        return { label: 'Elder Portal', bg: 'bg-amber-50 text-amber-900 border-amber-300', activePill: 'bg-amber-500 text-slate-950 shadow-sm' };
+        return { label: 'Elder Portal', bg: 'bg-[#FFFDD0] text-[#808000] border-[#CFB53B]/50', activePill: 'bg-[#808000] text-[#FFFFF0] shadow-sm' };
       default:
-        return { label: 'Public Portal', bg: 'bg-slate-100 text-slate-800 border-slate-300', activePill: 'bg-brand-600 text-white shadow-sm' };
+        return { label: 'Public Website', bg: 'bg-[#FFFDD0] text-[#17211C] border-[#CFB53B]/50', activePill: 'bg-[#008080] text-[#FFFFF0] shadow-sm' };
     }
   };
 
   const portalInfo = getPortalInfo();
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+    <header className="sticky top-0 z-[100] bg-[#FFFFF0]/95 backdrop-blur-md border-b border-[#CFB53B]/35 shadow-[0_2px_12px_rgba(23,33,28,0.04)] font-serif">
       {/* Primary Top Header Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Brand & Logo */}
           <div className="flex items-center gap-3">
             <Link to="/" className="flex items-center gap-3 group">
               <img
                 src="/logo.png"
-                alt="ApnaSahara"
+                alt="ApnaSahara Florido"
                 className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
               />
-              <div className="hidden sm:block">
-                <span className="text-[10px] uppercase font-bold tracking-widest bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
-                  Care, Close to Home
+              <div className="hidden sm:block text-left">
+                <span className="text-[10px] uppercase font-bold tracking-widest bg-[#FFFDD0] text-[#008080] px-2.5 py-0.5 rounded-[8px] border border-[#CFB53B]/50">
+                  Art Nouveau Florido
                 </span>
               </div>
             </Link>
@@ -189,7 +189,7 @@ export const Navbar: React.FC = () => {
             <div className="relative ml-2">
               <button
                 onClick={() => setShowPortalDropdown(!showPortalDropdown)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-colors ${portalInfo.bg}`}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[12px] text-xs font-bold border transition-colors ${portalInfo.bg}`}
               >
                 <span>{portalInfo.label}</span>
                 <ChevronDown className="w-3.5 h-3.5" />
@@ -197,42 +197,47 @@ export const Navbar: React.FC = () => {
 
               {showPortalDropdown && (
                 <div
-                  className="absolute left-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-slate-200 p-2 z-50 animate-in fade-in slide-in-from-top-2"
+                  className="absolute left-0 mt-2 w-56 bg-[#FFFFF0] rounded-[12px] shadow-xl border border-[#CFB53B]/50 p-2 z-[200] animate-in fade-in slide-in-from-top-2"
                   onClick={() => setShowPortalDropdown(false)}
                 >
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 py-1">
+                  <p className="text-[10px] font-bold text-[#17211C]/50 uppercase tracking-wider px-3 py-1">
                     Select Navigation Menu
                   </p>
                   <Link
                     to="/family"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-emerald-800 hover:bg-emerald-50 transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] text-xs font-bold text-[#008080] hover:bg-[#008080]/10 transition-colors"
                   >
-                    👨‍👩‍👧 Family Portal
+                    <Users className="w-4 h-4 text-[#008080]" />
+                    <span>Family Portal</span>
                   </Link>
                   <Link
                     to="/parent"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-amber-900 hover:bg-amber-50 transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] text-xs font-bold text-[#808000] hover:bg-[#808000]/10 transition-colors"
                   >
-                    👴 Elder Portal
+                    <Heart className="w-4 h-4 text-[#808000]" />
+                    <span>Elder Portal</span>
                   </Link>
                   <Link
                     to="/caregiver"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-blue-800 hover:bg-blue-50 transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] text-xs font-bold text-[#005F9E] hover:bg-[#005F9E]/10 transition-colors"
                   >
-                    🩺 Caregiver Portal
+                    <Compass className="w-4 h-4 text-[#005F9E]" />
+                    <span>Caregiver Portal</span>
                   </Link>
                   <Link
                     to="/admin"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-purple-800 hover:bg-purple-50 transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] text-xs font-bold text-[#800020] hover:bg-[#800020]/10 transition-colors"
                   >
-                    🛡️ Admin Portal
+                    <Shield className="w-4 h-4 text-[#800020]" />
+                    <span>Admin Portal</span>
                   </Link>
-                  <div className="border-t border-slate-100 my-1" />
+                  <div className="border-t border-[#CFB53B]/30 my-1" />
                   <Link
                     to="/"
-                    className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-[8px] text-xs font-bold text-[#17211C] hover:bg-[#CFB53B]/15 transition-colors"
                   >
-                    🌐 Public Website
+                    <Activity className="w-4 h-4 text-[#CFB53B]" />
+                    <span>Public Website</span>
                   </Link>
                 </div>
               )}
@@ -349,17 +354,25 @@ export const Navbar: React.FC = () => {
                             }`}
                           >
                             <div className="flex items-start gap-2">
-                              <span className="text-sm mt-0.5">
-                                {notif.type === 'sos' ? '🚨' : notif.type === 'health' ? '🩺' : notif.type === 'visit' ? '🚗' : '🔔'}
+                              <span className="text-sm mt-0.5 text-[#008080]">
+                                {notif.type === 'sos' ? (
+                                  <AlertTriangle className="w-4 h-4 text-[#800020]" />
+                                ) : notif.type === 'health' ? (
+                                  <Activity className="w-4 h-4 text-[#008080]" />
+                                ) : notif.type === 'visit' ? (
+                                  <Car className="w-4 h-4 text-[#CFB53B]" />
+                                ) : (
+                                  <Bell className="w-4 h-4 text-[#008080]" />
+                                )}
                               </span>
                               <div className="flex-1">
-                                <p className={`text-xs ${notif.read ? 'font-medium text-slate-700' : 'font-bold text-slate-900'}`}>
+                                <p className={`text-xs ${notif.read ? 'font-medium text-[#17211C]/80' : 'font-bold text-[#17211C]'}`}>
                                   {notif.title}
                                 </p>
-                                <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-2">
+                                <p className="text-[11px] text-[#17211C]/65 mt-0.5 line-clamp-2">
                                   {notif.message}
                                 </p>
-                                <span className="text-[10px] text-slate-400 mt-1 block">
+                                <span className="text-[10px] text-[#17211C]/50 mt-1 block font-mono">
                                   {new Date(notif.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </span>
                               </div>
@@ -375,18 +388,18 @@ export const Navbar: React.FC = () => {
 
             {/* User Profile / Logout or Sign In */}
             {user ? (
-              <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+              <div className="flex items-center gap-2 pl-2 border-l border-[#CFB53B]/30">
                 <img
                   src={user.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'}
                   alt={user.name}
-                  className="w-8 h-8 rounded-full object-cover border border-slate-200"
+                  className="w-8 h-8 rounded-full object-cover border border-[#CFB53B]/50"
                 />
-                <span className="hidden md:inline text-xs font-bold text-slate-700 max-w-[100px] truncate">
+                <span className="hidden md:inline text-xs font-bold text-[#17211C] max-w-[100px] truncate">
                   {user.name.split(' ')[0]}
                 </span>
                 <button
                   onClick={handleLogout}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  className="p-1.5 rounded-[8px] text-[#17211C]/60 hover:text-[#800020] hover:bg-[#800020]/10 transition-colors"
                   title="Sign Out"
                 >
                   <LogOut className="w-4 h-4" />
@@ -396,13 +409,13 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-600"
+                  className="px-3 py-1.5 text-xs sm:text-sm font-semibold text-[#17211C] hover:text-[#008080] transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-3.5 py-1.5 text-xs sm:text-sm font-bold text-white bg-brand-600 hover:bg-brand-500 rounded-xl shadow-sm transition-all"
+                  className="px-4 py-2 text-xs sm:text-sm font-semibold text-[#FFFFF0] bg-[#008080] hover:brightness-90 active:translate-y-[1px] rounded-[12px] shadow-sm transition-all"
                 >
                   Join Sahara
                 </Link>
@@ -412,7 +425,7 @@ export const Navbar: React.FC = () => {
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100"
+              className="lg:hidden p-2 rounded-[12px] text-[#17211C] hover:bg-[#CFB53B]/20"
               aria-label="Toggle navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -421,19 +434,19 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Navbar Menus Row (No Sidebar - All Menus in Top Nav) */}
-      <nav className="bg-slate-50/90 border-t border-slate-200/80 px-4 sm:px-6 lg:px-8 py-2 overflow-x-auto select-none scrollbar-none">
-        <div className="max-w-7xl mx-auto flex items-center gap-1.5 min-w-max">
+      {/* Horizontal Navbar Menus Row */}
+      <nav className="bg-[#FFFDD0]/75 border-t border-[#CFB53B]/30 px-4 sm:px-6 lg:px-8 py-2 overflow-x-auto select-none scrollbar-none">
+        <div className="max-w-[1280px] mx-auto flex items-center gap-1.5 min-w-max">
           {currentLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               end={link.end}
               className={({ isActive }) =>
-                `flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap ${
+                `flex items-center gap-2 px-3.5 py-1.5 rounded-[12px] text-xs sm:text-sm font-medium transition-all whitespace-nowrap ${
                   isActive
                     ? portalInfo.activePill
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                    : 'text-[#17211C]/80 hover:text-[#008080] hover:bg-[#CFB53B]/15'
                 }`
               }
             >
@@ -446,8 +459,8 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer (Accessible from top hamburger button) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top-2 shadow-xl">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2">
+        <div className="lg:hidden bg-[#FFFFF0] border-b border-[#CFB53B]/40 px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top-2 shadow-xl">
+          <p className="text-[10px] font-bold text-[#17211C]/50 uppercase tracking-wider px-2">
             {portalInfo.label} Menu
           </p>
 
@@ -459,8 +472,8 @@ export const Navbar: React.FC = () => {
                 end={link.end}
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-colors ${
-                    isActive ? portalInfo.activePill : 'text-slate-700 hover:bg-slate-100'
+                  `flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] text-xs font-bold transition-colors ${
+                    isActive ? portalInfo.activePill : 'text-[#17211C] hover:bg-[#CFB53B]/15'
                   }`
                 }
               >
@@ -470,26 +483,31 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Quick Portals Links on Mobile */}
-          <div className="pt-3 border-t border-slate-200">
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider px-2 mb-2">Switch Portal</p>
+          {/* Quick Portals Links on Mobile (No emojis) */}
+          <div className="pt-3 border-t border-[#CFB53B]/30">
+            <p className="text-xs font-bold text-[#17211C]/60 uppercase tracking-wider px-2 mb-2">Switch Portal</p>
             <div className="grid grid-cols-2 gap-2 text-xs font-bold">
-              <Link to="/family" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-center">
-                👨‍👩‍👧 Family Portal
+              <Link to="/family" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-[12px] bg-[#FFFDD0] text-[#008080] border border-[#CFB53B]/40 flex items-center justify-center gap-2">
+                <Users className="w-3.5 h-3.5 text-[#008080]" />
+                <span>Family</span>
               </Link>
-              <Link to="/parent" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 text-center">
-                👴 Elder Portal
+              <Link to="/parent" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-[12px] bg-[#FFFDD0] text-[#808000] border border-[#CFB53B]/40 flex items-center justify-center gap-2">
+                <Heart className="w-3.5 h-3.5 text-[#808000]" />
+                <span>Elder</span>
               </Link>
-              <Link to="/caregiver" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-blue-50 text-blue-800 border border-blue-200 text-center">
-                🩺 Caregiver Portal
+              <Link to="/caregiver" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-[12px] bg-[#FFFDD0] text-[#005F9E] border border-[#CFB53B]/40 flex items-center justify-center gap-2">
+                <Compass className="w-3.5 h-3.5 text-[#005F9E]" />
+                <span>Caregiver</span>
               </Link>
-              <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-xl bg-purple-50 text-purple-800 border border-purple-200 text-center">
-                🛡️ Admin Portal
+              <Link to="/admin" onClick={() => setMobileMenuOpen(false)} className="p-2.5 rounded-[12px] bg-[#FFFDD0] text-[#800020] border border-[#CFB53B]/40 flex items-center justify-center gap-2">
+                <Shield className="w-3.5 h-3.5 text-[#800020]" />
+                <span>Admin</span>
               </Link>
             </div>
             <div className="mt-2 text-center">
-              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold text-slate-600 hover:underline">
-                🌐 Back to Public Website
+              <Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-xs font-bold text-[#008080] hover:underline flex items-center justify-center gap-1.5 pt-1">
+                <Activity className="w-3.5 h-3.5 text-[#CFB53B]" />
+                <span>Public Website</span>
               </Link>
             </div>
           </div>
