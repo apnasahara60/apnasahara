@@ -19,11 +19,16 @@ import {
   X,
   PhoneCall,
   Pill,
-  ArrowRight
+  ArrowRight,
+  ClipboardList,
+  Edit3,
+  Sun,
+  Activity
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
-import { dbStore } from '../../lib/mongoStore';
+import { dbStore } from '../../lib/supabase';
+import { OrnateCorner } from '../art-nouveau/ArtNouveauDecorations';
 
 interface TranquilFamilyHomeProps {
   onNavigateTab?: (tab: string) => void;
@@ -53,9 +58,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
   const [elders, setElders] = useState(dbStore.getElders());
 
   useEffect(() => {
-    const handleUpdate = () => {
-      setElders(dbStore.getElders());
-    };
+    const handleUpdate = () => setElders(dbStore.getElders());
     window.addEventListener('apnasahara_datachange', handleUpdate);
     return () => window.removeEventListener('apnasahara_datachange', handleUpdate);
   }, []);
@@ -99,87 +102,85 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F6F2] text-[#1A2E22] font-sans flex flex-col antialiased selection:bg-[#23533D] selection:text-white">
+    <div className="min-h-[100dvh] bg-[#FFFFF0] text-[#17211C] font-serif flex flex-col antialiased selection:bg-[#008080] selection:text-[#FFFFF0]">
       {/* Outer App Frame */}
       <div className="flex-1 flex flex-col lg:flex-row max-w-[1600px] w-full mx-auto">
         
         {/* ================= LEFT SIDEBAR (YOUR SPACE) ================= */}
-        <aside className="w-full lg:w-64 bg-[#F5F6F2] lg:bg-transparent p-5 lg:p-6 lg:pr-2 flex flex-col justify-between shrink-0 border-b lg:border-b-0 lg:border-r border-[#E2E6DE]">
+        <aside className="w-full lg:w-64 bg-[#FFFFF0] lg:bg-transparent p-5 lg:p-6 lg:pr-2 flex flex-col justify-between shrink-0 border-b lg:border-b-0 lg:border-r border-[#CFB53B]/30">
           <div className="space-y-8">
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
                 src="/logo.png"
-                alt="ApnaSahara"
-                className="h-12 w-auto object-contain"
+                alt="ApnaSahara Florido"
+                className="h-12 w-auto object-contain bg-[#FFFFF0] p-1 rounded-[10px] border border-[#CFB53B]/50"
               />
             </div>
 
             {/* Navigation Menu */}
-            <div className="space-y-2">
-              <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#7C9183] px-3">
-                YOUR SPACE
+            <div className="space-y-2 text-left">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[#008080] px-3">
+                FAMILY SANCTUARY
               </p>
               <nav className="space-y-1 text-sm font-semibold">
                 <button
                   onClick={() => setActiveTab('home')}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] transition-all text-left ${
                     activeTab === 'home'
-                      ? 'bg-[#E3EBE4] text-[#1E4733] font-bold shadow-xs'
-                      : 'text-[#485D50] hover:bg-[#EBF1EB]'
+                      ? 'bg-[#008080] text-[#FFFFF0] font-bold shadow-xs'
+                      : 'text-[#17211C]/80 hover:bg-[#FFFDD0] hover:text-[#008080]'
                   }`}
                 >
-                  <svg className="w-4 h-4 stroke-current fill-none stroke-2" viewBox="0 0 24 24">
-                    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z" />
-                  </svg>
+                  <Heart className="w-4 h-4 text-[#CFB53B]" />
                   <span>Home</span>
                 </button>
 
                 <button
                   onClick={() => { setActiveTab('visits'); navigate('/family/visits'); }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] transition-all text-left ${
                     activeTab === 'visits'
-                      ? 'bg-[#E3EBE4] text-[#1E4733] font-bold'
-                      : 'text-[#485D50] hover:bg-[#EBF1EB]'
+                      ? 'bg-[#008080] text-[#FFFFF0] font-bold'
+                      : 'text-[#17211C]/80 hover:bg-[#FFFDD0] hover:text-[#008080]'
                   }`}
                 >
-                  <Clock className="w-4 h-4" />
+                  <Clock className="w-4 h-4 text-[#CFB53B]" />
                   <span>Visits & check-ins</span>
                 </button>
 
                 <button
                   onClick={() => { setActiveTab('support'); setShowSupportModal(true); }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] transition-all text-left ${
                     activeTab === 'support'
-                      ? 'bg-[#E3EBE4] text-[#1E4733] font-bold'
-                      : 'text-[#485D50] hover:bg-[#EBF1EB]'
+                      ? 'bg-[#008080] text-[#FFFFF0] font-bold'
+                      : 'text-[#17211C]/80 hover:bg-[#FFFDD0] hover:text-[#008080]'
                   }`}
                 >
-                  <span className="text-base leading-none">✳️</span>
+                  <Sparkles className="w-4 h-4 text-[#CFB53B]" />
                   <span>Find support</span>
                 </button>
 
                 <button
                   onClick={() => { setActiveTab('circle'); navigate('/family'); }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] transition-all text-left ${
                     activeTab === 'circle'
-                      ? 'bg-[#E3EBE4] text-[#1E4733] font-bold'
-                      : 'text-[#485D50] hover:bg-[#EBF1EB]'
+                      ? 'bg-[#008080] text-[#FFFFF0] font-bold'
+                      : 'text-[#17211C]/80 hover:bg-[#FFFDD0] hover:text-[#008080]'
                   }`}
                 >
-                  <Heart className="w-4 h-4" />
+                  <Users className="w-4 h-4 text-[#CFB53B]" />
                   <span>Family circle</span>
                 </button>
 
                 <button
                   onClick={() => { setActiveTab('messages'); navigate('/contact'); }}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl transition-all text-left ${
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-[12px] transition-all text-left ${
                     activeTab === 'messages'
-                      ? 'bg-[#E3EBE4] text-[#1E4733] font-bold'
-                      : 'text-[#485D50] hover:bg-[#EBF1EB]'
+                      ? 'bg-[#008080] text-[#FFFFF0] font-bold'
+                      : 'text-[#17211C]/80 hover:bg-[#FFFDD0] hover:text-[#008080]'
                   }`}
                 >
-                  <MessageSquare className="w-4 h-4" />
+                  <MessageSquare className="w-4 h-4 text-[#CFB53B]" />
                   <span>Messages</span>
                 </button>
               </nav>
@@ -190,10 +191,10 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
           <div className="pt-6">
             <button
               onClick={() => navigate('/contact')}
-              className="w-full py-2.5 px-3.5 rounded-2xl bg-[#E8EFE9] text-[#2C523D] hover:bg-[#DEE7E0] text-xs font-bold transition-colors flex items-center justify-between"
+              className="w-full py-2.5 px-3.5 rounded-[12px] bg-[#FFFDD0] text-[#008080] hover:bg-[#FFFDD0]/80 text-xs font-bold transition-colors flex items-center justify-between border border-[#CFB53B]/40"
             >
               <span>Here when you need us</span>
-              <span className="text-sm">🌱</span>
+              <ShieldCheck className="w-4 h-4 text-[#008080]" />
             </button>
           </div>
         </aside>
@@ -203,10 +204,10 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
           
           {/* Top Breadcrumb & Connection Ribbon */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
-            <div className="text-xs font-semibold text-[#667C6E] flex items-center gap-2">
+            <div className="text-xs font-semibold text-[#17211C]/70 flex items-center gap-2">
               <span>Family space</span>
-              <span className="text-[#A2B3A7]">/</span>
-              <span className="text-[#1A2E22] font-bold">Home</span>
+              <span className="text-[#CFB53B]">/</span>
+              <span className="text-[#17211C] font-bold">Home</span>
             </div>
 
             <div className="flex items-center gap-3">
@@ -217,111 +218,114 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                   setCityPair(newPair);
                   showToast('City Connection Synced', `Family bridge: ${newPair}`, 'info');
                 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white text-[#2C4A38] text-xs font-bold shadow-xs border border-[#E2E6DF] hover:bg-[#FAFBF9] transition-colors"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFDD0] text-[#008080] text-xs font-bold shadow-xs border border-[#CFB53B]/40 hover:bg-[#FFFDD0]/80 transition-colors"
                 title="Click to toggle family location bridge"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3D855E] animate-pulse" />
-                <span>{cityPair}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#008080] animate-pulse" />
+                <span className="font-mono">{cityPair}</span>
               </button>
 
               {/* Notification Bell */}
               <button
                 onClick={() => navigate('/family/sos')}
-                className="w-9 h-9 rounded-full bg-white border border-[#E2E6DF] flex items-center justify-center text-[#4A6354] hover:text-[#1A2E22] hover:bg-[#FAFBF9] shadow-xs relative"
+                className="w-9 h-9 rounded-full bg-[#FFFFF0] border border-[#CFB53B]/40 flex items-center justify-center text-[#17211C] hover:text-[#008080] hover:bg-[#FFFDD0] shadow-xs relative"
                 aria-label="Alerts"
               >
                 <Bell className="w-4 h-4" />
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#E5484D] ring-2 ring-white" />
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#800020] ring-2 ring-[#FFFFF0]" />
               </button>
             </div>
           </div>
 
           {/* Greeting Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-2">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 text-left">
             <div className="space-y-1">
-              <p className="text-[11px] font-extrabold uppercase tracking-widest text-[#6B8273]">
-                THURSDAY, 30 OCTOBER
+              <p className="text-[11px] font-bold uppercase tracking-widest text-[#008080] font-mono">
+                TODAY'S CARE CADENCE
               </p>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172E21] tracking-tight">
-                Good morning, {user?.name?.split(' ')[0] || 'Ananya'} ☀️
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#17211C] tracking-tight flex items-center gap-2">
+                Good morning, {user?.name?.split(' ')[0] || 'Ananya'}
+                <Sun className="w-6 h-6 text-[#CFB53B]" />
               </h2>
-              <p className="text-sm text-[#5B7163]">
+              <p className="text-sm text-[#17211C]/75">
                 Here's how your family is doing today.
               </p>
             </div>
 
-            <div className="text-xs text-[#7A8E81] italic">
+            <div className="text-xs text-[#CFB53B] italic font-semibold">
               Your family, a little closer.
             </div>
           </div>
 
           {/* Main 2-Column Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start text-left">
             
             {/* LEFT 8 COLUMNS: Family Card, Action Buttons, Recent Updates */}
             <div className="lg:col-span-8 space-y-6">
               
               {/* ============ 1. "YOUR FAMILY" CARD ============ */}
-              <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E5E9E2] shadow-sm space-y-6">
+              <div className="bg-[#FFFFF0] rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-6 relative overflow-hidden">
+                <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+
                 <div className="flex items-center justify-between">
-                  <h3 className="font-extrabold text-base text-[#1A2E22]">Your family</h3>
+                  <h3 className="font-bold text-base text-[#17211C]">Your family</h3>
                   <button
                     onClick={() => setShowManageFamilyModal(true)}
-                    className="text-xs font-bold text-[#3B664E] hover:underline flex items-center gap-1"
+                    className="text-xs font-semibold text-[#008080] hover:underline flex items-center gap-1"
                   >
-                    Manage family →
+                    <span>Manage family</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 {/* Elder Profile Row */}
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    {/* Illustrated Senior Avatar */}
-                    <div className="w-14 h-14 rounded-full bg-[#F4EDE2] border-2 border-white shadow-xs flex items-center justify-center text-2xl shrink-0 overflow-hidden">
-                      {elder.gender === 'Female' ? '👵🏼' : '👴🏼'}
+                    <div className="w-14 h-14 rounded-full bg-[#FFFDD0] border border-[#CFB53B] shadow-xs flex items-center justify-center text-xl shrink-0 overflow-hidden text-[#008080]">
+                      <Heart className="w-6 h-6 text-[#800020]" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-extrabold text-[#1A2E22]">
+                      <h4 className="text-lg font-bold text-[#17211C]">
                         {elder.name}
                       </h4>
-                      <p className="text-xs text-[#63796C] font-medium">
+                      <p className="text-xs text-[#17211C]/70 font-medium">
                         {relationshipTitle} · {elder.city}
                       </p>
                     </div>
                   </div>
 
                   {/* Status Pill */}
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EDF5EE] text-[#2B6141] border border-[#D5E6D8]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2B6141]" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#808000]/15 text-[#808000] border border-[#808000]/30 font-mono">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#808000] animate-pulse" />
                     Doing well
                   </span>
                 </div>
 
                 {/* 3-Column Metric Banner */}
-                <div className="grid grid-cols-3 divide-x divide-[#E8ECE5] bg-[#F7F9F6] rounded-2xl py-4 px-2 border border-[#E8ECE5] text-center">
+                <div className="grid grid-cols-3 divide-x divide-[#CFB53B]/30 bg-[#FFFDD0] rounded-[10px] py-4 px-2 border border-[#CFB53B]/30 text-center">
                   <div className="space-y-0.5">
-                    <p className="text-base sm:text-lg font-extrabold text-[#1A2E22]">Today</p>
-                    <p className="text-[11px] text-[#697E71] font-medium">Last check-in</p>
+                    <p className="text-base sm:text-lg font-bold text-[#17211C]">Today</p>
+                    <p className="text-[11px] text-[#17211C]/60 font-medium">Last check-in</p>
                   </div>
                   <div className="space-y-0.5">
-                    <p className="text-base sm:text-lg font-extrabold text-[#1A2E22]">10:42 am</p>
-                    <p className="text-[11px] text-[#697E71] font-medium">Checked in</p>
+                    <p className="text-base sm:text-lg font-bold text-[#008080] font-mono">10:42 am</p>
+                    <p className="text-[11px] text-[#17211C]/60 font-medium">Checked in</p>
                   </div>
                   <div className="space-y-0.5">
-                    <p className="text-base sm:text-lg font-extrabold text-[#1A2E22]">All good</p>
-                    <p className="text-[11px] text-[#697E71] font-medium">{relationshipTitle}'s update</p>
+                    <p className="text-base sm:text-lg font-bold text-[#808000]">All good</p>
+                    <p className="text-[11px] text-[#17211C]/60 font-medium">{relationshipTitle}'s update</p>
                   </div>
                 </div>
 
                 {/* Bottom Callout in Family Card */}
-                <div className="flex items-center justify-between pt-1 text-xs text-[#486353]">
+                <div className="flex items-center justify-between pt-1 text-xs text-[#17211C]/80">
                   <div className="flex items-center gap-2">
-                    <span className="w-4 h-4 rounded-full bg-[#DDECE0] text-[#26573B] flex items-center justify-center text-[10px] font-black">
+                    <span className="w-4 h-4 rounded-full bg-[#808000]/20 text-[#808000] flex items-center justify-center text-[10px] font-bold">
                       ✓
                     </span>
-                    <span className="font-semibold">Weekly wellbeing call completed</span>
+                    <span className="font-semibold">Weekly wellbeing check-in completed</span>
                   </div>
-                  <span className="text-[#7A8E81] text-[11px]">Today</span>
+                  <span className="text-[#17211C]/50 text-[11px] font-mono">Today</span>
                 </div>
               </div>
 
@@ -330,79 +334,79 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                 {/* Action 1: Request a visit */}
                 <button
                   onClick={() => setShowVisitModal(true)}
-                  className="bg-white rounded-3xl p-5 border border-[#E5E9E2] shadow-xs hover:shadow-md hover:border-[#CCD8CE] transition-all text-left space-y-3 group"
+                  className="bg-[#FFFFF0] rounded-[12px] p-5 border border-[#CFB53B]/40 shadow-xs hover:shadow-md hover:border-[#CFB53B] transition-all text-left space-y-3 group"
                 >
-                  <div className="w-11 h-11 rounded-full bg-[#FCEBE8] text-[#C94B3C] flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                    {/* Person/Friendly companionship icon */}
-                    <Users className="w-5 h-5 text-[#BA4436]" />
+                  <div className="w-11 h-11 rounded-[10px] bg-[#008080]/15 text-[#008080] flex items-center justify-center text-lg group-hover:scale-105 transition-transform border border-[#008080]/30">
+                    <Users className="w-5 h-5 text-[#008080]" />
                   </div>
                   <div>
-                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Request a visit</h5>
-                    <p className="text-xs text-[#6B8173] font-medium mt-0.5">Friendly company</p>
+                    <h5 className="font-bold text-sm text-[#17211C]">Request a visit</h5>
+                    <p className="text-xs text-[#17211C]/70 font-medium mt-0.5">Friendly company</p>
                   </div>
                 </button>
 
                 {/* Action 2: Get help with a task */}
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="bg-white rounded-3xl p-5 border border-[#E5E9E2] shadow-xs hover:shadow-md hover:border-[#CCD8CE] transition-all text-left space-y-3 group"
+                  className="bg-[#FFFFF0] rounded-[12px] p-5 border border-[#CFB53B]/40 shadow-xs hover:shadow-md hover:border-[#CFB53B] transition-all text-left space-y-3 group"
                 >
-                  <div className="w-11 h-11 rounded-full bg-[#E8F2FA] text-[#2D6E9E] flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                    <ShoppingBag className="w-5 h-5 text-[#256694]" />
+                  <div className="w-11 h-11 rounded-[10px] bg-[#005F9E]/15 text-[#005F9E] flex items-center justify-center text-lg group-hover:scale-105 transition-transform border border-[#005F9E]/30">
+                    <ShoppingBag className="w-5 h-5 text-[#005F9E]" />
                   </div>
                   <div>
-                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Get help with a task</h5>
-                    <p className="text-xs text-[#6B8173] font-medium mt-0.5">Errands & essentials</p>
+                    <h5 className="font-bold text-sm text-[#17211C]">Get help with a task</h5>
+                    <p className="text-xs text-[#17211C]/70 font-medium mt-0.5">Errands & essentials</p>
                   </div>
                 </button>
 
                 {/* Action 3: Call Dad */}
                 <button
                   onClick={() => setShowCallModal(true)}
-                  className="bg-white rounded-3xl p-5 border border-[#E5E9E2] shadow-xs hover:shadow-md hover:border-[#CCD8CE] transition-all text-left space-y-3 group"
+                  className="bg-[#FFFFF0] rounded-[12px] p-5 border border-[#CFB53B]/40 shadow-xs hover:shadow-md hover:border-[#CFB53B] transition-all text-left space-y-3 group"
                 >
-                  <div className="w-11 h-11 rounded-full bg-[#FDF0EE] text-[#D45142] flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                    <Phone className="w-5 h-5 text-[#BA4234]" />
+                  <div className="w-11 h-11 rounded-[10px] bg-[#800020]/15 text-[#800020] flex items-center justify-center text-lg group-hover:scale-105 transition-transform border border-[#800020]/30">
+                    <Phone className="w-5 h-5 text-[#800020]" />
                   </div>
                   <div>
-                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Call {relationshipTitle}</h5>
-                    <p className="text-xs text-[#6B8173] font-medium mt-0.5">Say hello today</p>
+                    <h5 className="font-bold text-sm text-[#17211C]">Call {relationshipTitle}</h5>
+                    <p className="text-xs text-[#17211C]/70 font-medium mt-0.5">Say hello today</p>
                   </div>
                 </button>
               </div>
 
               {/* ============ 3. RECENT UPDATES CARD ============ */}
-              <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E5E9E2] shadow-sm space-y-5">
+              <div className="bg-[#FFFFF0] rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-5">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-extrabold text-base text-[#1A2E22]">Recent updates</h3>
+                  <h3 className="font-bold text-base text-[#17211C]">Recent updates</h3>
                   <button
                     onClick={() => navigate('/family/visits')}
-                    className="text-xs font-bold text-[#3B664E] hover:underline"
+                    className="text-xs font-semibold text-[#008080] hover:underline flex items-center gap-1"
                   >
-                    See all →
+                    <span>See all</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
                 <div className="space-y-4">
                   {/* Update Item 1 */}
-                  <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#EDF1EB]">
+                  <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#CFB53B]/20">
                     <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-full bg-[#FBECEB] flex items-center justify-center text-base shrink-0 mt-0.5">
-                        <span className="text-sm">📋</span>
+                      <div className="w-10 h-10 rounded-[8px] bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#008080]">
+                        <ClipboardList className="w-5 h-5" />
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-extrabold text-sm text-[#1A2E22]">
+                        <h4 className="font-bold text-sm text-[#17211C]">
                           Weekly check-in with {relationshipTitle}
                         </h4>
-                        <p className="text-xs text-[#52685B] leading-relaxed">
+                        <p className="text-xs text-[#17211C]/75 leading-relaxed">
                           {elder.gender === 'Female' ? 'She' : 'He'}'s feeling good and plans to visit the market this afternoon.
                         </p>
-                        <p className="text-[11px] text-[#788C80]">
-                          Today · 10:42 am &nbsp;|&nbsp; Meera, Care Coordinator
+                        <p className="text-[11px] text-[#17211C]/60 font-mono">
+                          Today · 10:42 am | Meera, Care Coordinator
                         </p>
                       </div>
                     </div>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EDF5EE] text-[#2F6546] border border-[#D5E5D9] shrink-0">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#808000]/15 text-[#808000] border border-[#808000]/30 shrink-0 font-mono">
                       Completed
                     </span>
                   </div>
@@ -410,21 +414,21 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                   {/* Update Item 2 */}
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-full bg-[#FFF2E6] flex items-center justify-center text-base shrink-0 mt-0.5">
-                        <span className="text-sm">💊</span>
+                      <div className="w-10 h-10 rounded-[8px] bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#800020]">
+                        <Pill className="w-5 h-5" />
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-extrabold text-sm text-[#1A2E22]">
+                        <h4 className="font-bold text-sm text-[#17211C]">
                           Medicine pickup reminder
                         </h4>
-                        <p className="text-xs text-[#52685B] leading-relaxed">
+                        <p className="text-xs text-[#17211C]/75 leading-relaxed">
                           {relationshipTitle}'s monthly prescription is due this week.
                         </p>
                       </div>
                     </div>
                     <button
                       onClick={() => navigate('/family/medications')}
-                      className="text-xs font-extrabold text-[#3B664E] hover:underline shrink-0 pt-1"
+                      className="text-xs font-bold text-[#008080] hover:underline shrink-0 pt-1"
                     >
                       View
                     </button>
@@ -436,84 +440,70 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             {/* RIGHT 4 COLUMNS: Feature Banner & Local Care Contact */}
             <div className="lg:col-span-4 space-y-6">
               
-              {/* ============ 4. SAGE HIGHLIGHT BANNER ============ */}
-              <div className="bg-[#DFEBE2] rounded-3xl p-6 sm:p-7 border border-[#CEDECF] text-[#1A3828] relative overflow-hidden space-y-5">
-                {/* Background decorative starburst/asterisk motif */}
-                <div className="absolute -bottom-6 -right-6 w-36 h-36 opacity-30 pointer-events-none">
-                  <svg viewBox="0 0 100 100" className="w-full h-full fill-none stroke-[#255C3F] stroke-4">
-                    <line x1="50" y1="0" x2="50" y2="100" />
-                    <line x1="0" y1="50" x2="100" y2="50" />
-                    <line x1="15" y1="15" x2="85" y2="85" />
-                    <line x1="15" y1="85" x2="85" y2="15" />
-                  </svg>
-                </div>
+              {/* ============ 4. ART NOUVEAU HIGHLIGHT BANNER ============ */}
+              <div className="bg-gradient-to-br from-[#FFFDD0] to-[#E0B0FF]/25 rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/60 text-[#17211C] relative overflow-hidden space-y-5">
+                <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
 
                 <div>
-                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-[#3B694F]">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#008080] font-mono">
                     A LITTLE HELP, RIGHT HERE
                   </p>
-                  <h3 className="text-xl sm:text-2xl font-black text-[#153424] mt-2 leading-tight">
-                    Small things can make a big difference.
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#17211C] mt-2 leading-tight">
+                    Small things make a profound difference.
                   </h3>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#385946] leading-relaxed">
-                  Arrange a friendly visit, a ride to an appointment, or help with a task at home.
+                <p className="text-xs sm:text-sm text-[#17211C]/80 leading-relaxed">
+                  Arrange a friendly companion visit, a safe cab escort to a clinical appointment, or help with errands at home.
                 </p>
 
                 <div className="pt-2">
                   <button
                     onClick={() => setShowSupportModal(true)}
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white text-xs font-extrabold shadow-sm shadow-[#1E4733]/30 transition-transform active:scale-95"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] text-xs font-semibold shadow-md shadow-[#008080]/20 transition-all active:translate-y-[1px]"
                   >
                     <span>Explore local support</span>
-                    <span>→</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
-                </div>
-
-                {/* Decorative small potted plant icon */}
-                <div className="pt-2 text-2xl">
-                  🪴
                 </div>
               </div>
 
               {/* ============ 5. LOCAL CARE CONTACT CARD ============ */}
-              <div className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E5E9E2] shadow-sm space-y-4">
+              <div className="bg-[#FFFFF0] rounded-[12px] p-6 sm:p-7 border border-[#CFB53B]/40 shadow-[0_2px_12px_rgba(23,33,28,0.05)] space-y-4">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-extrabold text-sm text-[#1A2E22]">Your local care contact</h4>
+                  <h4 className="font-bold text-sm text-[#17211C]">Your local care contact</h4>
                   <button
                     onClick={() => setShowCoordinatorDetails(!showCoordinatorDetails)}
-                    className="text-xs font-bold text-[#3B664E] hover:underline"
+                    className="text-xs font-semibold text-[#008080] hover:underline"
                   >
                     {showCoordinatorDetails ? 'Close' : 'Details'}
                   </button>
                 </div>
 
                 <div className="flex items-center gap-3.5">
-                  {/* Coordinator Photo/Avatar */}
                   <img
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
                     alt="Meera Joshi"
-                    className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs"
+                    className="w-12 h-12 rounded-[12px] object-cover border border-[#CFB53B] shadow-xs"
                   />
                   <div>
-                    <h5 className="font-extrabold text-sm text-[#1A2E22]">Meera Joshi</h5>
-                    <p className="text-xs text-[#63796C]">Family Care Coordinator · Indore</p>
+                    <h5 className="font-bold text-sm text-[#17211C]">Meera Joshi</h5>
+                    <p className="text-xs text-[#17211C]/70">Family Care Coordinator · Indore</p>
                   </div>
-                  <span className="ml-auto text-[11px] font-bold text-[#2A6342] bg-[#EEF6F0] px-2 py-0.5 rounded-full flex items-center gap-1 border border-[#D5E5D9]">
+                  <span className="ml-auto text-[11px] font-bold text-[#808000] bg-[#FFFDD0] px-2 py-0.5 rounded-full flex items-center gap-1 border border-[#CFB53B]/40 font-mono">
                     ✓ Verified
                   </span>
                 </div>
 
-                <div className="bg-[#F7F9F6] p-3.5 rounded-2xl border border-[#E7ECE5] text-xs text-[#4C6455] leading-relaxed">
+                <div className="bg-[#FFFDD0] p-3.5 rounded-[10px] border border-[#CFB53B]/30 text-xs text-[#17211C]/80 leading-relaxed">
                   Meera coordinates check-ins and local requests with your dad's consent. You'll receive an update after each completed visit.
                 </div>
 
                 {showCoordinatorDetails && (
-                  <div className="space-y-2 pt-2 border-t border-[#EDF1EB] text-xs text-[#486052]">
+                  <div className="space-y-2 pt-2 border-t border-[#CFB53B]/20 text-xs text-[#17211C]/80">
                     <div className="flex justify-between">
                       <span>Phone:</span>
-                      <a href="tel:+919820011223" className="font-bold text-[#23533D] hover:underline">+91 98200 11223</a>
+                      <a href="tel:+919820011223" className="font-bold text-[#008080] hover:underline font-mono">+91 98200 11223</a>
                     </div>
                     <div className="flex justify-between">
                       <span>Assigned Territory:</span>
@@ -521,7 +511,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Background Verification:</span>
-                      <span className="font-bold text-[#2B6341]">Aadhaar & Police Cleared ✓</span>
+                      <span className="font-bold text-[#808000]">Aadhaar & Police Cleared</span>
                     </div>
                   </div>
                 )}
@@ -535,26 +525,28 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
       {/* ================= MODAL: REQUEST A VISIT ================= */}
       {showVisitModal && (
-        <div className="fixed inset-0 z-50 bg-[#14231A]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#DCE4DE] space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EDF1EB]">
+        <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 relative">
+            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+
+            <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#FCEBE8] text-[#C94B3C] flex items-center justify-center">
-                  <Users className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-[10px] bg-[#008080]/15 text-[#008080] flex items-center justify-center border border-[#008080]/30">
+                  <Users className="w-5 h-5 text-[#008080]" />
                 </div>
                 <div>
-                  <h3 className="font-black text-lg text-[#1A2E22]">Request a Visit</h3>
-                  <p className="text-xs text-[#63796C]">For {elder.name} in {parentCityShort}</p>
+                  <h3 className="font-bold text-lg text-[#17211C]">Request a Visit</h3>
+                  <p className="text-xs text-[#17211C]/70">For {elder.name} in {parentCityShort}</p>
                 </div>
               </div>
-              <button onClick={() => setShowVisitModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22] p-1">
+              <button onClick={() => setShowVisitModal(false)} className="text-[#17211C]/60 hover:text-[#800020] p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleRequestVisitSubmit} className="space-y-4 text-xs font-semibold">
+            <form onSubmit={handleRequestVisitSubmit} className="space-y-4 text-xs font-semibold text-left">
               <div>
-                <label className="block text-[#43594C] mb-1.5 font-bold">Purpose of Visit</label>
+                <label className="block text-[#17211C] mb-1.5 font-bold">Purpose of Visit</label>
                 <div className="space-y-2">
                   {[
                     'Friendly Companionship (Chai & conversation)',
@@ -566,25 +558,25 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                       key={type}
                       type="button"
                       onClick={() => setVisitType(type)}
-                      className={`w-full p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${
+                      className={`w-full p-3 rounded-[10px] border text-left transition-all flex items-center justify-between ${
                         visitType === type
-                          ? 'bg-[#EDF5EE] border-[#36684B] text-[#1E4733] font-bold'
-                          : 'border-[#E2E6DE] text-[#4C6455] hover:bg-[#F7F9F6]'
+                          ? 'bg-[#008080] border-[#008080] text-[#FFFFF0] font-bold shadow-xs'
+                          : 'border-[#CFB53B]/40 text-[#17211C] bg-[#FFFFF0] hover:bg-[#FFFDD0]'
                       }`}
                     >
                       <span>{type}</span>
-                      {visitType === type && <Check className="w-4 h-4 text-[#2E6344]" />}
+                      {visitType === type && <Check className="w-4 h-4 text-[#FFFFF0]" />}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="block text-[#43594C] mb-1.5 font-bold">Preferred Time Window</label>
+                <label className="block text-[#17211C] mb-1.5 font-bold">Preferred Time Window</label>
                 <select
                   value={visitDate}
                   onChange={(e) => setVisitDate(e.target.value)}
-                  className="w-full p-3 rounded-2xl border border-[#E2E6DE] bg-white text-xs font-bold text-[#1A2E22] focus:outline-none focus:ring-2 focus:ring-[#36684B]"
+                  className="w-full p-3 rounded-[12px] border border-[#CFB53B]/50 bg-[#FFFFF0] text-xs font-bold text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#008080]"
                 >
                   <option>Tomorrow, 10:00 AM - 12:00 PM</option>
                   <option>Tomorrow, 04:00 PM - 06:00 PM</option>
@@ -596,7 +588,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white font-extrabold text-xs shadow-md transition-transform active:scale-95"
+                  className="w-full py-3.5 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] font-bold text-xs shadow-md shadow-[#008080]/20 transition-all active:translate-y-[1px]"
                 >
                   Confirm Visit Request
                 </button>
@@ -608,36 +600,38 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
       {/* ================= MODAL: GET HELP WITH A TASK ================= */}
       {showTaskModal && (
-        <div className="fixed inset-0 z-50 bg-[#14231A]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#DCE4DE] space-y-6">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EDF1EB]">
+        <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 relative">
+            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+
+            <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#E8F2FA] text-[#2D6E9E] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-[10px] bg-[#005F9E]/15 text-[#005F9E] flex items-center justify-center border border-[#005F9E]/30">
                   <ShoppingBag className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-black text-lg text-[#1A2E22]">Get Help with a Task</h3>
-                  <p className="text-xs text-[#63796C]">Errands & essentials in Indore</p>
+                  <h3 className="font-bold text-lg text-[#17211C]">Get Help with a Task</h3>
+                  <p className="text-xs text-[#17211C]/70">Errands & essentials in Indore</p>
                 </div>
               </div>
-              <button onClick={() => setShowTaskModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22] p-1">
+              <button onClick={() => setShowTaskModal(false)} className="text-[#17211C]/60 hover:text-[#800020] p-1">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleRequestTaskSubmit} className="space-y-4 text-xs font-semibold">
+            <form onSubmit={handleRequestTaskSubmit} className="space-y-4 text-xs font-semibold text-left">
               <div>
-                <label className="block text-[#43594C] mb-1.5 font-bold">Select Task Category</label>
+                <label className="block text-[#17211C] mb-1.5 font-bold">Select Task Category</label>
                 <div className="grid grid-cols-2 gap-2">
                   {['Medicine Pickup', 'Grocery / Fruits', 'Cab / Clinic Ride', 'Home Fix / Tech Help'].map((t) => (
                     <button
                       key={t}
                       type="button"
                       onClick={() => setTaskDetail(t)}
-                      className={`p-3 rounded-2xl border text-center transition-all ${
+                      className={`p-3 rounded-[10px] border text-center transition-all ${
                         taskDetail === t
-                          ? 'bg-[#EDF5EE] border-[#36684B] text-[#1E4733] font-bold'
-                          : 'border-[#E2E6DE] text-[#4C6455] hover:bg-[#F7F9F6]'
+                          ? 'bg-[#008080] border-[#008080] text-[#FFFFF0] font-bold shadow-xs'
+                          : 'border-[#CFB53B]/40 text-[#17211C] bg-[#FFFFF0] hover:bg-[#FFFDD0]'
                       }`}
                     >
                       {t}
@@ -647,20 +641,20 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
               </div>
 
               <div>
-                <label className="block text-[#43594C] mb-1.5 font-bold">Details or Specific Items</label>
+                <label className="block text-[#17211C] mb-1.5 font-bold">Details or Specific Items</label>
                 <textarea
                   rows={3}
                   value={taskDetail}
                   onChange={(e) => setTaskDetail(e.target.value)}
                   placeholder="e.g. Please pick up monthly Glycomet 500 from Apollo Pharmacy on MG Road..."
-                  className="w-full p-3 rounded-2xl border border-[#E2E6DE] text-xs font-medium text-[#1A2E22] focus:outline-none focus:ring-2 focus:ring-[#36684B]"
+                  className="w-full p-3 rounded-[12px] border border-[#CFB53B]/50 bg-[#FFFFF0] text-xs font-medium text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#008080]"
                 />
               </div>
 
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white font-extrabold text-xs shadow-md transition-transform active:scale-95"
+                  className="w-full py-3.5 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] font-bold text-xs shadow-md shadow-[#008080]/20 transition-all active:translate-y-[1px]"
                 >
                   Send Task to Care Coordinator
                 </button>
@@ -672,31 +666,31 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
       {/* ================= MODAL: CALL DAD ================= */}
       {showCallModal && (
-        <div className="fixed inset-0 z-50 bg-[#14231A]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-6 sm:p-7 shadow-2xl border border-[#DCE4DE] text-center space-y-5">
-            <div className="w-16 h-16 rounded-full bg-[#FCEBE8] text-[#C94B3C] flex items-center justify-center mx-auto text-2xl">
-              <Phone className="w-7 h-7 text-[#BA4234]" />
+        <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFF0] rounded-[12px] max-w-sm w-full p-6 sm:p-7 shadow-2xl border border-[#CFB53B] text-center space-y-5">
+            <div className="w-16 h-16 rounded-[12px] bg-[#800020]/15 text-[#800020] flex items-center justify-center mx-auto border border-[#800020]/30">
+              <Phone className="w-7 h-7 text-[#800020]" />
             </div>
 
             <div>
-              <h3 className="font-black text-xl text-[#1A2E22]">Call {relationshipTitle} ({elder.name})</h3>
-              <p className="text-xs text-[#63796C] mt-1">Direct voice call to {elder.phone}</p>
+              <h3 className="font-bold text-xl text-[#17211C]">Call {relationshipTitle} ({elder.name})</h3>
+              <p className="text-xs text-[#17211C]/70 mt-1 font-mono">Direct voice call to {elder.phone}</p>
             </div>
 
-            <div className="p-3 bg-[#F7F9F6] rounded-2xl border border-[#E7ECE5] text-xs text-[#4C6455]">
+            <div className="p-3 bg-[#FFFDD0] rounded-[10px] border border-[#CFB53B]/30 text-xs text-[#17211C]/80 font-mono">
               Local Time in {parentCityShort}: <strong>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</strong>
             </div>
 
             <div className="flex items-center gap-3 pt-2">
               <button
                 onClick={() => setShowCallModal(false)}
-                className="flex-1 py-3 rounded-full border border-[#D5DDD7] text-xs font-bold text-[#4B6354] hover:bg-[#F2F6F3]"
+                className="flex-1 py-3 rounded-[12px] border border-[#CFB53B] text-xs font-semibold text-[#17211C] hover:bg-[#FFFDD0]"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSimulateCall}
-                className="flex-1 py-3 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white text-xs font-bold shadow-md"
+                className="flex-1 py-3 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] text-xs font-bold shadow-md shadow-[#008080]/20 transition-all active:translate-y-[1px]"
               >
                 Dial Now
               </button>
@@ -707,19 +701,24 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
       {/* ================= MODAL: EXPLORE LOCAL SUPPORT ================= */}
       {showSupportModal && (
-        <div className="fixed inset-0 z-50 bg-[#14231A]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#DCE4DE] space-y-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EDF1EB]">
+        <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFF0] rounded-[12px] max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-[#CFB53B] space-y-6 max-h-[90vh] overflow-y-auto relative">
+            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
+
+            <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>
-                <h3 className="font-black text-xl text-[#1A2E22]">Local Eldercare Support in {parentCityShort}</h3>
-                <p className="text-xs text-[#63796C]">Everything available for your family on-ground</p>
+                <span className="text-[11px] font-bold text-[#008080] uppercase tracking-wider">
+                  Community Services
+                </span>
+                <h3 className="font-bold text-xl text-[#17211C]">Local Eldercare Support in {parentCityShort}</h3>
+                <p className="text-xs text-[#17211C]/70">Everything available for your family on-ground</p>
               </div>
-              <button onClick={() => setShowSupportModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22]">
+              <button onClick={() => setShowSupportModal(false)} className="text-[#17211C]/60 hover:text-[#800020]">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="space-y-3 text-xs text-left">
               {[
                 { title: 'Friendly Home Visits', desc: 'Tea, conversation, cognitive games, and gentle walking accompaniment.', time: '1 - 2 hours' },
                 { title: 'Doctor & Hospital Escort', desc: 'Door-to-door cab escort, OPD queue assistance, and prescription upload.', time: '2 - 4 hours' },
@@ -727,12 +726,12 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                 { title: 'Daily Medical Vitals Check', desc: 'Blood pressure, blood sugar, oxygen, and heart rate monitoring.', time: 'Morning / Evening' },
                 { title: '24/7 Rapid SOS Emergency Link', desc: 'Immediate ambulance and coordinator dispatch to home address.', time: '< 8 mins dispatch' },
               ].map((item, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#F7F9F6] border border-[#E7ECE5] flex items-start justify-between gap-3">
+                <div key={idx} className="p-4 rounded-[10px] bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-start justify-between gap-3">
                   <div>
-                    <h4 className="font-extrabold text-sm text-[#1A2E22]">{item.title}</h4>
-                    <p className="text-xs text-[#52685B] mt-0.5">{item.desc}</p>
+                    <h4 className="font-bold text-sm text-[#17211C]">{item.title}</h4>
+                    <p className="text-xs text-[#17211C]/75 mt-0.5">{item.desc}</p>
                   </div>
-                  <span className="text-[10px] font-bold text-[#2A6342] bg-[#EEF6F0] px-2.5 py-1 rounded-full shrink-0">
+                  <span className="text-[10px] font-bold text-[#808000] bg-[#FFFFF0] border border-[#808000]/30 px-2.5 py-1 rounded-full shrink-0 font-mono">
                     {item.time}
                   </span>
                 </div>
@@ -742,7 +741,7 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
             <div className="pt-2">
               <button
                 onClick={() => { setShowSupportModal(false); setShowVisitModal(true); }}
-                className="w-full py-3.5 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white font-extrabold text-xs shadow-md"
+                className="w-full py-3.5 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] font-bold text-xs shadow-md shadow-[#008080]/20 transition-all active:translate-y-[1px]"
               >
                 Schedule Local Support for {relationshipTitle}
               </button>
@@ -753,35 +752,40 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
 
       {/* ================= MODAL: MANAGE FAMILY ================= */}
       {showManageFamilyModal && (
-        <div className="fixed inset-0 z-50 bg-[#14231A]/60 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-[#DCE4DE] space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-[#EDF1EB]">
+        <div className="fixed inset-0 z-[300] bg-[#17211C]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-[#FFFFF0] rounded-[12px] max-w-md w-full p-6 sm:p-7 shadow-2xl border border-[#CFB53B] space-y-5 text-left relative">
+            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
+
+            <div className="flex items-center justify-between pb-3 border-b border-[#CFB53B]/30">
               <div>
-                <h3 className="font-black text-lg text-[#1A2E22]">Manage Family Circle</h3>
-                <p className="text-xs text-[#63796C]">Connected members and care settings</p>
+                <span className="text-[11px] font-bold text-[#008080] uppercase tracking-wider">
+                  Care Network
+                </span>
+                <h3 className="font-bold text-lg text-[#17211C]">Manage Family Circle</h3>
+                <p className="text-xs text-[#17211C]/70">Connected members and care settings</p>
               </div>
-              <button onClick={() => setShowManageFamilyModal(false)} className="text-[#7A8E81] hover:text-[#1A2E22]">
+              <button onClick={() => setShowManageFamilyModal(false)} className="text-[#17211C]/60 hover:text-[#800020]">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="p-3.5 rounded-2xl bg-[#F7F9F6] border border-[#E7ECE5] flex items-center justify-between">
+              <div className="p-3.5 rounded-[10px] bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center justify-between">
                 <div>
-                  <p className="font-extrabold text-slate-900">{elder.name} ({relationshipTitle})</p>
-                  <p className="text-[#63796C] text-[11px]">Primary Elder · {elder.city}</p>
+                  <p className="font-bold text-[#17211C]">{elder.name} ({relationshipTitle})</p>
+                  <p className="text-[#17211C]/60 text-[11px]">Primary Elder · {elder.city}</p>
                 </div>
-                <span className="text-[10px] font-bold bg-[#EDF5EE] text-[#2B6141] px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold bg-[#808000]/15 text-[#808000] border border-[#808000]/30 px-2 py-0.5 rounded-full font-mono">
                   Active Care
                 </span>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#F7F9F6] border border-[#E7ECE5] flex items-center justify-between">
+              <div className="p-3.5 rounded-[10px] bg-[#FFFDD0] border border-[#CFB53B]/40 flex items-center justify-between">
                 <div>
-                  <p className="font-extrabold text-slate-900">{user?.name || 'You'}</p>
-                  <p className="text-[#63796C] text-[11px]">Family Admin · {userCity}</p>
+                  <p className="font-bold text-[#17211C]">{user?.name || 'You'}</p>
+                  <p className="text-[#17211C]/60 text-[11px]">Family Admin · {userCity}</p>
                 </div>
-                <span className="text-[10px] font-bold bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold bg-[#008080]/15 text-[#008080] border border-[#008080]/30 px-2 py-0.5 rounded-full font-mono">
                   Family Admin
                 </span>
               </div>
@@ -793,16 +797,17 @@ export const TranquilFamilyHome: React.FC<TranquilFamilyHomeProps> = () => {
                   setShowManageFamilyModal(false);
                   navigate('/onboarding');
                 }}
-                className="w-full py-2.5 rounded-full bg-[#E3EBE4] hover:bg-[#D5E3D8] text-[#1E4733] text-xs font-bold transition-colors"
+                className="w-full py-2.5 rounded-[12px] bg-[#FFFDD0] border border-[#CFB53B] text-[#008080] text-xs font-semibold hover:bg-[#CFB53B]/20 transition-colors flex items-center justify-center gap-1.5"
               >
-                ✏️ Edit / Update Senior Profile Details
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Edit Senior Profile Details</span>
               </button>
               <button
                 onClick={() => {
                   setShowManageFamilyModal(false);
                   navigate('/family');
                 }}
-                className="w-full py-3 rounded-full bg-[#1E4733] hover:bg-[#163626] text-white text-xs font-bold"
+                className="w-full py-3 rounded-[12px] bg-[#008080] hover:brightness-90 text-[#FFFFF0] text-xs font-bold transition-all active:translate-y-[1px]"
               >
                 Go to Full Family Portal Settings
               </button>

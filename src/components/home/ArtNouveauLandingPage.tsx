@@ -24,24 +24,18 @@ import {
   CheckCircle2,
   Bell
 } from 'lucide-react';
-import {
-  WhiplashDivider,
-  OrnateCorner,
-  StainedGlassMedallion,
-  BotanicalBranch
-} from '../art-nouveau/ArtNouveauDecorations';
 
 export const ArtNouveauLandingPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Interactive SaaS Workbench state
+  // Interactive Care Workbench state
   const [activeTab, setActiveTab] = useState<'schedule' | 'vitals' | 'tokens'>('schedule');
   const [selectedCompanionTier, setSelectedCompanionTier] = useState('daily');
   const [vitalSimulation, setVitalSimulation] = useState<'nominal' | 'elevated'>('nominal');
   const [scheduledDay, setScheduledDay] = useState('Tomorrow, 09:30 AM');
   const [companionName, setCompanionName] = useState('Sister Ananya Roy');
 
-  // Input form validation state (demonstrating exact input spec)
+  // Input form validation state
   const [consultationName, setConsultationName] = useState('');
   const [consultationPhone, setConsultationPhone] = useState('');
   const [consultationCity, setConsultationCity] = useState('Bengaluru');
@@ -69,22 +63,22 @@ export const ArtNouveauLandingPage: React.FC = () => {
           Max-width: 1280px with 1.5rem padding
           ========================================================================= */}
       <section className="relative pt-8 pb-16 sm:pt-14 sm:pb-24 overflow-hidden border-b border-[#CFB53B]/25">
-        {/* Subtle Stained Glass Glow in Background */}
+        {/* Subtle Warm Glow in Background */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#008080]/10 via-[#CFB53B]/10 to-[#E0B0FF]/15 blur-3xl pointer-events-none -z-0" />
         <div className="absolute bottom-0 left-0 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-[#800020]/5 via-[#CFB53B]/10 to-[#FFFFF0] blur-2xl pointer-events-none -z-0" />
 
         <div className="max-w-[1280px] mx-auto px-6 relative z-10">
-          {/* Top Atelier Badge */}
+          {/* Top Badge */}
           <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/60 shadow-[0_2px_8px_rgba(207,181,59,0.15)] text-xs font-medium text-[#17211C]">
               <span className="w-2 h-2 rounded-full bg-[#008080] animate-pulse" />
-              <span className="font-semibold tracking-wide">Art Nouveau Florido</span>
+              <span className="font-semibold tracking-wide">ApnaSahara</span>
               <span className="text-[#CFB53B]">·</span>
-              <span className="text-xs text-[#17211C]/80">Eldercare Sanctuary & Intelligent SaaS</span>
+              <span className="text-xs text-[#17211C]/80">Compassionate Eldercare & Dedicated Family Support</span>
             </div>
 
             <div className="font-mono text-[11px] text-[#008080] bg-[#FFFFF0] px-3 py-1 rounded-md border border-[#008080]/30 hidden md:block">
-              CADENCE: 120 BPM // BELLE-EPOQUE V2.4 // STIFFNESS: 120
+              24/7 EMERGENCY DESK // VERIFIED CAREGIVERS // INDIA-WIDE
             </div>
           </div>
 
@@ -93,9 +87,8 @@ export const ArtNouveauLandingPage: React.FC = () => {
             {/* Left Column (7 cols): Editorial Typography & Direct Action */}
             <div className="lg:col-span-7 space-y-6 text-left">
               <div className="flex items-center gap-2 text-[#008080]">
-                <BotanicalBranch className="w-24 h-10" />
-                <span className="text-xs uppercase tracking-widest font-bold text-[#800020]">
-                  Where Structure Breathes & Lines Grow
+                <span className="text-xs uppercase tracking-widest font-bold text-[#008080]">
+                  Dedicated Eldercare & Family Support
                 </span>
               </div>
 
@@ -108,19 +101,18 @@ export const ArtNouveauLandingPage: React.FC = () => {
               </h1>
 
               <p className="text-base sm:text-lg text-[#17211C]/85 leading-relaxed max-w-[72ch]">
-                ApnaSahara Florido unites the harmonic beauty of Art Nouveau design with
-                rigorous eldercare infrastructure. We provide background-verified companion
-                caregivers, real-time vitals monitoring, daily medication adherence, and guaranteed
-                24/7 emergency dispatch across India.
+                ApnaSahara unites compassionate care with rigorous eldercare infrastructure. We provide
+                background-verified companion caregivers, real-time vitals monitoring, daily medication
+                adherence, and guaranteed 24/7 emergency dispatch across India.
               </p>
 
-              {/* Action Buttons as per Component Spec */}
+              {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link
                   to="/register"
                   className="bg-[#008080] text-[#FFFFF0] px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base hover:brightness-90 active:translate-y-[1px] transition-all shadow-[0_2px_12px_rgba(0,128,128,0.2)] flex items-center gap-2"
                 >
-                  <span>Begin Family Sanctuary</span>
+                  <span>Get Started with ApnaSahara</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
@@ -129,11 +121,11 @@ export const ArtNouveauLandingPage: React.FC = () => {
                   className="border-[1.5px] border-[#CFB53B] text-[#008080] bg-transparent hover:bg-[#008080]/5 px-6 py-3 rounded-[12px] font-semibold text-sm sm:text-base active:translate-y-[1px] transition-all flex items-center gap-2"
                 >
                   <Eye className="w-4 h-4 text-[#CFB53B]" />
-                  <span>Inspect Care Model</span>
+                  <span>Explore Care Services</span>
                 </Link>
               </div>
 
-              {/* Trust Indicators with Lucide Icons (No emojis) */}
+              {/* Trust Indicators with Lucide Icons */}
               <div className="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-[#CFB53B]/30">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/50 flex items-center justify-center text-[#008080]">
@@ -150,13 +142,13 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     <PhoneCall className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-[#17211C]">24/7 SOS Desk</p>
-                    <p className="text-[11px] text-[#17211C]/70">112 / 108 Integrated</p>
+                    <p className="text-xs font-bold text-[#17211C]">24/7 Rapid SOS</p>
+                    <p className="text-[11px] text-[#17211C]/70">Ambulance & Paramedic</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5 col-span-2 sm:col-span-1">
-                  <div className="w-8 h-8 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/50 flex items-center justify-center text-[#808000]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-[#FFFDD0] border border-[#CFB53B]/50 flex items-center justify-center text-[#005F9E]">
                     <Activity className="w-4 h-4" />
                   </div>
                   <div>
@@ -167,19 +159,13 @@ export const ArtNouveauLandingPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column (5 cols): Asymmetric Stained Glass Live Card */}
+            {/* Right Column (5 cols): Live Session Card */}
             <div className="lg:col-span-5 relative">
               <div className="relative rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 shadow-[0_4px_24px_rgba(23,33,28,0.08)] p-6 overflow-hidden">
-                {/* Ornate corner brackets */}
-                <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-                <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
-                <OrnateCorner position="bottom-left" className="absolute bottom-2 left-2 text-[#CFB53B]" />
-                <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
-
-                {/* Arched Stained Glass Header Vignette */}
+                {/* Header Badge */}
                 <div className="relative text-center pb-5 border-b border-[#CFB53B]/30">
-                  <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-tr from-[#008080]/20 via-[#CFB53B]/30 to-[#E0B0FF]/25 border border-[#CFB53B] flex items-center justify-center mb-3 shadow-inner">
-                    <Heart className="w-7 h-7 text-[#800020]" />
+                  <div className="mx-auto w-14 h-14 rounded-full bg-[#008080]/10 border border-[#008080]/30 flex items-center justify-center mb-3">
+                    <Heart className="w-6 h-6 text-[#008080]" />
                   </div>
                   <span className="text-[11px] uppercase tracking-wider font-bold text-[#808000] bg-[#FFFDD0] px-3 py-0.5 rounded-full border border-[#CFB53B]/40">
                     Active Caregiver Session
@@ -258,53 +244,53 @@ export const ArtNouveauLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 2: BELLE ÉPOQUE PHILOSOPHY & ART NOUVEAU MANIFESTO
-          Vertical rhythm: clamp(4rem, 8vw, 8rem)
+          SECTION 2: OUR CARE PHILOSOPHY
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6">
-        <div className="p-8 sm:p-12 rounded-[12px] bg-gradient-to-r from-[#FFFDD0] via-[#FFFFF0] to-[#FFFDD0] border border-[#CFB53B]/50 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative overflow-hidden">
-          <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-          <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
-
+        <div className="p-8 sm:p-12 rounded-[12px] bg-[#FFFDD0]/40 border border-[#CFB53B]/50 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative overflow-hidden">
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <span className="text-xs uppercase font-bold tracking-widest text-[#008080]">
-              The Belle Époque Philosophy
+              Our Care Philosophy
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#17211C] leading-snug">
-              "Art Nouveau didn't ask permission. Structure can breathe. Lines can grow."
+              "Every senior deserves respectful companionship, and every family deserves peace of mind."
             </h2>
             <p className="text-base text-[#17211C]/80 leading-relaxed font-normal">
-              In digital interfaces, organic curves have often been neglected for mechanical boxes.
-              At ApnaSahara Florido, we treat Art Nouveau not as a superficial skin, but as a
-              structural philosophy: botanical motifs provide visual rhythm, whiplash curves guide
-              the gaze, and compassionate human care replaces impersonal software.
+              At ApnaSahara, we combine verified, empathetic caregivers with reliable technology.
+              We ensure your elderly parents receive attentive daily visits, timely medical management,
+              and rapid emergency assistance—while keeping you connected with transparent updates
+              wherever you are.
             </p>
-            <div className="pt-2 flex items-center justify-center gap-6 text-xs text-[#CFB53B] font-semibold">
-              <span>Mucha-Inspired Cadence</span>
+            <div className="pt-2 flex items-center justify-center gap-6 text-xs text-[#008080] font-semibold flex-wrap">
+              <span>Verified Companions</span>
               <span>·</span>
-              <span>Klimt Ornamental Geometry</span>
+              <span>Real-Time Family Updates</span>
               <span>·</span>
-              <span>24/7 Human Dispatch</span>
+              <span>24/7 Emergency Dispatch</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 3: ASYMMETRIC FEATURE GRID (No 3 equal columns!)
+          SECTION 3: ASYMMETRIC FEATURE GRID
           Grid Layout A: 8 cols (Master Card) + 4 cols (Companion Vignette)
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6 space-y-12">
         <div className="text-left max-w-2xl space-y-2">
           <span className="text-xs uppercase tracking-widest font-bold text-[#800020]">
-            Organic Care Architecture
+            Comprehensive Eldercare Solutions
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#17211C]">
             Care Crafted Around Life’s Natural Flow
@@ -317,10 +303,8 @@ export const ArtNouveauLandingPage: React.FC = () => {
 
         {/* Row 1: 8-col vs 4-col */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Card 1 (8 cols): The Botanical Care Cadence */}
+          {/* Card 1 (8 cols): Daily Companion Visits */}
           <div className="lg:col-span-8 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 p-8 shadow-[0_2px_12px_rgba(23,33,28,0.06)] hover:scale-[1.01] transition-transform relative flex flex-col justify-between">
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
-
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-[12px] bg-[#008080]/15 text-[#008080] flex items-center justify-center font-bold">
@@ -331,7 +315,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     Core Companion Module
                   </span>
                   <h3 className="text-2xl font-bold text-[#17211C]">
-                    The Daily Companion Cadence
+                    Daily Companion Visits
                   </h3>
                 </div>
               </div>
@@ -393,10 +377,8 @@ export const ArtNouveauLandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 2 (4 cols): Stained-Glass Telemetry */}
-          <div className="lg:col-span-4 rounded-[12px] bg-gradient-to-br from-[#FFFDD0] via-[#FFFFF0] to-[#E0B0FF]/20 border border-[#CFB53B]/40 p-8 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative flex flex-col justify-between">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-
+          {/* Card 2 (4 cols): Health Monitoring */}
+          <div className="lg:col-span-4 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 p-8 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative flex flex-col justify-between">
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-[12px] bg-[#005F9E]/15 text-[#005F9E] flex items-center justify-center font-bold">
                 <Activity className="w-6 h-6" />
@@ -404,10 +386,10 @@ export const ArtNouveauLandingPage: React.FC = () => {
 
               <div>
                 <span className="text-[11px] font-bold text-[#005F9E] uppercase tracking-wider">
-                  Continuous Telemetry
+                  Health Tracking
                 </span>
                 <h3 className="text-xl font-bold text-[#17211C] mt-1">
-                  Stained-Glass Vitals
+                  Real-Time Vitals Tracking
                 </h3>
               </div>
 
@@ -445,10 +427,8 @@ export const ArtNouveauLandingPage: React.FC = () => {
 
         {/* Row 2 (Zig-zag Inverted): 5 cols vs 7 cols */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch pt-4">
-          {/* Card 3 (5 cols): Whiplash Emergency Dispatch */}
+          {/* Card 3 (5 cols): 24/7 Emergency SOS Dispatch */}
           <div className="lg:col-span-5 rounded-[12px] bg-[#FFFFF0] border border-[#800020]/40 p-8 shadow-[0_2px_12px_rgba(128,0,32,0.08)] relative flex flex-col justify-between">
-            <OrnateCorner position="bottom-left" className="absolute bottom-2 left-2 text-[#800020]" />
-
             <div className="space-y-4">
               <div className="w-12 h-12 rounded-[12px] bg-[#800020]/15 text-[#800020] flex items-center justify-center font-bold">
                 <AlertTriangle className="w-6 h-6 animate-pulse" />
@@ -459,7 +439,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                   Guaranteed Emergency Response
                 </span>
                 <h3 className="text-xl font-bold text-[#17211C] mt-1">
-                  Whiplash SOS Dispatch
+                  24/7 Emergency SOS Dispatch
                 </h3>
               </div>
 
@@ -495,13 +475,11 @@ export const ArtNouveauLandingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 4 (7 cols): Family Sanctuary & Multi-Sibling Coordination */}
+          {/* Card 4 (7 cols): Family Coordination Hub */}
           <div className="lg:col-span-7 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 p-8 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative flex flex-col justify-between">
-            <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
-
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-[12px] bg-[#E0B0FF]/25 text-[#008080] flex items-center justify-center font-bold">
+                <div className="w-12 h-12 rounded-[12px] bg-[#008080]/15 text-[#008080] flex items-center justify-center font-bold">
                   <Users className="w-6 h-6" />
                 </div>
                 <div>
@@ -509,7 +487,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     Distributed Family Hub
                   </span>
                   <h3 className="text-2xl font-bold text-[#17211C]">
-                    Shared Family Sanctuary
+                    Connected Family Hub
                   </h3>
                 </div>
               </div>
@@ -557,28 +535,26 @@ export const ArtNouveauLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 4: INTERACTIVE SAAS WORKBENCH / TEMPLATE SHOWCASE
+          SECTION 4: INTERACTIVE CARE WORKBENCH
           Interactive tabs, responsive layout, live state updates
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6">
         <div className="rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/60 shadow-[0_4px_20px_rgba(23,33,28,0.08)] p-6 sm:p-10 relative overflow-hidden">
-          <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-          <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
-
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-8">
             <span className="text-xs uppercase font-bold tracking-widest text-[#008080]">
-              Interactive SaaS Architecture
+              Interactive Platform Preview
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#17211C]">
-              Experience the Florido Engine
+              Experience the ApnaSahara Platform
             </h2>
             <p className="text-sm text-[#17211C]/80">
-              Test how organic design principles structure complex eldercare logistics and live data
-              streams.
+              Test how our platform organizes complex eldercare logistics, scheduling, and live health data.
             </p>
 
             {/* Tab Controls */}
@@ -591,7 +567,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     : 'text-[#17211C]/80 hover:text-[#008080]'
                 }`}
               >
-                Companion Cadence
+                Companion Schedule
               </button>
               <button
                 onClick={() => setActiveTab('vitals')}
@@ -601,7 +577,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     : 'text-[#17211C]/80 hover:text-[#008080]'
                 }`}
               >
-                Telemetry Simulator
+                Health Telemetry
               </button>
               <button
                 onClick={() => setActiveTab('tokens')}
@@ -611,7 +587,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     : 'text-[#17211C]/80 hover:text-[#008080]'
                 }`}
               >
-                Design System Tokens
+                Platform Standards
               </button>
             </div>
           </div>
@@ -621,16 +597,16 @@ export const ArtNouveauLandingPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-2">
               <div className="space-y-4 text-left">
                 <h4 className="text-xl font-bold text-[#17211C]">
-                  Configure Parent Companion Rhythm
+                  Configure Parent Companion Schedule
                 </h4>
                 <p className="text-xs sm:text-sm text-[#17211C]/80 leading-relaxed">
-                  Select visit frequency and companion tier. The Florido scheduling algorithm balances
+                  Select visit frequency and companion tier. The ApnaSahara scheduling system balances
                   caregiver proximity with personalized medical backgrounds.
                 </p>
 
                 <div className="space-y-2">
                   <label className="block text-xs font-bold text-[#17211C] uppercase tracking-wider">
-                    Select Cadence
+                    Select Schedule
                   </label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
@@ -672,7 +648,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
               <div className="p-6 rounded-[12px] bg-[#FFFDD0] border border-[#CFB53B]/50 space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-[#008080] uppercase tracking-wider">
-                    Cadence Preview
+                    Schedule Preview
                   </span>
                   <span className="font-mono text-xs bg-[#FFFFF0] px-2 py-0.5 rounded border border-[#CFB53B]/40">
                     TIER: {selectedCompanionTier.toUpperCase()}
@@ -700,7 +676,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
 
                 <button
                   type="button"
-                  onClick={() => alert(`Cadence saved for ${companionName} (${scheduledDay})`)}
+                  onClick={() => alert(`Schedule saved for ${companionName} (${scheduledDay})`)}
                   className="w-full py-2.5 rounded-[12px] bg-[#008080] text-[#FFFFF0] text-xs font-semibold hover:brightness-90 active:translate-y-[1px] transition-all shadow-[0_2px_8px_rgba(0,128,128,0.25)]"
                 >
                   Confirm Companion Route
@@ -718,7 +694,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                 </h4>
                 <p className="text-xs sm:text-sm text-[#17211C]/80 leading-relaxed">
                   Toggle between nominal rhythms and elevated readings to inspect how the
-                  Art Nouveau Florido alert system initiates escalation.
+                  ApnaSahara emergency alert system initiates escalation.
                 </p>
 
                 <div className="flex items-center gap-3">
@@ -803,7 +779,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
           {activeTab === 'tokens' && (
             <div className="space-y-6 pt-2 text-left">
               <h4 className="text-xl font-bold text-[#17211C]">
-                Art Nouveau Florido Design Tokens
+                ApnaSahara Platform Standards
               </h4>
 
               {/* Color swatch grid */}
@@ -871,12 +847,14 @@ export const ArtNouveauLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 5: ASYMMETRIC PRICING & SANCTUARY MEMBERSHIPS (No 3 equal columns!)
-          Layout: 5 cols (Essential) vs 7 cols (Belle Époque Sanctuary)
+          SECTION 5: ASYMMETRIC PRICING & MEMBERSHIPS
+          Layout: 5 cols (Essential) vs 7 cols (Comprehensive Care)
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
@@ -884,7 +862,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
             Transparent Subscriptions
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#17211C]">
-            Memberships Rooted in Integrity
+            Care Plans Rooted in Integrity
           </h2>
           <p className="text-sm sm:text-base text-[#17211C]/80">
             No hidden clauses. Every plan includes guaranteed 24/7 emergency dispatch and verified
@@ -894,16 +872,14 @@ export const ArtNouveauLandingPage: React.FC = () => {
 
         {/* Asymmetric 5:7 Plan Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Plan 1 (5 cols): Atelier Companion */}
+          {/* Plan 1 (5 cols): Essential Care Plan */}
           <div className="lg:col-span-5 rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/40 p-8 shadow-[0_2px_12px_rgba(23,33,28,0.06)] flex flex-col justify-between relative">
-            <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-
             <div className="space-y-6">
               <div>
                 <span className="text-[11px] font-bold text-[#008080] uppercase tracking-wider">
                   Foundational Care
                 </span>
-                <h3 className="text-2xl font-bold text-[#17211C] mt-1">Atelier Essential</h3>
+                <h3 className="text-2xl font-bold text-[#17211C] mt-1">Essential Care Plan</h3>
                 <p className="text-xs text-[#17211C]/75 mt-1">
                   Ideal for independent parents who require regular companionship and emergency
                   protection.
@@ -940,16 +916,13 @@ export const ArtNouveauLandingPage: React.FC = () => {
                 to="/pricing"
                 className="w-full inline-flex items-center justify-center py-3 rounded-[12px] border-[1.5px] border-[#CFB53B] text-[#008080] font-semibold text-sm hover:bg-[#008080]/5 transition-all"
               >
-                Choose Atelier Essential
+                Choose Essential Care
               </Link>
             </div>
           </div>
 
-          {/* Plan 2 (7 cols): Belle Époque Sanctuary (Highlighted) */}
-          <div className="lg:col-span-7 rounded-[12px] bg-gradient-to-br from-[#FFFDD0] via-[#FFFFF0] to-[#E0B0FF]/25 border-2 border-[#CFB53B] p-8 sm:p-10 shadow-[0_8px_24px_rgba(207,181,59,0.2)] flex flex-col justify-between relative overflow-hidden">
-            <OrnateCorner position="top-right" className="absolute top-2 right-2 text-[#CFB53B]" />
-            <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
-
+          {/* Plan 2 (7 cols): Comprehensive Care Plan (Highlighted) */}
+          <div className="lg:col-span-7 rounded-[12px] bg-[#FFFFF0] border-2 border-[#CFB53B] p-8 sm:p-10 shadow-[0_8px_24px_rgba(207,181,59,0.2)] flex flex-col justify-between relative overflow-hidden">
             <div className="space-y-6">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div>
@@ -957,11 +930,11 @@ export const ArtNouveauLandingPage: React.FC = () => {
                     Most Recommended
                   </span>
                   <h3 className="text-3xl font-bold text-[#17211C] mt-1.5">
-                    Belle Époque Sanctuary
+                    Comprehensive Care Plan
                   </h3>
                 </div>
                 <div className="font-mono text-xs text-[#008080] bg-[#FFFFF0] px-3 py-1 rounded-md border border-[#008080]/30">
-                  ALL-INCLUSIVE CONCIERGE
+                  COMPLETE ELDERCARE
                 </div>
               </div>
 
@@ -1009,7 +982,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
                 to="/pricing"
                 className="w-full inline-flex items-center justify-center py-3.5 rounded-[12px] bg-[#008080] hover:bg-[#006666] text-[#FFFFF0] font-semibold text-base transition-all shadow-[0_4px_16px_rgba(0,128,128,0.25)] active:translate-y-[1px]"
               >
-                <span>Enroll in Belle Époque Sanctuary</span>
+                <span>Enroll in Comprehensive Care</span>
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </div>
@@ -1017,19 +990,16 @@ export const ArtNouveauLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 6: CONSULTATION & INPUT DEMO (Strict Component Specification)
-          Label above input, 1px border stroke, focus ring 2px accent offset 2px,
-          error below in red, no floating labels.
+          SECTION 6: CONSULTATION & INPUT DEMO
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6">
         <div className="max-w-2xl mx-auto rounded-[12px] bg-[#FFFFF0] border border-[#CFB53B]/50 p-8 sm:p-12 shadow-[0_2px_12px_rgba(23,33,28,0.06)] relative">
-          <OrnateCorner position="top-left" className="absolute top-2 left-2 text-[#CFB53B]" />
-          <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 text-[#CFB53B]" />
-
           <div className="text-center space-y-2 mb-8">
             <span className="text-xs uppercase font-bold tracking-widest text-[#008080]">
               Personalized Family Consultation
@@ -1129,12 +1099,13 @@ export const ArtNouveauLandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Whiplash Botanical Section Divider */}
-      <WhiplashDivider />
+      {/* Clean Section Divider */}
+      <div className="max-w-[1280px] mx-auto px-6 my-4">
+        <hr className="border-[#CFB53B]/20" />
+      </div>
 
       {/* =========================================================================
-          SECTION 7: DEDICATED PORTAL ACCESS CARDS (No Emojis!)
-          Quick links for Family, Elder, and Caregiver portals
+          SECTION 7: DEDICATED PORTAL ACCESS CARDS
           ========================================================================= */}
       <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-6">
         <div className="text-left max-w-xl space-y-2 mb-8">
@@ -1148,7 +1119,6 @@ export const ArtNouveauLandingPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Asymmetric 4-col / 4-col / 4-col or varied cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Link
             to="/family"
@@ -1158,7 +1128,7 @@ export const ArtNouveauLandingPage: React.FC = () => {
               <Users className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-[#17211C] text-lg group-hover:text-[#008080] transition-colors">
-              Family Sanctuary Portal
+              Family Portal
             </h3>
             <p className="text-xs text-[#17211C]/75 mt-1 leading-relaxed">
               Live location tracking, caregiver visit documentation, health trends, and appointment

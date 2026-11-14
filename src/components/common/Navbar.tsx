@@ -176,14 +176,10 @@ export const Navbar: React.FC = () => {
             <Link to="/" className="flex items-center gap-3 group">
               <img
                 src="/logo.png"
-                alt="ApnaSahara Florido"
+                alt="ApnaSahara"
                 className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
               />
-              <div className="hidden sm:block text-left">
-                <span className="text-[10px] uppercase font-bold tracking-widest bg-[#FFFDD0] text-[#008080] px-2.5 py-0.5 rounded-[8px] border border-[#CFB53B]/50">
-                  Art Nouveau Florido
-                </span>
-              </div>
+              
             </Link>
 
             {/* Portal Switcher Dropdown */}

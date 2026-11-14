@@ -24,7 +24,7 @@ import {
   INITIAL_ASSISTANCE_REQUESTS,
   INITIAL_NOTIFICATIONS
 } from './mockData';
-import { mongoApi, API_BASE } from './api';
+import { mongoApi } from './api';
 
 // ==========================================
 // MONGODB DATA STORE & PERSISTENCE LAYER
@@ -284,12 +284,11 @@ export const dbStore = {
     const list = getStorage(STORAGE_KEYS.APPOINTMENTS, INITIAL_APPOINTMENTS);
     return elderId ? list.filter(a => a.elder_id === elderId) : list;
   },
-  addAppointment: (apt: Omit<Appointment, 'id' | 'status'> & { status?: Appointment['status'] }) => {
-    const list = dbStore.getAppointments();
+  addAppointment: (data: Omit<Appointment, 'id'>) => {
+    const list = getStorage(STORAGE_KEYS.APPOINTMENTS, INITIAL_APPOINTMENTS);
     const newApt: Appointment = {
-      ...apt,
-      id: `apt-${Date.now()}`,
-      status: apt.status || 'upcoming'
+      ...data,
+      id: `apt-${Date.now()}`
     };
     list.push(newApt);
     setStorage(STORAGE_KEYS.APPOINTMENTS, list);
@@ -297,9 +296,9 @@ export const dbStore = {
   },
 
   // ---------------- SUBSCRIPTIONS ----------------
-  getSubscriptions: (userId?: string): Subscription[] => {
+  getSubscriptions: (familyId?: string): Subscription[] => {
     const list = getStorage(STORAGE_KEYS.SUBSCRIPTIONS, INITIAL_SUBSCRIPTIONS);
-    return userId ? list.filter(s => s.family_id === userId) : list;
+    return familyId ? list.filter(s => s.family_id === familyId) : list;
   },
   updateSubscription: (sub: Subscription) => {
     const list = getStorage(STORAGE_KEYS.SUBSCRIPTIONS, INITIAL_SUBSCRIPTIONS);
@@ -315,41 +314,21 @@ export const dbStore = {
     const list = getStorage(STORAGE_KEYS.REQUESTS, INITIAL_ASSISTANCE_REQUESTS);
     return elderId ? list.filter(r => r.elder_id === elderId) : list;
   },
-  createAssistanceRequest: (
-    reqOrElderId: Omit<AssistanceRequest, 'id' | 'status' | 'requested_at'> | string,
-    elderName?: string,
-    type?: AssistanceRequest['type'],
-    details?: string,
-    urgency: AssistanceRequest['urgency'] = 'Medium'
-  ) => {
-    const list = dbStore.getAssistanceRequests();
-    let newReq: AssistanceRequest;
-    if (typeof reqOrElderId === 'object') {
-      newReq = {
-        ...reqOrElderId,
-        id: `req-${Date.now()}`,
-        status: 'pending',
-        requested_at: new Date().toISOString()
-      };
-    } else {
-      newReq = {
-        id: `req-${Date.now()}`,
-        elder_id: reqOrElderId,
-        elder_name: elderName || '',
-        type: type || 'Other',
-        details: details || '',
-        urgency,
-        status: 'pending',
-        requested_at: new Date().toISOString()
-      };
-    }
+  createAssistanceRequest: (data: Omit<AssistanceRequest, 'id' | 'requested_at' | 'status'>) => {
+    const list = getStorage(STORAGE_KEYS.REQUESTS, INITIAL_ASSISTANCE_REQUESTS);
+    const newReq: AssistanceRequest = {
+      ...data,
+      id: `req-${Date.now()}`,
+      requested_at: new Date().toISOString(),
+      status: 'pending'
+    };
     list.unshift(newReq);
     setStorage(STORAGE_KEYS.REQUESTS, list);
 
     dbStore.addNotification({
       user_id: 'user-family-1',
-      title: `New Assistance Request: ${newReq.type}`,
-      message: `${newReq.elder_name} requested help with ${newReq.type}: "${newReq.details}"`,
+      title: `New Elder Request: ${newReq.type}`,
+      message: `${newReq.elder_name} requested assistance: ${newReq.details}`,
       type: 'system',
       link: '/family'
     });
@@ -360,19 +339,19 @@ export const dbStore = {
   // ---------------- NOTIFICATIONS ----------------
   getNotifications: (userId?: string): AppNotification[] => {
     const list = getStorage(STORAGE_KEYS.NOTIFICATIONS, INITIAL_NOTIFICATIONS);
-    return userId ? list.filter(n => !n.user_id || n.user_id === userId) : list;
+    return userId ? list.filter(n => n.user_id === userId) : list;
   },
-  addNotification: (n: Omit<AppNotification, 'id' | 'created_at' | 'read'>) => {
+  addNotification: (data: Omit<AppNotification, 'id' | 'created_at' | 'read'>) => {
     const list = getStorage(STORAGE_KEYS.NOTIFICATIONS, INITIAL_NOTIFICATIONS);
-    const item: AppNotification = {
-      ...n,
-      id: `notif-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+    const newNotif: AppNotification = {
+      ...data,
+      id: `notif-${Date.now()}`,
       created_at: new Date().toISOString(),
       read: false
     };
-    list.unshift(item);
+    list.unshift(newNotif);
     setStorage(STORAGE_KEYS.NOTIFICATIONS, list);
-    return item;
+    return newNotif;
   },
   markNotificationRead: (id: string) => {
     const list = getStorage(STORAGE_KEYS.NOTIFICATIONS, INITIAL_NOTIFICATIONS);
